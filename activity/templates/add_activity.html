@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head_part %}
+    <style>
+        form textarea{
+            width: 500px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">添加活动</h3>
+    <div style="width:900px">
+    <hr/>
+        <form action="/add_activity/" method="post">{% csrf_token %}
+            {% for field in form %}
+                <div class="text-error"> {{ field.errors }} </div>
+                <div style="margin-bottom: 10px;">
+                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>{{ field }}
+                 </div>
+            {% endfor %}
+            <p><input type="submit" class="btn" value="添加" /></p>
+        </form>
+    </div>
+{% endblock %}

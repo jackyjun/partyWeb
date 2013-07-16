@@ -3,13 +3,15 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from django.shortcuts import render_to_response,redirect,render
 from django.template import RequestContext
-from models import Student,StudentForm,StudentAssessment
+from models import Student,StudentForm,StudentAssessment,PartyBranch,UserStudent
 from documents.models import News,Notice
 from activity.models import Activity
 from django.views.decorators.csrf import csrf_exempt
 import json
+
 @csrf_exempt
 def user_login(request):
+#home page login
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
@@ -27,34 +29,78 @@ def user_login(request):
        dic = {'status': 0,'errorMsg':u'用户名或密码错误！'}
     return HttpResponse(json.dumps(dic))
 
+@csrf_exempt
+def login_view(request):
+#login page
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                #s = Student(user_id = user.id,party_branch_id=1)
+                #s.save()
+                return redirect(home)
+            else:
+              return render_to_response('login.html',{'errorMsg':'登录错误'})
+        else:
+            # Return an 'invalid login' error message.
+            return render_to_response('login.html',{'errorMsg':'用户名或密码错误'})
+    else:
+        return render_to_response('login.html')
+
 def user_logout(request):
       logout(request)
       return redirect(home)
 
 def student_info(request):
-    if request.method == 'POST':
-        user = request.user
-        student = Student.objects.get(id=1)
-        form = StudentForm(request.POST,instance=student) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
-            form.save()
-            return render_to_response('error.html',{'msg':'username error'})
+    user = request.user
+    if user.is_active:
+        if request.method == 'POST':
+            userStudent = UserStudent.objects.get(user = user)
+            student = userStudent.student
+            form = StudentForm(request.POST,instance=student) # A form bound to the POST data
+            if form.is_valid(): # All validation rules pass
+                form.save()
+                return redirect(student_info)
+        else:
+            a = Student.objects.get(id=1)
+            form = StudentForm(instance=a)
+        return render(request, 'student_info.html', {
+            'form': form,
+        })
     else:
-        a = Student.objects.get(id=1)
-        form = StudentForm(instance=a)
-        #form = NewsForm() # An unbound form
+        return redirect(login_view)
 
-    return render(request, 'home.html', {
-        'form': form,
-    })
+def branch_summary(request):
+    branch_list = PartyBranch.objects.all()
+    context = {}
+    for branch in branch_list:
+        student_list = Student.objects.filter(party_branch_id = branch.id)
+        masses_list = student_list.filter(political_status=0)
+        activist_list = student_list.filter(political_status=1)
+        probationary_list = student_list.filter(political_status=2)
+        official_list = student_list.filter(political_status=3)
+        dic = {
+            'masses': len(masses_list),
+            'activist':len(activist_list),
+            'probationary':len(probationary_list),
+            'official':len(official_list),
+        }
+        list = [len(official_list),len(probationary_list),len(activist_list)]
+        context[branch] = list
+    return render_to_response('branch_summary.html',{'context':context})
 
 def branch_detail(request,id):
+    branch = PartyBranch.objects.get(id = id)
     student_list = Student.objects.filter(party_branch_id = id)
     masses_list = student_list.filter(political_status=0)
     activist_list = student_list.filter(political_status=1)
     probationary_list = student_list.filter(political_status=2)
     official_list = student_list.filter(political_status=3)
     context = {
+        'branch':branch,
         'masses_list': masses_list,
         'activist_list':activist_list,
         'probationary_list':probationary_list,
@@ -62,14 +108,24 @@ def branch_detail(request,id):
     }
     return render_to_response('branch_detail.html',context)
 
-def branch_assessment(request,id):
-    student_list = Student.objects.filter(party_branch_id = id)
-    assessment_dic = {}
-    for student in student_list:
-        list = StudentAssessment.objects.filter(student = student)
-        assessment_dic[student] = list
-    print  assessment_dic
-    return render_to_response('branch_assessment.html',{'assessment_dic':assessment_dic})
+def branch_assessment(request):
+    user = request.user
+    if user.is_active:
+        userStudent = UserStudent.objects.get(user = user)
+        student = userStudent.student
+        branch = PartyBranch.objects.get(id = student.party_branch_id)
+        student_list = Student.objects.filter(party_branch_id = student.party_branch_id)
+        assessment_dic = {}
+        for student in student_list:
+            list = StudentAssessment.objects.filter(student = student)
+            assessment_dic[student] = list
+        context = {
+            'branch':branch,
+            'assessment_dic':assessment_dic,
+        }
+        return render_to_response('branch_assessment.html',context)
+    else:
+        return redirect(login_view)
 
 def home(request):
     user = request.user
@@ -105,9 +161,23 @@ def home(request):
     }
     return render_to_response('home.html',context,context_instance=RequestContext(request))
 
-def student_list_search(request,branch,status):
-    if int(branch):
-        student_list = Student.objects.filter(party_branch_id = branch,political_status = status)
+@csrf_exempt
+def branch_search(request):
+    branch_list = PartyBranch.objects.all()
+    if request.method == 'POST':
+        branch = request.POST['branch']
+        status = request.POST['status']
+        if int(branch):
+            student_list = Student.objects.filter(party_branch_id = branch,political_status = status)
+        else:
+            student_list = Student.objects.all()
+        if len(student_list)==0:
+            status = u'0'
+        context = {
+            'student_list':student_list,
+            'branch_list':branch_list,
+            'type': status,
+        }
+        return render_to_response('branch_search.html',context)
     else:
-        student_list = Student.objects.all()
-    return render_to_response('search_list.html',{'student_list':student_list})
+        return render_to_response('branch_search.html',{'branch_list':branch_list})

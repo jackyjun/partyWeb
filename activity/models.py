@@ -2,6 +2,7 @@
 from django.db import models
 from member.models import Student
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
 class Activity(models.Model):
     TYPE_CHOICE = (
@@ -34,3 +35,7 @@ class StudentActivity(models.Model):
     activity = models.ForeignKey(Activity)
     status = models.IntegerField(max_length=1,choices=STATUS_CHOICE,default=0)
     award = models.CharField(max_length=200,null=True,default='')
+
+class ActivityForm(ModelForm):
+    class Meta:
+        model = Activity

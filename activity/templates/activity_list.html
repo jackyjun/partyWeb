@@ -1,18 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    {% for activity,flag in activity_dic.items %}
-        {{ activity.title }}
-        {{ activity.start_time }}
-        {{ activity.deadline }}
-        {% if flag %}
-            立即报名
-        {% else %}
-            已结束报名
-        {% endif %}
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html'%}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">活动信息</h3>
+    <div style="width:900px">
+    <table class="table">
+        <thead>
+            <tr>
+                <td><h5>活动名称</h5></td>
+                <td><h5>活动开始日期</h5></td>
+                <td><h5>活动结束日期</h5></td>
+                <td><h5>报名截止日期</h5></td>
+                <td><h5>报名状态</h5></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in activity_list %}
+                {% for activity,flag in item.items %}
+                <tr>
+                    <td>{{ activity.title }}</td>
+                    <td>{{ activity.start_time }}</td>
+                    <td>{{ activity.end_time }}</td>
+                    <td>{{ activity.deadline }}</td>
+                    <td>
+                        {% if flag == 0 %}
+                            <a class="text-info" href="/join_activity/{{ activity.id }}">立即报名</a>
+                        {% elif flag == -1 %}
+                            已结束报名
+                        {% else %}
+                             <a class="text-info" href="/cancel_activity/{{ activity.id }}">取消报名</a>
+                        {% endif %}
+                    </td>
+                    <td><a class="text-info" href="/activity_detail/{{ activity.id }}">详情</a> </td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

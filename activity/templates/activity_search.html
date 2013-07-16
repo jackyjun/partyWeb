@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+            width:300px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div style="width:900px" >
+        <h3 class="text-info">活动信息检索</h3>
+        <form action="/search_activity/" method="post">
+            活动名称：<input type="text" name="title">
+            <select name="type">
+                <option value="-1">所有活动</option>
+                <option value="0">研究生活动</option>
+                <option value="1">团组织活动</option>
+                <option value="2">党组织活动</option>
+                <option value="3">其他活动</option>
+            </select>
+            <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
+        </form>
+                {% if flag == True%}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td><h5>活动名称</h5></td>
+                                <td><h5>活动发起人</h5></td>
+                                <td><h5>活动时间</h5></td>
+                                <td><h5>审核状态</h5></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {% for activity in activity_list %}
+                        <tr>
+                            <td>{{ activity.title }}</td>
+                            <td>{{ activity.publisher }}</td>
+                            <td>{{ activity.start_time }}</td>
+                            <td>
+                                {% if activity.status %}
+                                    已审核
+                                {% else %}
+                                    <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {%  endfor %}
+                        </tbody>
+                        </table>
+                {% elif flag == False %}
+                    <div class="text-info">未搜索到结果。</div>
+                {% else %}
+                {% endif %}
+
+
+    </div>
+{% endblock %}

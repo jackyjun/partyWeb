@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3 class="text-info">修改个人信息</h3>
+    <div style="width:900px">
+    <hr/>
+        <form action="/student_info/" method="post">{% csrf_token %}
+            {% for field in form %}
+                <div class="text-error"> {{ field.errors }} </div>
+                <div style="margin-bottom: 10px;">
+                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>{{ field }}
+                 </div>
+            {% endfor %}
+            <p><input type="submit" class="btn" value="修改" /></p>
+        </form>
+    </div>
+{% endblock %}

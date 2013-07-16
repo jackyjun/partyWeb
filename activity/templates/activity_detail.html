@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="text-center" style="width: 900px">
+        <h3>{{activity.title}}</h3>
+        <hr/>
+        <h5>发布者：{{ activity.publisher }}&nbsp;&nbsp;&nbsp;
+            报名截止日期：{{ activity.deadline}} &nbsp;&nbsp;&nbsp;
+            活动日期：{{ activity.start_time }}~{{ activity.end_time }}
+        </h5>
+        <hr/>
+        <div style="margin-top: 20px;">{{ activity.content }}</div>
+    </div>
+{%  endblock %}

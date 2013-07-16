@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">党支部信息</h3>
+    <div style="width:900px">
+    <table class="table">
+    <thead>
+        <tr>
+            <td><h5>党支部</h5></td>
+            <td><h5>正式党员人数</h5></td>
+            <td><h5>预备党员人数</h5></td>
+            <td><h5>入党积极分子人数</h5></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for branch,detail in context.items %}
+            <tr >
+                <td>{{ branch.name }}</td>
+                {% for count in detail %}
+                    <td>{{ count }}</td>
+                {% endfor %}
+                <td><a class="text-info" href="/branch_detail/{{ branch.id }}">详情</a> </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    </div>
+{% endblock %}

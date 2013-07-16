@@ -15,6 +15,7 @@ def get_news(request,id):
 def get_notice(request,id):
     try:
         notice = Notice.objects.get(id=id)
+        notice.date = notice.date.strftime('%Y-%m-%d')
         return render_to_response('detail.html',{'detail':notice})
     except Notice.DoesNotExist:
         return render_to_response('error.html',{'msg':'notice does not exist.'})
@@ -22,13 +23,14 @@ def get_notice(request,id):
 def get_regulation(request,id):
     try:
         regulation = Regulation.objects.get(id=id)
+        regulation.date = regulation.date.strftime('%Y-%m-%d')
         return render_to_response('detail.html',{'detail':regulation})
     except Regulation.DoesNotExist:
         return render_to_response('error.html',{'msg':'regulation does not exist.'})
 
 def list_news(request,page):
     NEWS_COUNT = 10
-    item_list = News.objects.all().order_by('-date')
+    item_list = News.objects.all().order_by('-date').order_by('-id')
     paginator = Paginator(item_list,NEWS_COUNT)
     try:
         news_list = paginator.page(page)
@@ -44,7 +46,7 @@ def list_news(request,page):
 
 def list_notice(request,page):
     NOTICE_COUNT = 10
-    item_list = Notice.objects.all().order_by('-date')
+    item_list = Notice.objects.all().order_by('-date').order_by('-id')
     paginator = Paginator(item_list,NOTICE_COUNT)
     try:
         notice_list = paginator.page(page)

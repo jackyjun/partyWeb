@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <form method="post" action="/login/">
-        {% csrf_token %}
-        <input type="text" name="username"/>
-        <input type="text" name="password"/>
-        <input type="submit" value="submit">
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <div style="width:900px" class="text-center">
+        <h3 class="text-info">上海大学计算机学院研究生党总支工作平台</h3>
+        <form method="post" action="/user_login/">
+            {% csrf_token %}
+            学号：<input type="text" name="username"/><br/>
+            密码：<input type="password"  name="password"/><br/>
+            <div class="text-error">{{ errorMsg }}</div>
+            <input type="submit" class="btn " value="登录">
+        </form>
+    </div>
+{% endblock %}
