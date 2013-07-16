@@ -1,0 +1,34 @@
+from django.conf.urls import patterns, include, url
+
+# Uncomment the next two lines to enable the admin:
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns('',
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^news/(?P<id>\d+)','documents.views.get_news'),
+    url(r'^notice/(?P<id>\d+)','documents.views.get_notice'),
+    url(r'^regulation/(?P<id>\d+)','documents.views.get_regulation'),
+    url(r'list_news/(?P<page>\d+)','documents.views.list_news'),
+    url(r'list_notice/(?P<page>\d+)','documents.views.list_notice'),
+    url(r'list_regulation/(?P<page>\d+)','documents.views.list_regulation'),
+    url(r'login/', 'member.views.user_login'),
+    url(r'logout/', 'member.views.user_logout'),
+    url(r'home/', 'member.views.home'),
+    url(r'student_info/', 'member.views.student_info'),
+    url(r'branch_detail/(?P<id>\d+)','member.views.branch_detail'),
+    url(r'branch_assessment/(?P<id>\d+)','member.views.branch_assessment'),
+    url(r'student_search/(?P<branch>\d+)/(?P<status>\d+)','member.views.student_list_search'),
+    url(r'join_activity/(?P<id>\d+)','activity.views.join_activity'),
+    url(r'activity/(?P<id>\d+)','activity.views.get_activity'),
+    url(r'list_activity/','activity.views.list_activity'),
+    # Examples:
+    # url(r'^$', 'partyWebsite.views.home', name='home'),
+    # url(r'^partyWebsite/', include('partyWebsite.foo.urls')),
+
+    # Uncomment the admin/doc line below to enable admin documentation:
+    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
+    # Uncomment the next line to enable the admin:
+
+)

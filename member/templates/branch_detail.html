@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    {% for masses in masses_list %}
+        {{ masses.name }}
+    {%  endfor %}
+    <hr/>
+    {% for activist in activist_list %}
+        {{ activist.name }}
+    {%  endfor %}
+    <hr/>
+    {% for probationary in probationary_list %}
+        {{ probationary.name }}
+    {%  endfor %}
+    <hr/>
+    {% for official in official_list %}
+        {{ official.name }}
+    {%  endfor %}
+    <hr/>
+</body>
+</html>

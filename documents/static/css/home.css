@@ -1,0 +1,80 @@
+
+   .bodypart{
+     margin-top: 80px;
+     margin-left: 200px;
+     margin-right: auto;
+     width: 1200px;
+   }
+   .first_part{
+       float:left;
+       height:350px;
+   }
+   .login{
+      margin-left: 20px;
+      float:left;
+      height:50px;
+   }
+   .login a{
+     color:#3a87ad;
+   }
+   .login a:hover{
+     color:#000;
+   }
+   .slider{
+     width:520px;
+     float:left;
+     height:350px;
+   }
+   .news{
+     float:left;
+     margin-left: 20px;
+     width:600px;
+     height:300px;
+   }
+   .news a {
+      color:#000;
+   }
+   .news a:hover{
+       color:#3a87ad;
+   }
+   .news a:visited{
+       color:#000;
+   }
+   .second_part{
+       float:left;
+   }
+   .notice{
+      float:left;
+      width:350px;
+   }
+   .notice, a {
+      color:#000;
+   }
+   .notice a:hover{
+       color:#3a87ad;
+   }
+   .notice a:visited{
+       color:#000;
+   }
+   .activity{
+      float:left;
+      width:390px;
+      margin-right: 20px;
+   }
+   .activity, a {
+      color:#000;
+   }
+   .activity a:hover{
+       color:#3a87ad;
+   }
+   .activity a:visited{
+       color:#000;
+   }
+   .links{
+       float:left;
+       width:330px;
+   }
+   .footer{
+        float:left;
+        width: 900px;
+   }

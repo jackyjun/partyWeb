@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="text-center" style="width: 900px">
+        <h3>{{news.title}}</h3>
+        <hr/>
+        <h5>{{ news.publisher }} &nbsp; &nbsp; &nbsp;{{ news.date }}</h5>
+        <hr/>
+        <img src="/static/media/{{news.image}}" width="200px" height="200px"/>
+        <div style="margin-top: 20px;">{{ news.content }}</div>
+    </div>
+{%  endblock %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    {% for activity,flag in activity_dic.items %}
+        {{ activity.title }}
+        {{ activity.start_time }}
+        {{ activity.deadline }}
+        {% if flag %}
+            立即报名
+        {% else %}
+            已结束报名
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

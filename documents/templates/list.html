@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="width: 900px">
+        <h3 class="text-info">{{ title }}</h3>
+        <div class="text-left">
+            {% if item_list.has_previous %}
+                <a class="text-info" href="/list_{{ type }}/{{ item_list.previous_page_number }}">上一页</a>
+            {% endif %}
+                第{{ item_list.number }} 页，共{{ item_list.paginator.num_pages }}页
+            {% if item_list.has_next %}
+                <a class="text-info" href="/list_{{ type }}/{{ item_list.next_page_number }}">下一页</a>
+            {% endif %}
+        </div>
+        <hr/>
+        {% for item in item_list %}
+            <div style="font-size:15px;margin-bottom: 5px;">
+                <a href="/{{ type }}/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ item.date }}</a><br/>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

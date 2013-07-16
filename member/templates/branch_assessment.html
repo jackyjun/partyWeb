@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+     {%  for student,list in assessment_dic.items  %}
+        {% for assesment in list %}
+           {{ student.student_id }}{{assesment.date}}{{ assesment.grade }} <br/>
+        {% endfor %}
+     {% endfor %}
+</body>
+</html>

@@ -1,0 +1,36 @@
+#coding=utf-8
+from django.db import models
+from member.models import Student
+from django.contrib.auth.models import User
+
+class Activity(models.Model):
+    TYPE_CHOICE = (
+        (0,u'研究生会活动'),
+        (1,u'团组织活动'),
+        (2,u'党组织活动'),
+        (3,u'其他活动'),
+    )
+    class Meta:
+        verbose_name = u'活动'
+        verbose_name_plural = u'活动'
+    title = models.CharField(max_length=200,verbose_name=u'标题')
+    type = models.IntegerField(max_length=1,verbose_name=u'活动类型',choices=TYPE_CHOICE)
+    publisher = models.CharField(max_length=45,verbose_name=u'活动发布者')
+    start_time = models.DateField(verbose_name=u'活动开始日期');
+    end_time = models.DateField(verbose_name=u'活动结束日期');
+    deadline = models.DateField(verbose_name=u'报名截止日期');
+    content = models.TextField(verbose_name=u'内容');
+    status = models.BooleanField(verbose_name=u'是否已审核')
+    def __unicode__(self):
+        return '%s: %s' % (self.start_time, self.title)
+
+class StudentActivity(models.Model):
+    STATUS_CHOICE = (
+        (0,u'未参与'),
+        (1,u'参与者'),
+        (2,u'组织者'),
+    )
+    student = models.ForeignKey(Student)
+    activity = models.ForeignKey(Activity)
+    status = models.IntegerField(max_length=1,choices=STATUS_CHOICE,default=0)
+    award = models.CharField(max_length=200,null=True,default='')

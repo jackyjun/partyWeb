@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block head_part %}
+    <script>
+		$(window).load(function() {
+			$('#slider').nivoSlider({pauseTime: 3000});
+            $("#loginButton").click(function(){
+                var username = $("#username").val();
+                var password = $("#password").val();
+                $.ajax({
+                    type:"POST",
+                    url: "/login/",
+                    cache:false,
+                    data:{"username":username,"password":password},
+                    dataType:"json",
+                    success:function(data){
+                        if(data.status){
+                            $(".login")
+                            .html("欢迎，"+ data.username +"&nbsp;&nbsp;&nbsp;<a href='/logout/'>注销</a>" +
+                                        "&nbsp;&nbsp;<a href=''>进入个人中心</a>");
+                        }
+                        else{
+                            alert(data.errorMsg);
+                        }
+
+                    }
+                });
+                return false;
+            });
+		});
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="first_part">
+        <div class="slider">
+             <div class="slider-wrapper theme-default">
+                <div id="slider" class="nivoSlider">
+                    <img src="/static/images/1.jpg" alt="" title="HTML5 with jQuery plugin Qucksand " />
+                    <img src="/static/images/2.jpg" alt="" title="HTML5 with jQuery plugin Reel " />
+                    <img src="/static/images/3.jpg" alt="" data-transition="sliceDown" title="HTML5 with jQuery plugin Qucksand " />
+                    <img src="/static/images/5.jpg" alt="" title="#htmlcaption" />
+                </div>
+             </div>
+        </div>
+        <div class="login">
+            {% if user.is_active %}
+                欢迎,{{ user }}&nbsp;&nbsp;&nbsp;<a href="/logout/">注销</a>
+                <a href="">进入个人中心</a>
+
+            {% else %}
+                 <form class="navbar-form" action="#" method="post">
+                      {% csrf_token %}
+                      学号<input class="input-small" id="username" name="username" type="text" >
+                      密码<input class="input-small" id="password" name="password" type="password">
+                      <button type="submit" id="loginButton" class="btn">登录</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="news">
+            <h4 class="text-info">新闻动态</h4>
+            {% for item in news %}
+              <a href="/news/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.date }}</a><br/>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="second_part">
+        <hr/>
+        <div class="notice">
+            <h4 class="text-info">通知公告</h4>
+            {% for item in notices %}
+                <a href="/notice/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.date }}</a><br/>
+            {% endfor %}
+        </div>
+        <div class="activity">
+            <h4 class="text-info">团学活动</h4>
+            <ul  class="nav nav-tabs">
+                <li class="active"><a href="#graduates" data-toggle="tab">研究生活动</a></li>
+                <li><a href="#youth" data-toggle="tab">团组织活动</a></li>
+                <li><a href="#party" data-toggle="tab">党组织活动</a></li>
+                <li><a href="#other" data-toggle="tab">其他活动</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="graduates">
+                    {% for item in graduates_activity %}
+                         <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="youth">
+                    {% for item in youth_activity %}
+                        <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="party">
+                    {% for item in party_activity %}
+                         <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="other">
+                    {% for item in other_activity %}
+                         <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="links">
+            <h4 class="text-info">友情链接</h4>
+            上海大学<br/>
+            上海大学工作中心<br/>
+            上海大学工作中心<br/>
+            上海大学工作中心<br/>
+            上海大学工作中心<br/>
+        </div>
+    </div>
+{% endblock %}
