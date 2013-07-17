@@ -60,8 +60,8 @@ class UserStudent(models.Model):
 
 class StudentAssessment(models.Model):
     class Meta:
-        verbose_name = '党员考核'
-        verbose_name_plural = '党员考核'
+        verbose_name = u'党员考核'
+        verbose_name_plural = u'党员考核'
 
     student = models.ForeignKey(Student)
     grade = models.CharField(verbose_name=u'考核等级',max_length=20)

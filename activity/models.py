@@ -8,7 +8,7 @@ class Activity(models.Model):
     TYPE_CHOICE = (
         (0,u'研究生会活动'),
         (1,u'团组织活动'),
-        (2,u'党组织活动'),
+        (2,u'党组织生活'),
         (3,u'其他活动'),
     )
     class Meta:

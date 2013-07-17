@@ -1,4 +1,7 @@
 {% extends 'base.html'%}
+{% block title %}
+    {{ title }}
+{% endblock %}
 {% block head_part %}
     <style>
         .table td{
@@ -7,7 +10,7 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">活动信息</h3>
+    <h3 class="text-info">{{ title }}信息</h3>
     <div style="width:900px">
     <table class="table">
         <thead>

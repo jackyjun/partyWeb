@@ -1,7 +1,7 @@
 # Create your views here
 #coding=utf-8
 from models import Activity,StudentActivity,ActivityForm
-from member.models import UserStudent
+from member.models import UserStudent,PartyBranch,Student
 from django.shortcuts import render_to_response,redirect,render
 from django.views.decorators.csrf import csrf_exempt
 from datetime import *
@@ -13,9 +13,16 @@ def get_activity(request,id):
     activity.deadline = activity.deadline.strftime('%Y-%m-%d')
     return render_to_response('activity_detail.html',{'activity':activity})
 
-def list_activity(request):
+def list_activity(request,type=5):
+    choice = Activity.TYPE_CHOICE
     user = request.user
-    activity_list = Activity.objects.all().order_by('-deadline')
+    title = u'活动'
+    if type != 5:
+        activity_list = Activity.objects.filter(type=type).order_by('-deadline')
+        title = choice[int(type)][1]
+        print title
+    else:
+        activity_list = Activity.objects.all().order_by('-deadline')
     list = []
     for activity in activity_list:
         activity_dic = {}
@@ -37,7 +44,7 @@ def list_activity(request):
         activity.deadline = activity.deadline.strftime('%Y-%m-%d')
         activity_dic[activity] = flag
         list.append(activity_dic)
-    return render_to_response('activity_list.html',{'activity_list':list})
+    return render_to_response('activity_list.html',{'activity_list':list,'title':title})
 
 def join_activity(request,id):
     user = request.user
@@ -102,11 +109,11 @@ def delete_activity(request,id):
         try:
             activity = Activity.objects.get(id = id)
             activity.delete()
-            return redirect(list_activity)
+            return render_to_response('activity_search.html')
         except Activity.DoesNotExist:
-            return redirect(list_activity)
+            return render_to_response('activity_search.html')
     else:
-        return render_to_response('login.html')
+        return render_to_response('activity_search.html')
 
 @csrf_exempt
 def search_activity(request):
@@ -137,7 +144,41 @@ def search_activity(request):
     else:
         return render_to_response('login.html')
 
+@csrf_exempt
 def examine_activity(request,id):
+    user = request.user
+    if user.is_active:
+        if request.method == 'GET':
+            activity = Activity.objects.get(id = id)
+            activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+            studentActivity_list = StudentActivity.objects.filter(activity = activity)
+            student_dic = {}
+            for studentActivity in studentActivity_list:
+                student_dic[studentActivity] = studentActivity.student
+            context ={
+                'activity': activity,
+                'student_dic':student_dic,
+            }
+            return render_to_response('examine_activity.html',context)
+        else:
+            activity = Activity.objects.get(id = id)
+            studentActivity_list = StudentActivity.objects.filter(activity = activity)
+            for studentActivity in studentActivity_list:
+                status_str = 'status_'+ str(studentActivity.id)
+                award_str = 'award_' + str(studentActivity.id)
+                print status_str
+                status = request.POST[status_str]
+                award = request.POST[award_str]
+                studentActivity.status = status
+                studentActivity.award = award
+                studentActivity.save()
+                activity.status = True
+                activity.save()
+            return redirect(search_activity)
+    else:
+        return render_to_response('login.html')
+
+def examine_result(request,id):
     user = request.user
     if user.is_active:
         activity = Activity.objects.get(id = id)
@@ -145,12 +186,74 @@ def examine_activity(request,id):
         studentActivity_list = StudentActivity.objects.filter(activity = activity)
         student_dic = {}
         for studentActivity in studentActivity_list:
-            student_dic[studentActivity.student] = studentActivity
+            student_dic[studentActivity] = studentActivity.student
         context ={
             'activity': activity,
-            'student_dic': student_dic,
+            'student_dic':student_dic,
         }
-        print context
-        return render_to_response('examine_activity.html',context)
+        return render_to_response('examine_result.html',context)
+    else:
+        return render_to_response('login.html')
+
+@csrf_exempt
+def search_student_activity(request):
+    if request.user.is_active:
+        branch_list = PartyBranch.objects.all()
+        if request.method == 'POST':
+            try:
+                branch = request.POST['branch']
+                partyBranch = PartyBranch.objects.get(id = branch)
+                student_list = Student.objects.filter(party_branch = partyBranch)
+                activity_dic = {}
+                for student in student_list :
+                    activity_count = StudentActivity.objects.filter(student = student).exclude(status=0).count()
+                    activity_dic[student] = activity_count
+                context = {
+                    'flag': True,
+                    'activity_dic':activity_dic,
+                    'branch_list':branch_list,
+                }
+                return render_to_response('student_activity_search.html',context)
+            except PartyBranch.DoesNotExist:
+                return render_to_response('student_activity_search.html',{'flag':False})
+        else:
+            return render_to_response('student_activity_search.html',{'branch_list':branch_list})
+    else:
+        return render_to_response('login.html')
+
+def student_activity_detail(request,id):
+    #back
+    if request.user.is_active:
+        student = Student.objects.get(id=id)
+        studentActivity_list = StudentActivity.objects.filter(student = student)
+        activity_dic = {}
+        for studentActivity in studentActivity_list:
+            activity = studentActivity.activity
+            activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+            activity_dic[activity] = studentActivity
+        context = {
+            'activity_dic':activity_dic,
+            'student':student,
+        }
+        return render_to_response('student_activity_detail.html',context)
+    else:
+        return render_to_response('login.html')
+
+def user_activity_detail(request):
+    #student info
+    if request.user.is_active:
+        userStudent = UserStudent.objects.get(user=request.user)
+        student = userStudent.student
+        studentActivity_list = StudentActivity.objects.filter(student = student)
+        activity_dic = {}
+        for studentActivity in studentActivity_list:
+            activity = studentActivity.activity
+            activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+            activity_dic[activity] = studentActivity
+        context = {
+            'activity_dic':activity_dic,
+            'student':student,
+        }
+        return render_to_response('student_activity_detail.html',context)
     else:
         return render_to_response('login.html')

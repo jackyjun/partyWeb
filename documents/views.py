@@ -44,21 +44,26 @@ def list_news(request,page):
         news.date = news.date.strftime('%Y-%m-%d')
     return render_to_response('list.html',{'item_list':news_list,'title':u'新闻动态','type':'news'})
 
-def list_notice(request,page):
+def list_notice(request,type,page):
+    #type 0 == all
+    title = u'通知公告'
+    choice = Notice.TYPE_CHOICE
     NOTICE_COUNT = 10
-    item_list = Notice.objects.all().order_by('-date').order_by('-id')
+    if int(type):
+        title = choice[int(type)-1][1]
+        item_list = Notice.objects.filter(type=type).order_by('-date').order_by('-id')
+    else:
+        item_list = Notice.objects.all().order_by('-date').order_by('-id')
     paginator = Paginator(item_list,NOTICE_COUNT)
     try:
         notice_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         notice_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         notice_list = paginator.page(paginator.num_pages)
     for notice in notice_list:
         notice.date = notice.date.strftime('%Y-%m-%d')
-    return render_to_response('list.html',{'item_list':notice_list,'title':u'通知公告','type':'notice'})
+    return render_to_response('list.html',{'item_list':notice_list,'title':title,'type':'notice'})
 
 def list_regulation(request,page):
     REGULATION_COUNT = 10

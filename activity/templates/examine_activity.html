@@ -12,20 +12,46 @@
         <hr/>
         <h4 class="text-info">活动报名列表</h4>
         活动时间:{{ activity.start_time }}
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                    <td><h5>参与状况</h5></td>
-                    <td><h5>获奖情况</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-
-                </tr>
-            </tbody>
-        </table>
+        <form action="/examine_activity/{{ activity.id }}" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                        <td><h5>参与状况</h5></td>
+                        <td><h5>获奖情况</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for studentActivity,student in student_dic.items %}
+                        <tr>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>
+                                <select name="status_{{ studentActivity.id }}">
+                                    {% if studentActivity.status == 0 %}
+                                        <option value="0" selected="selected">未参与</option>
+                                        <option value="1">参与者</option>
+                                        <option value="2">组织者</option>
+                                    {% elif studentActivity.status == 1 %}
+                                        <option value="0">未参与</option>
+                                        <option value="1"  selected="selected">参与者</option>
+                                        <option value="2">组织者</option>
+                                    {% else %}
+                                        <option value="0">未参与</option>
+                                        <option value="1">参与者</option>
+                                        <option value="2" selected="selected">组织者</option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="award_{{ studentActivity.id }}" value="{{ studentActivity.award }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" class="btn" value="完成审核">
+        </form>
     </div>
 {% endblock %}

@@ -29,6 +29,7 @@
                                 <td><h5>活动发起人</h5></td>
                                 <td><h5>活动时间</h5></td>
                                 <td><h5>审核状态</h5></td>
+                                <td><h5>操作</h5></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,9 +41,15 @@
                             <td>
                                 {% if activity.status %}
                                     已审核
+                                    <a href="/examine_result/{{ activity.id }}" class="text-info">查看</a>
                                 {% else %}
                                     <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <a href="/activity_detail/{{ activity.id }}" class="text-info">查看</a>
+                                <a href="/modify_activity/{{ activity.id }}" class="text-info">修改</a>
+                                <a href="/delete_activity/{{ activity.id }}" class="text-info">删除</a>
                             </td>
                         </tr>
                     {%  endfor %}

@@ -65,9 +65,29 @@ def student_info(request):
                 form.save()
                 return redirect(student_info)
         else:
-            a = Student.objects.get(id=1)
-            form = StudentForm(instance=a)
+            userStudent = UserStudent.objects.get(user = user)
+            student = userStudent.student
+            form = StudentForm(instance=student)
         return render(request, 'student_info.html', {
+            'form': form,
+        })
+    else:
+        return redirect(login_view)
+def student_center(request):
+    if request.user.is_active:
+        student = UserStudent.objects.get(user = request.user).student
+        return render_to_response('student_center.html',{'student':student})
+    else:
+        return render_to_response('login.html')
+def back_student_info(request,id):
+    user = request.user
+    if user.is_active:
+        student = Student.objects.get(id=id)
+        # student.birthday = student.birthday.strftime('%Y-%m-%d')
+        # student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
+        # student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
+        form = StudentForm(instance=student)
+        return render(request, 'back_student_info.html', {
             'form': form,
         })
     else:

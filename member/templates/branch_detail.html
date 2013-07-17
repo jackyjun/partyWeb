@@ -1,4 +1,7 @@
 {% extends 'base.html'%}
+{% block title %}
+    {{ branch.name }}信息
+{% endblock %}
 {% block head_part %}
     <style>
         .table{
@@ -93,7 +96,3 @@
         </table>
     </div>
 {% endblock %}
-    <hr/>
-    {% for activist in activist_list %}
-        {{ activist.name }}
-    {%  endfor %}
