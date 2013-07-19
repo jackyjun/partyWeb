@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% block title %}
+    个人中心
+{% endblock %}
+{% block head_part %}
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">{{ student.name }}个人中心</h3>
+    <div style="width:900px">
+        <a class="text-info" href="/student_info/">查看/修改个人信息</a><br/>
+        <a class="text-info" href="/user_activity_detail/">我的活动情况</a><br/>
+        <a class="text-info" href="/list_price/">我要申请奖项</a><br/>
+        <a class="text-info" href="/student_price/">我已申请奖项情况</a><br/>
+        <hr/>
+        <a class="text-info" href="/add_activity/"></a><br/>
+        <a class="text-info" href="/search_activity/">活动管理</a><br/>
+        <a class="text-info" href="/search_student_activity/">搜索学生活动参与情况</a><br/>
+        <a class="text-info" href="/examine_price_list/">奖项审核管理</a><br/>
+    </div>
+{% endblock %}

@@ -47,7 +47,7 @@
         <div class="login">
             {% if user.is_active %}
                 欢迎,{{ user }}&nbsp;&nbsp;&nbsp;<a href="/logout/">注销</a>
-                <a href="">进入个人中心</a>
+                <a href="/student_center/">进入个人中心</a>
 
             {% else %}
                  <form class="navbar-form" action="#" method="post">
@@ -84,22 +84,22 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="graduates">
                     {% for item in graduates_activity %}
-                         <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                         <a href="/activity_detail/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
                     {% endfor %}
                 </div>
                 <div class="tab-pane" id="youth">
                     {% for item in youth_activity %}
-                        <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                        <a href="/activity_detail/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
                     {% endfor %}
                 </div>
                 <div class="tab-pane" id="party">
                     {% for item in party_activity %}
-                         <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                         <a href="/activity_detail/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
                     {% endfor %}
                 </div>
                 <div class="tab-pane" id="other">
                     {% for item in other_activity %}
-                         <a href="/activity/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
+                         <a href="/activity_detail/{{ item.id }}">{{ item.title }}&nbsp;&nbsp;&nbsp;{{ item.start_time }}</a><br/>
                     {% endfor %}
                 </div>
             </div>

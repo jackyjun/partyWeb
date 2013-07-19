@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">{{ price.title }}奖项审核</h3>
+    <div style="width:900px">
+        <hr/>
+        <h4 class="text-info">奖项申请列表</h4>
+        奖项发布时间:{{ price.date }}
+        <form action="/examine_price/{{ price.id }}" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                        <td><h5>申请结果</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for studentPrice,student in student_dic.items %}
+                        <tr>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>
+                                <select name="status_{{ studentPrice.id }}">
+                                    {% if studentPrice.status == 1 %}
+                                        <option value="1" selected="selected">未审核</option>
+                                        <option value="2">未通过</option>
+                                        <option value="3">已通过</option>
+                                    {% elif studentPrice.status == 2 %}
+                                        <option value="1">未审核</option>
+                                        <option value="2"  selected="selected">未通过</option>
+                                        <option value="3">已通过</option>
+                                    {% else %}
+                                        <option value="1">未审核</option>
+                                        <option value="2">未通过</option>
+                                        <option value="3" selected="selected">已通过</option>
+                                    {% endif %}
+                                </select>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" class="btn" value="完成审核">
+        </form>
+    </div>
+{% endblock %}

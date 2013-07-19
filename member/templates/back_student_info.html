@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3 class="text-info">个人信息</h3>
+    <div style="width:900px">
+    <hr/>
+        {% for field in form %}
+            <div style="margin-bottom: 10px;">
+                <div style="font-size:16px;margin-bottom: 10px;">
+                    <div style="float:left;width:110px;font-weight: bold;">{{ field.label}}</div>
+                    <div>&nbsp;{{ field }}</div>
+             </div>
+        {% endfor %}
+    </div>
+{% endblock %}

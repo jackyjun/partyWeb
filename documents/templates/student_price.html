@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% block title %}
+    申请奖项列表
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">申请奖项列表信息</h3>
+    <div style="width:900px">
+    <table class="table">
+        <thead>
+            <tr>
+                <td><h5>奖项名称</h5></td>
+                <td><h5>发布日期</h5></td>
+                <td><h5>申请截止日期</h5></td>
+                <td><h5>状态</h5></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for studentPrice,price in price_dic.items %}
+                <tr>
+                    <td>{{ price.title }}</td>
+                    <td>{{ price.date }}</td>
+                    <td>{{ price.deadline }}</td>
+                    <td>
+                        {{ studentPrice.get_status_display }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

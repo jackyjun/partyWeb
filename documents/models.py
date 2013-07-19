@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.db import models
 from django.forms import ModelForm
+from member.models import Student
 
 class News(models.Model):
     class Meta:
@@ -51,3 +52,26 @@ class Attachment(models.Model):
     file = models.FileField(upload_to='files',verbose_name=u'文件')
     def __unicode__(self):
         return '%s: %s' % (self.date, self.title)
+
+class Price(models.Model):
+    class Meta:
+        verbose_name = u'奖项'
+        verbose_name_plural = u'奖项'
+
+    title = models.CharField(max_length=200,verbose_name=u'奖项名')
+    date = models.DateField(verbose_name=u'发布日期')
+    deadline = models.DateField(verbose_name=u'申请截止日期')
+    requirement = models.TextField(verbose_name=u'奖项要求',default='',blank=True)
+    status = models.BooleanField(verbose_name=u'是否已审核',default=False)
+    def __unicode__(self):
+        return '%s: %s' % (self.date, self.title)
+
+class StudentPrice(models.Model):
+    STATUS_CHOICE = (
+        (1,u'未审核'),
+        (2,u'未通过'),
+        (3,u'已通过'),
+    )
+    student = models.ForeignKey(Student)
+    price = models.ForeignKey(Price)
+    status = models.IntegerField(max_length=1,choices=STATUS_CHOICE,default=1)

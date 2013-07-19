@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block title %}
+    可申请奖项列表
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">奖项审核列表信息</h3>
+    <div style="width:900px">
+    <table class="table">
+        <thead>
+            <tr>
+                <td><h5>奖项名称</h5></td>
+                <td><h5>发布日期</h5></td>
+                <td><h5>申请截止日期</h5></td>
+                <td><h5>审核状态</h5></td>
+                <td><h5>奖项详情</h5></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for price in price_list %}
+                <tr>
+                    <td>{{ price.title }}</td>
+                    <td>{{ price.date }}</td>
+                    <td>{{ price.deadline }}</td>
+                    <td>
+                        {% if price.status == False %}
+                            <a class="text-info" href="/examine_price/{{ price.id }}">未审核</a>
+                        {% else %}
+                             已审核<a class="text-info" href="/examine_price_result/{{ price.id }}">(查看)</a>
+                        {% endif %}
+                    </td>
+                    <td><a class="text-info" href="/price_detail/{{ price.id }}">详情</a> </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
