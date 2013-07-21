@@ -6,6 +6,10 @@
         <h5>{{ news.publisher }} &nbsp; &nbsp; &nbsp;{{ news.date }}</h5>
         <hr/>
         <img src="/static/media/{{news.image}}" width="200px" height="200px"/>
-        <div style="margin-top: 20px;">{{ news.content }}</div>
+        <div style="margin-top: 20px;">
+            {% autoescape off %}
+                {{ news.content }}
+            {% endautoescape %}
+        </div>
     </div>
 {%  endblock %}

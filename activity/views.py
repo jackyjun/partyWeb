@@ -4,6 +4,7 @@ from models import Activity,StudentActivity,ActivityForm
 from member.models import UserStudent,PartyBranch,Student
 from django.shortcuts import render_to_response,redirect,render
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from datetime import *
 
 def get_activity(request,id):
@@ -46,50 +47,47 @@ def list_activity(request,type=5):
         list.append(activity_dic)
     return render_to_response('activity_list.html',{'activity_list':list,'title':title})
 
+@login_required(login_url='/user_login/')
 def join_activity(request,id):
     user = request.user
-    if user.is_active:
-        userStudent = UserStudent.objects.get(user = user)
-        student = userStudent.student
-        StudentActivity.objects.get_or_create(student_id = student.id,activity_id = id)
-        return redirect(list_activity)
-    else:
-        return render_to_response('login.html')
+    userStudent = UserStudent.objects.get(user = user)
+    student = userStudent.student
+    StudentActivity.objects.get_or_create(student_id = student.id,activity_id = id)
+    return redirect(list_activity)
 
+@login_required(login_url='/user_login/')
 def cancel_activity(request,id):
     user = request.user
-    if user.is_active:
-        userStudent = UserStudent.objects.get(user = user)
-        student = userStudent.student
-        try:
-            studentActivity = StudentActivity.objects.get(student_id = student.id,activity_id = id)
-            studentActivity.delete()
-            return redirect(list_activity)
-        except StudentActivity.DoesNotExist:
-            return redirect(list_activity)
-    else:
-        return render_to_response('login.html')
+    userStudent = UserStudent.objects.get(user = user)
+    student = userStudent.student
+    try:
+        studentActivity = StudentActivity.objects.get(student_id = student.id,activity_id = id)
+        studentActivity.delete()
+        return redirect(list_activity)
+    except StudentActivity.DoesNotExist:
+        return redirect(list_activity)
 
+@login_required(login_url='/user_login/')
 def add_activity(request):
-    user = request.user
-    if user.is_active:
+    if request.user.is_staff:
         if request.method == 'POST':
             form = ActivityForm(request.POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 form.save()
-                return render_to_response('home.html')
+                return render_to_response('activity_search.html')
         else:
             form = ActivityForm()
         return render(request, 'add_activity.html', {
             'form': form,
         })
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def modify_activity(request,id):
     user = request.user
     activity = Activity.objects.get(id=id)
-    if user.is_active:
+    if user.is_staff:
         if request.method == 'POST':
             form = ActivityForm(request.POST,instance=activity) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
@@ -101,11 +99,12 @@ def modify_activity(request,id):
             'form': form,
         })
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def delete_activity(request,id):
     user = request.user
-    if user.is_active:
+    if user.is_staff:
         try:
             activity = Activity.objects.get(id = id)
             activity.delete()
@@ -113,12 +112,13 @@ def delete_activity(request,id):
         except Activity.DoesNotExist:
             return render_to_response('activity_search.html')
     else:
-        return render_to_response('activity_search.html')
+        return render_to_response('permission_error.html')
 
 @csrf_exempt
+@login_required(login_url='/user_login/')
 def search_activity(request):
     user = request.user
-    if user.is_active:
+    if user.is_staff:
         if request.method=='POST':
             title = request.POST['title']
             type = request.POST['type']
@@ -142,12 +142,13 @@ def search_activity(request):
         else:
             return render_to_response('activity_search.html')
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
 @csrf_exempt
+@login_required(login_url='/user_login/')
 def examine_activity(request,id):
     user = request.user
-    if user.is_active:
+    if user.is_staff:
         if request.method == 'GET':
             activity = Activity.objects.get(id = id)
             activity.start_time = activity.start_time.strftime('%Y-%m-%d')
@@ -176,11 +177,12 @@ def examine_activity(request,id):
                 activity.save()
             return redirect(search_activity)
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def examine_result(request,id):
     user = request.user
-    if user.is_active:
+    if user.is_staff:
         activity = Activity.objects.get(id = id)
         activity.start_time = activity.start_time.strftime('%Y-%m-%d')
         studentActivity_list = StudentActivity.objects.filter(activity = activity)
@@ -193,12 +195,13 @@ def examine_result(request,id):
         }
         return render_to_response('examine_result.html',context)
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
 @csrf_exempt
+@login_required(login_url='/user_login/')
 def search_student_activity(request):
-    if request.user.is_active:
-        branch_list = PartyBranch.objects.all()
+    branch_list = PartyBranch.objects.all()
+    if request.user.is_staff:
         if request.method == 'POST':
             try:
                 branch = request.POST['branch']
@@ -219,11 +222,12 @@ def search_student_activity(request):
         else:
             return render_to_response('student_activity_search.html',{'branch_list':branch_list})
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def student_activity_detail(request,id):
     #back
-    if request.user.is_active:
+    if request.user.is_staff:
         student = Student.objects.get(id=id)
         studentActivity_list = StudentActivity.objects.filter(student = student)
         activity_dic = {}
@@ -237,23 +241,21 @@ def student_activity_detail(request,id):
         }
         return render_to_response('student_activity_detail.html',context)
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def user_activity_detail(request):
     #student info
-    if request.user.is_active:
-        userStudent = UserStudent.objects.get(user=request.user)
-        student = userStudent.student
-        studentActivity_list = StudentActivity.objects.filter(student = student)
-        activity_dic = {}
-        for studentActivity in studentActivity_list:
-            activity = studentActivity.activity
-            activity.start_time = activity.start_time.strftime('%Y-%m-%d')
-            activity_dic[activity] = studentActivity
-        context = {
-            'activity_dic':activity_dic,
-            'student':student,
-        }
-        return render_to_response('student_activity_detail.html',context)
-    else:
-        return render_to_response('login.html')
+    userStudent = UserStudent.objects.get(user=request.user)
+    student = userStudent.student
+    studentActivity_list = StudentActivity.objects.filter(student = student)
+    activity_dic = {}
+    for studentActivity in studentActivity_list:
+        activity = studentActivity.activity
+        activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+        activity_dic[activity] = studentActivity
+    context = {
+        'activity_dic':activity_dic,
+        'student':student,
+    }
+    return render_to_response('student_activity_detail.html',context)

@@ -8,6 +8,10 @@
             活动日期：{{ activity.start_time }}~{{ activity.end_time }}
         </h5>
         <hr/>
-        <div style="margin-top: 20px;">{{ activity.content }}</div>
+    </div>
+    <div style="margin-top: 20px;width: 900px;">
+        {% autoescape off %}
+            {{ activity.content }}
+        {% endautoescape %}
     </div>
 {%  endblock %}

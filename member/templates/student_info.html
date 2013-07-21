@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+{% block head_part %}
+    <link rel="stylesheet" href="/static/bootstrap-datepicker/css/datepicker.css" type="style/css" />
+    <script type="text/javascript" src="/static/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#id_birthday,#id_apply_party_time,#id_join_party_time').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+{% endblock %}
 {% block content %}
     <h3 class="text-info">修改个人信息</h3>
     <div style="width:900px">
@@ -7,7 +18,15 @@
             {% for field in form %}
                 <div class="text-error"> {{ field.errors }} </div>
                 <div style="margin-bottom: 10px;">
-                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>{{ field }}
+                    <div style="width:110px;float: left;">
+                        {{ field.label_tag }}</div>{{ field }}
+                        {% if field.label == "出生年月" %}
+                            格式：YYYY-MM-DD
+                        {% elif field.label == "申请入党日期" %}
+                            格式：YYYY-MM-DD
+                        {% elif field.label == "入党日期" %}
+                            格式：YYYY-MM-DD
+                        {% endif %}
                  </div>
             {% endfor %}
             <p><input type="submit" class="btn" value="修改" /></p>

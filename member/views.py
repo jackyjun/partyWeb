@@ -6,6 +6,7 @@ from django.template import RequestContext
 from models import Student,StudentForm,StudentAssessment,PartyBranch,UserStudent
 from documents.models import News,Notice
 from activity.models import Activity
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -41,7 +42,7 @@ def login_view(request):
                 login(request, user)
                 #s = Student(user_id = user.id,party_branch_id=1)
                 #s.save()
-                return redirect(home)
+                return redirect('/home/')
             else:
               return render_to_response('login.html',{'errorMsg':'登录错误'})
         else:
@@ -54,44 +55,47 @@ def user_logout(request):
       logout(request)
       return redirect(home)
 
+@login_required(login_url='/user_login/')
 def student_info(request):
     user = request.user
-    if user.is_active:
-        if request.method == 'POST':
-            userStudent = UserStudent.objects.get(user = user)
-            student = userStudent.student
-            form = StudentForm(request.POST,instance=student) # A form bound to the POST data
-            if form.is_valid(): # All validation rules pass
-                form.save()
-                return redirect(student_info)
-        else:
-            userStudent = UserStudent.objects.get(user = user)
-            student = userStudent.student
-            form = StudentForm(instance=student)
-        return render(request, 'student_info.html', {
-            'form': form,
-        })
+    if request.method == 'POST':
+        userStudent = UserStudent.objects.get(user = user)
+        student = userStudent.student
+        form = StudentForm(request.POST,instance=student) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            form.save()
+            return redirect(student_info)
     else:
-        return redirect(login_view)
+        userStudent = UserStudent.objects.get(user = user)
+        student = userStudent.student
+        form = StudentForm(instance=student)
+    return render(request, 'student_info.html', {
+        'form': form,
+    })
+
+@login_required(login_url='/user_login/')
 def student_center(request):
-    if request.user.is_active:
-        student = UserStudent.objects.get(user = request.user).student
-        return render_to_response('student_center.html',{'student':student})
+    student = UserStudent.objects.get(user = request.user).student
+    if request.user.is_staff:
+        if request.user.is_superuser:
+            permission = 0
+        else:
+            permission = 1
     else:
-        return render_to_response('login.html')
+        permission = 2
+    return render_to_response('student_center.html',{'student':student,'permission':permission})
+
+@login_required(login_url='/user_login/')
 def back_student_info(request,id):
     user = request.user
-    if user.is_active:
+    if user.is_staff:
         student = Student.objects.get(id=id)
-        # student.birthday = student.birthday.strftime('%Y-%m-%d')
-        # student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
-        # student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
         form = StudentForm(instance=student)
         return render(request, 'back_student_info.html', {
             'form': form,
         })
     else:
-        return redirect(login_view)
+        return render_to_response('permission_error.html')
 
 def branch_summary(request):
     branch_list = PartyBranch.objects.all()
@@ -128,24 +132,22 @@ def branch_detail(request,id):
     }
     return render_to_response('branch_detail.html',context)
 
+@login_required(login_url='/user_login/')
 def branch_assessment(request):
     user = request.user
-    if user.is_active:
-        userStudent = UserStudent.objects.get(user = user)
-        student = userStudent.student
-        branch = PartyBranch.objects.get(id = student.party_branch_id)
-        student_list = Student.objects.filter(party_branch_id = student.party_branch_id)
-        assessment_dic = {}
-        for student in student_list:
-            list = StudentAssessment.objects.filter(student = student)
-            assessment_dic[student] = list
-        context = {
-            'branch':branch,
-            'assessment_dic':assessment_dic,
-        }
-        return render_to_response('branch_assessment.html',context)
-    else:
-        return redirect(login_view)
+    userStudent = UserStudent.objects.get(user = user)
+    student = userStudent.student
+    branch = PartyBranch.objects.get(id = student.party_branch_id)
+    student_list = Student.objects.filter(party_branch_id = student.party_branch_id)
+    assessment_dic = {}
+    for student in student_list:
+        list = StudentAssessment.objects.filter(student = student)
+        assessment_dic[student] = list
+    context = {
+        'branch':branch,
+        'assessment_dic':assessment_dic,
+    }
+    return render_to_response('branch_assessment.html',context)
 
 def home(request):
     user = request.user

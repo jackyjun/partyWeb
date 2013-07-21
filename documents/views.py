@@ -5,8 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from member.models import UserStudent,Student
-from models import News,Regulation,Notice,Price,StudentPrice
+from models import News,Regulation,Notice,Price,StudentPrice,Attachment
+from django.contrib.auth.decorators import login_required
 from datetime import *
+from django.http import HttpResponse
 def get_news(request,id):
     try:
         news = News.objects.get(id=id)
@@ -108,30 +110,6 @@ def list_price(request):
         list.append(price_dic)
     return render_to_response('price_list.html',{'price_list':list})
 
-def apply_price(request,id):
-    user = request.user
-    if user.is_active:
-        userStudent = UserStudent.objects.get(user = user)
-        student = userStudent.student
-        StudentPrice.objects.get_or_create(student_id = student.id,price_id = id)
-        return redirect(list_price)
-    else:
-        return render_to_response('login.html')
-
-def cancel_price(request,id):
-    user = request.user
-    if user.is_active:
-        userStudent = UserStudent.objects.get(user = user)
-        student = userStudent.student
-        try:
-            studentPrice= StudentPrice.objects.get(student_id = student.id,price_id = id)
-            studentPrice.delete()
-            return redirect(list_price)
-        except StudentPrice.DoesNotExist:
-            return redirect(list_price)
-    else:
-        return render_to_response('login.html')
-
 def price_detail(request,id):
     try:
         price = Price.objects.get(id=id)
@@ -139,25 +117,45 @@ def price_detail(request,id):
     except Price.DoesNotExist:
         return redirect(list_price)
 
+@login_required(login_url='/user_login/')
+def apply_price(request,id):
+    user = request.user
+    userStudent = UserStudent.objects.get(user = user)
+    student = userStudent.student
+    StudentPrice.objects.get_or_create(student_id = student.id,price_id = id)
+    return redirect(list_price)
+
+@login_required(login_url='/user_login/')
+def cancel_price(request,id):
+    user = request.user
+    userStudent = UserStudent.objects.get(user = user)
+    student = userStudent.student
+    try:
+        studentPrice= StudentPrice.objects.get(student_id = student.id,price_id = id)
+        studentPrice.delete()
+        return redirect(list_price)
+    except StudentPrice.DoesNotExist:
+        return redirect(list_price)
+
+@login_required(login_url='/user_login/')
 def student_price(request):
-    if request.user.is_active:
-        student = UserStudent.objects.get(user=request.user).student
-        studentPrice_list = StudentPrice.objects.filter(student = student)
-        price_dic = {}
-        for studentPrice in studentPrice_list:
-            price = studentPrice.price
-            price.date = price.date.strftime('%Y-%m-%d')
-            price.deadline = price.deadline.strftime('%Y-%m-%d')
-            price_dic[studentPrice] = price
-        print price_dic
-        return render_to_response('student_price.html',{'price_dic':price_dic})
-    else:
-        return render_to_response('login.html')
+    #student center
+    student = UserStudent.objects.get(user=request.user).student
+    studentPrice_list = StudentPrice.objects.filter(student = student)
+    price_dic = {}
+    for studentPrice in studentPrice_list:
+        price = studentPrice.price
+        price.date = price.date.strftime('%Y-%m-%d')
+        price.deadline = price.deadline.strftime('%Y-%m-%d')
+        price_dic[studentPrice] = price
+    print price_dic
+    return render_to_response('student_price.html',{'price_dic':price_dic})
 
 @csrf_exempt
+@login_required(login_url='/user_login/')
 def examine_price(request,id):
     user = request.user
-    if user.is_active:
+    if user.is_superuser:
         if request.method == 'GET':
             price = Price.objects.get(id = id)
             price.date = price.date.strftime('%Y-%m-%d')
@@ -183,11 +181,12 @@ def examine_price(request,id):
                 price.save()
             return redirect(examine_price_list)
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def examine_price_result(request,id):
     user = request.user
-    if user.is_active:
+    if user.is_superuser:
         price = Price.objects.get(id = id)
         price.date = price.date.strftime('%Y-%m-%d')
         studentPrice_list = StudentPrice.objects.filter(price = price)
@@ -200,15 +199,32 @@ def examine_price_result(request,id):
         }
         return render_to_response('examine_price_result.html',context)
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def examine_price_list(request):
-#examine price list
-    if request.user.is_active:
+    #examine price list
+    if request.user.is_superuser:
         price_list = Price.objects.all()
         for price in price_list:
             price.date = price.date.strftime('%Y-%m-%d')
             price.deadline = price.deadline.strftime('%Y-%m-%d')
         return render_to_response('examine_price_list.html',{'price_list':price_list})
     else:
-        return render_to_response('login.html')
+        return render_to_response('permission_error.html')
+
+@login_required(login_url='/user_login/')
+def attachment_list(request):
+    attachment_list = Attachment.objects.all()
+    for attachment in attachment_list:
+        attachment.date = attachment.date.strftime('%Y-%m-%d')
+    return render_to_response('attachment_list.html',{'attachment_list':attachment_list})
+
+@login_required(login_url='/user_login/')
+def get_attachment(request,id):
+    attachment = Attachment.objects.get(id=id)
+    file = attachment.file
+    response = HttpResponse(file)
+    response['Content-Disposition'] = 'attachment; filename="%s"'%file.name
+    return response
+

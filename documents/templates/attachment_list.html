@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+    文件下载
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">文件下载</h3>
+    {% for attachment in attachment_list %}
+        <div style="font-size:15px;margin-bottom: 5px;">
+            <a href="/get_attachment/{{ attachment.id }}">{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ attachment.date }}</a><br/>
+        </div>
+    {% endfor %}
+{% endblock %}

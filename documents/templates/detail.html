@@ -5,6 +5,10 @@
         <hr/>
         <h5>{{ detail.publisher }} &nbsp; &nbsp; &nbsp;{{ detail.date }}</h5>
         <hr/>
-        <div style="margin-top: 20px;">{{ detail.content }}</div>
+    </div>
+    <div style="margin-top: 20px;width: 900px">
+        {% autoescape off %}
+            {{ detail.content }}
+        {% endautoescape %}
     </div>
 {%  endblock %}
