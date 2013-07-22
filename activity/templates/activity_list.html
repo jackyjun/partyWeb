@@ -32,11 +32,11 @@
                     <td>{{ activity.deadline }}</td>
                     <td>
                         {% if flag == 0 %}
-                            <a class="text-info" href="/join_activity/{{ activity.id }}">立即报名</a>
+                            <a class="text-info" href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a>
                         {% elif flag == -1 %}
                             已结束报名
                         {% else %}
-                             <a class="text-info" href="/cancel_activity/{{ activity.id }}">取消报名</a>
+                             <a class="text-info" href="/cancel_activity/{{ type }}/{{ activity.id }}">取消报名</a>
                         {% endif %}
                     </td>
                     <td><a class="text-info" href="/activity_detail/{{ activity.id }}">详情</a> </td>

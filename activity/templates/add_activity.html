@@ -6,16 +6,19 @@
         }
     </style>
     <script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
-    <link rel="stylesheet" href="/static/bootstrap-datepicker/css/datepicker.css" type="style/css" />
-    <script type="text/javascript" src="/static/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
-        tinymce.init({
-            selector: "textarea",
-            language : 'zh_CN'
-         });
-        $(window).load(function(){
-            $('#id_start_time,#id_end_time,#id_deadline').datepicker({
+        $(window).load(function() {
+            /*$('#id_start_time,#id_end_time,#id_deadline').datepicker({
                 format: 'yyyy-mm-dd'
+            });*/
+            tinymce.init({
+                selector: "textarea",
+                language : 'zh_CN'
+            });
+            $( "#id_start_time,#id_end_time,#id_deadline" ).datepicker({
+                dateFormat:"yy-mm-dd",
+                changeMonth:true,
+                changeYear:true
             });
         });
    </script>

@@ -45,27 +45,27 @@ def list_activity(request,type=5):
         activity.deadline = activity.deadline.strftime('%Y-%m-%d')
         activity_dic[activity] = flag
         list.append(activity_dic)
-    return render_to_response('activity_list.html',{'activity_list':list,'title':title})
+    return render_to_response('activity_list.html',{'activity_list':list,'title':title,'type':type})
 
 @login_required(login_url='/user_login/')
-def join_activity(request,id):
+def join_activity(request,type,id):
     user = request.user
     userStudent = UserStudent.objects.get(user = user)
     student = userStudent.student
     StudentActivity.objects.get_or_create(student_id = student.id,activity_id = id)
-    return redirect(list_activity)
+    return redirect('/list_activity/%s'%type)
 
 @login_required(login_url='/user_login/')
-def cancel_activity(request,id):
+def cancel_activity(request,type,id):
     user = request.user
     userStudent = UserStudent.objects.get(user = user)
     student = userStudent.student
     try:
         studentActivity = StudentActivity.objects.get(student_id = student.id,activity_id = id)
         studentActivity.delete()
-        return redirect(list_activity)
+        return redirect('/list_activity/%s'%type)
     except StudentActivity.DoesNotExist:
-        return redirect(list_activity)
+        return redirect('/list_activity/%s'%type)
 
 @login_required(login_url='/user_login/')
 def add_activity(request):
@@ -92,11 +92,12 @@ def modify_activity(request,id):
             form = ActivityForm(request.POST,instance=activity) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 form.save()
-                return render_to_response('home.html')
+                return render_to_response('activity_search.html')
         else:
             form = ActivityForm(instance=activity)
         return render(request, 'modify_activity.html', {
             'form': form,
+            'id':id,
         })
     else:
         return render_to_response('permission_error.html')
@@ -140,7 +141,14 @@ def search_activity(request):
             }
             return render_to_response('activity_search.html',context)
         else:
-            return render_to_response('activity_search.html')
+            activity_list = Activity.objects.all()
+            for activity in activity_list:
+                activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+            context = {
+                'activity_list':activity_list,
+                'flag':True,
+            }
+            return render_to_response('activity_search.html',context)
     else:
         return render_to_response('permission_error.html')
 
@@ -173,8 +181,8 @@ def examine_activity(request,id):
                 studentActivity.status = status
                 studentActivity.award = award
                 studentActivity.save()
-                activity.status = True
-                activity.save()
+            activity.status = True
+            activity.save()
             return redirect(search_activity)
     else:
         return render_to_response('permission_error.html')

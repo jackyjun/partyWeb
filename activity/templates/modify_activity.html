@@ -6,8 +6,6 @@
         }
     </style>
     <script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
-    <link rel="stylesheet" href="/static/bootstrap-datepicker/css/datepicker.css" type="style/css" />
-    <script type="text/javascript" src="/static/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
         tinymce.init({
             selector: "textarea",
@@ -15,7 +13,9 @@
          });
         $(window).load(function(){
             $('#id_start_time,#id_end_time,#id_deadline').datepicker({
-                format: 'yyyy-mm-dd'
+                dateFormat:"yy-mm-dd",
+                changeMonth:true,
+                changeYear:true
             });
         });
     </script>
@@ -24,11 +24,16 @@
     <h3 class="text-info">修改活动</h3>
     <div style="width:900px">
     <hr/>
-        <form action="/modify_activity/1" method="post">{% csrf_token %}
+        <form action="/modify_activity/{{ id }}" method="post">{% csrf_token %}
             {% for field in form %}
                 <div class="text-error"> {{ field.errors }} </div>
                 <div style="margin-bottom: 10px;">
-                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>{{ field }}
+                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>
+                    {% if field.label == "内容" %}
+                        <div style="margin-left: 110px;">{{ field }}</div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
                  </div>
             {% endfor %}
             <p><input type="submit" class="btn" value="修改" /></p>
