@@ -1,0 +1,46 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner" >
+        <a class="brand" style="margin-left: 10px;" href="/home/">计算机学院研究生党总支工作平台</a>
+        <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="/home/">首页</a></li>
+              <li><a href="/list_news/1">新闻动态</a></li>
+              <li><a href="/list_notice/0/1">通知公告</a></li>
+              <li><a href="/list_regulation/1">制度条例</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">E家党支部<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/branch_summary/">党支部结构</a></li>
+                  <li><a href="/list_activity/2">党组织生活</a></li>
+                  <li><a href="/branch_search/">党员发展信息</a></li>
+                  <li><a href="/branch_assessment/">党员考核信息</a></li>
+                  <li><a href="/list_notice/2/1">组织发展公示</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">团学动态<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/list_activity/1">团组织活动</a></li>
+                  <li><a href="/list_activity/0">研究生会活动</a></li>
+                </ul>
+              </li>
+              <li><a href="#contact">就业指导</a></li>
+              <li><a href="#contact">组织架构</a></li>
+              {% if user.is_active %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user }}<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/student_center/">用户中心</a></li>
+                    <li><a href="/user_logout/">注销</a></li>
+                  </ul>
+              </li>
+              {% else %}
+                <li><a href="/user_login">我要登录</a></li>
+              {% endif %}
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+ </div>
+<div class="header">
+    <div class="header-logo"></div>
+</div>

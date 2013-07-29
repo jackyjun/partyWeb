@@ -12,7 +12,11 @@ def get_activity(request,id):
     activity.start_time = activity.start_time.strftime('%Y-%m-%d')
     activity.end_time = activity.end_time.strftime('%Y-%m-%d')
     activity.deadline = activity.deadline.strftime('%Y-%m-%d')
-    return render_to_response('activity_detail.html',{'activity':activity})
+    return render_to_response('activity_detail.html',
+                              {
+                                'activity':activity,
+                                'user':request.user,
+                              })
 
 def list_activity(request,type=5):
     choice = Activity.TYPE_CHOICE
@@ -45,7 +49,13 @@ def list_activity(request,type=5):
         activity.deadline = activity.deadline.strftime('%Y-%m-%d')
         activity_dic[activity] = flag
         list.append(activity_dic)
-    return render_to_response('activity_list.html',{'activity_list':list,'title':title,'type':type})
+    return render_to_response('activity_list.html',
+                              {
+                               'activity_list':list,
+                               'title':title,
+                               'type':type,
+                               'user':request.user,
+                              })
 
 @login_required(login_url='/user_login/')
 def join_activity(request,type,id):
@@ -74,11 +84,12 @@ def add_activity(request):
             form = ActivityForm(request.POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 form.save()
-                return render_to_response('activity_search.html')
+                return render_to_response('activity_search.html',{'user':request.user})
         else:
             form = ActivityForm()
         return render(request, 'add_activity.html', {
             'form': form,
+            'user':request.user,
         })
     else:
         return render_to_response('permission_error.html')
@@ -92,15 +103,16 @@ def modify_activity(request,id):
             form = ActivityForm(request.POST,instance=activity) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 form.save()
-                return render_to_response('activity_search.html')
+                return render_to_response('activity_search.html',{'user':request.user})
         else:
             form = ActivityForm(instance=activity)
         return render(request, 'modify_activity.html', {
             'form': form,
             'id':id,
+            'user':request.user,
         })
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @login_required(login_url='/user_login/')
 def delete_activity(request,id):
@@ -109,11 +121,11 @@ def delete_activity(request,id):
         try:
             activity = Activity.objects.get(id = id)
             activity.delete()
-            return render_to_response('activity_search.html')
+            return render_to_response('activity_search.html',{'user':request.user})
         except Activity.DoesNotExist:
-            return render_to_response('activity_search.html')
+            return render_to_response('activity_search.html',{'user':request.user})
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @csrf_exempt
 @login_required(login_url='/user_login/')
@@ -138,6 +150,7 @@ def search_activity(request):
             context = {
                 'activity_list':activity_list,
                 'flag':flag,
+                'user':request.user,
             }
             return render_to_response('activity_search.html',context)
         else:
@@ -147,10 +160,11 @@ def search_activity(request):
             context = {
                 'activity_list':activity_list,
                 'flag':True,
+                'user':request.user,
             }
             return render_to_response('activity_search.html',context)
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @csrf_exempt
 @login_required(login_url='/user_login/')
@@ -167,6 +181,7 @@ def examine_activity(request,id):
             context ={
                 'activity': activity,
                 'student_dic':student_dic,
+                'user':request.user,
             }
             return render_to_response('examine_activity.html',context)
         else:
@@ -185,7 +200,7 @@ def examine_activity(request,id):
             activity.save()
             return redirect(search_activity)
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @login_required(login_url='/user_login/')
 def examine_result(request,id):
@@ -200,10 +215,11 @@ def examine_result(request,id):
         context ={
             'activity': activity,
             'student_dic':student_dic,
+            'user':request.user,
         }
         return render_to_response('examine_result.html',context)
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @csrf_exempt
 @login_required(login_url='/user_login/')
@@ -223,12 +239,13 @@ def search_student_activity(request):
                     'flag': True,
                     'activity_dic':activity_dic,
                     'branch_list':branch_list,
+                    'user':request.user,
                 }
                 return render_to_response('student_activity_search.html',context)
             except PartyBranch.DoesNotExist:
-                return render_to_response('student_activity_search.html',{'flag':False})
+                return render_to_response('student_activity_search.html',{'flag':False,'user':request.user})
         else:
-            return render_to_response('student_activity_search.html',{'branch_list':branch_list})
+            return render_to_response('student_activity_search.html',{'branch_list':branch_list,'user':request.user})
     else:
         return render_to_response('permission_error.html')
 
@@ -246,10 +263,11 @@ def student_activity_detail(request,id):
         context = {
             'activity_dic':activity_dic,
             'student':student,
+            'user':request.user,
         }
         return render_to_response('student_activity_detail.html',context)
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @login_required(login_url='/user_login/')
 def user_activity_detail(request):
@@ -265,5 +283,6 @@ def user_activity_detail(request):
     context = {
         'activity_dic':activity_dic,
         'student':student,
+        'user':request.user,
     }
     return render_to_response('student_activity_detail.html',context)

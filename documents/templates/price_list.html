@@ -10,16 +10,16 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">可申请奖项列表信息</h3>
+    <h3 class="text-info">可申请奖项信息</h3>
+    <a href="/student_center/"> <<用户中心</a>
     <div style="width:900px">
     <table class="table">
         <thead>
             <tr>
                 <td><h5>奖项名称</h5></td>
-                <td><h5>发布日期</h5></td>
                 <td><h5>申请截止日期</h5></td>
-                <td><h5>状态</h5></td>
-                <td><h5>奖项详情</h5></td>
+                <td><h5>申请状态</h5></td>
+                <td><h5>奖项要求</h5></td>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,6 @@
                 {% for price,flag in item.items %}
                 <tr>
                     <td>{{ price.title }}</td>
-                    <td>{{ price.date }}</td>
                     <td>{{ price.deadline }}</td>
                     <td>
                         {% if flag == 0 %}
@@ -35,7 +34,7 @@
                         {% elif flag == -1 %}
                             已结束申请
                         {% else %}
-                             已申请<a class="text-info" href="/cancel_price/{{ price.id }}">(取消申请)</a>
+                             已申请<a class="text-info" href="/cancel_price/{{ price.id }}">[取消申请]</a>
                         {% endif %}
                     </td>
                     <td><a class="text-info" href="/price_detail/{{ price.id }}">详情</a> </td>

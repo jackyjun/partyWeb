@@ -31,15 +31,15 @@
                                     {% if studentPrice.status == 1 %}
                                         <option value="1" selected="selected">未审核</option>
                                         <option value="2">未通过</option>
-                                        <option value="3">已通过</option>
+                                        <option value="3">通过</option>
                                     {% elif studentPrice.status == 2 %}
                                         <option value="1">未审核</option>
                                         <option value="2"  selected="selected">未通过</option>
-                                        <option value="3">已通过</option>
+                                        <option value="3">通过</option>
                                     {% else %}
                                         <option value="1">未审核</option>
                                         <option value="2">未通过</option>
-                                        <option value="3" selected="selected">已通过</option>
+                                        <option value="3" selected="selected">通过</option>
                                     {% endif %}
                                 </select>
                             </td>

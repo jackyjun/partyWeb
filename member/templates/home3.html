@@ -1,0 +1,127 @@
+<!--base page-->
+{% extends 'base2.html' %}
+{% block title %}
+    首页
+{% endblock %}
+{% block head_part %}
+    <link rel="stylesheet" href="/static/css/home2.css" type="text/css" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/static/nivo-slider/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="slider">
+        <div class="slider-wrapper theme-light">
+            <div id="slider" class="nivoSlider">
+                <img src="/static/nivo-slider/images/up.jpg" data-thumb="/static/nivo-slider/toystory.jpg" alt="" />
+                <a href="http://dev7studios.com"><img src="/static/nivo-slider/images/up.jpg" data-thumb="images/up.jpg" alt="" title="This is an example of a caption" /></a>
+                <img src="/static/nivo-slider/images/walle.jpg" data-thumb="/static/nivo-slider/images/walle.jpg" alt="" data-transition="slideInLeft" />
+                <img src="/static/nivo-slider/images/nemo.jpg" data-thumb="/static/nivo-slider/images/nemo.jpg" alt="" title="#htmlcaption" />
+            </div>
+            <div id="htmlcaption" class="nivo-html-caption">
+                <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+            </div>
+        </div>
+    </div>
+    <div class="second">
+        <div class="news">
+            <h4 class="text-info title">新闻动态</h4>
+            {% for item in news %}
+                <div class="item">
+                     <div class="item-title">
+                         <a href="/news/{{ item.id }}">{{ item.title }}</a>
+                     </div>
+                     <div class="item-date">{{ item.date }}</div>
+                     <br/>
+                </div>
+            {% endfor %}
+            <div class="item"><a href="#">更多</a></div>
+        </div>
+        <div class="notice">
+            <h4 class="text-info title">通知公告</h4>
+            {% for item in notices %}
+                <div class="item">
+                     <div class="item-title">
+                         <a href="/notice/{{ item.id }}">{{ item.title }}</a>
+                     </div>
+                     <div class="item-date">{{ item.date }}</div>
+                     <br/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="third">
+        <div class="activity">
+            <h4 class="text-info title">团学活动</h4>
+            <ul  class="nav nav-tabs">
+                <li class="active"><a href="#graduates" data-toggle="tab">研究生活动</a></li>
+                <li><a href="#youth" data-toggle="tab">团组织活动</a></li>
+                <li><a href="#party" data-toggle="tab">党组织活动</a></li>
+                <li><a href="#other" data-toggle="tab">其他活动</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="graduates">
+                    {% for item in graduates_activity %}
+                        <div class="item">
+                            <div class="item-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
+                            <div class="item-date">{{ item.start_time }}</div>
+                            <br/>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="youth">
+                    {% for item in youth_activity %}
+                        <div class="item">
+                            <div class="item-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
+                            <div class="item-date">{{ item.start_time }}</div>
+                            <br/>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="party">
+                    {% for item in party_activity %}
+                        <div class="item">
+                            <div class="item-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
+                            <div class="item-date">{{ item.start_time }}</div>
+                            <br/>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane" id="other">
+                    {% for item in party_activity %}
+                        <div class="item">
+                            <div class="item-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
+                            <div class="item-date">{{ item.start_time }}</div>
+                            <br/>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="links">
+            <h4 class="text-info title">友情链接</h4>
+            <div class="item" style="text-align: left;">
+                <a href="#">上海大学</a>
+            </div>
+            <div class="item"  style="text-align: left;">
+                <a href="#">上海大学</a>
+            </div>
+            <div class="item"  style="text-align: left;">
+                <a href="#">上海大学</a>
+            </div>
+            <div class="item"  style="text-align: left;">
+                <a href="#">上海大学</a>
+            </div>
+            <div class="item"  style="text-align: left;">
+                <a href="#">上海大学</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

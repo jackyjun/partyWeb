@@ -66,11 +66,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for probationary in probationary_list %}
+                {% for activist in activist_list %}
                     <tr>
-                        <td>{{ probationary.student_id }}</td>
-                        <td>{{ probationary.name }}</td>
-                        <td>{{ probationary.join_party_time }}</td>
+                        <td>{{ activist.student_id }}</td>
+                        <td>{{ activist.name }}</td>
+                        <td>{{ activist.join_party_time }}</td>
                     </tr>
                 {%  endfor %}
             </tbody>

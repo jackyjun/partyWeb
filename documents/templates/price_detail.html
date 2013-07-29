@@ -2,9 +2,13 @@
 {% block content %}
     <div class="text-center" style="width: 900px">
         <h3>{{price.title}}</h3>
-        <hr/>
-        <h5>{{ price.date }} &nbsp; &nbsp; &nbsp;</h5>
-        <hr/>
-        <div style="margin-top: 20px;">{{ price.requirement }}</div>
+        <hr style="margin:0 auto 0 auto;width:300px;">
+        <h5>发布日期：{{ price.date }} &nbsp; &nbsp; &nbsp;</h5>
+        <hr style="margin:0 auto 0 auto;width:300px;">
+        <div style="margin-top: 20px;text-align: left;">
+        {% autoescape off %}
+            {{ price.requirement }}
+        {% endautoescape %}
+        </div>
     </div>
 {%  endblock %}

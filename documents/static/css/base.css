@@ -1,0 +1,28 @@
+body{
+    text-align: center;
+    background-color: #f2f2f2;
+    font-size: 14px;
+    color: #767e89;
+    /*color: #333;*/
+}
+.container{
+    margin: 50px auto;
+    width: 990px;
+}
+.header{
+    background-color: #fff;
+    height: 120px;
+}
+.header-logo{
+    width:358px;
+    height: 90px;
+    float: left;
+    background: url("/static/images/window_logo.png");
+}
+.footer{
+    width:990px;
+    float:left;
+    margin-top: 10px;
+    background-color: #fff;
+    height:50px;
+}

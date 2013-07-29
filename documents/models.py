@@ -70,7 +70,7 @@ class StudentPrice(models.Model):
     STATUS_CHOICE = (
         (1,u'未审核'),
         (2,u'未通过'),
-        (3,u'已通过'),
+        (3,u'通过'),
     )
     student = models.ForeignKey(Student)
     price = models.ForeignKey(Price)

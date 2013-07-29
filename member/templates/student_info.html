@@ -12,6 +12,7 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">修改个人信息</h3>
+    <a href="/student_center/"><<用户中心</a>
     <div style="width:900px">
     <hr/>
         <form action="/student_info/" method="post">{% csrf_token %}
@@ -19,14 +20,14 @@
                 <div class="text-error"> {{ field.errors }} </div>
                 <div style="margin-bottom: 10px;">
                     <div style="width:110px;float: left;">
-                        {{ field.label_tag }}</div>{{ field }}
-                        {% if field.label == "出生年月" %}
-                            格式：YYYY-MM-DD
-                        {% elif field.label == "申请入党日期" %}
-                            格式：YYYY-MM-DD
-                        {% elif field.label == "入党日期" %}
-                            格式：YYYY-MM-DD
-                        {% endif %}
+                    {{ field.label_tag }}</div>{{ field }}
+                    {% if field.label == "出生年月" %}
+                        日期格式：YYYY-MM-DD
+                    {% elif field.label == "申请入党日期" %}
+                        日期格式：YYYY-MM-DD
+                    {% elif field.label == "入党日期" %}
+                        日期格式：YYYY-MM-DD
+                    {% endif %}
                  </div>
             {% endfor %}
             <p><input type="submit" class="btn" value="修改" /></p>

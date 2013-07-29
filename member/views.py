@@ -71,6 +71,7 @@ def student_info(request):
         form = StudentForm(instance=student)
     return render(request, 'student_info.html', {
         'form': form,
+        'user':user,
     })
 
 @login_required(login_url='/user_login/')
@@ -83,7 +84,11 @@ def student_center(request):
             permission = 1
     else:
         permission = 2
-    return render_to_response('student_center.html',{'student':student,'permission':permission})
+    return render_to_response('student_center.html',
+                              {'student':student,
+                               'permission':permission,
+                               'user':request.user,
+                              })
 
 @login_required(login_url='/user_login/')
 def back_student_info(request,id):
@@ -93,6 +98,7 @@ def back_student_info(request,id):
         form = StudentForm(instance=student)
         return render(request, 'back_student_info.html', {
             'form': form,
+            'user':request.user,
         })
     else:
         return render_to_response('permission_error.html')
@@ -114,7 +120,7 @@ def branch_summary(request):
         }
         list = [len(official_list),len(probationary_list),len(activist_list)]
         context[branch] = list
-    return render_to_response('branch_summary.html',{'context':context})
+    return render_to_response('branch_summary.html',{'context':context,'user':request.user})
 
 def branch_detail(request,id):
     branch = PartyBranch.objects.get(id = id)
@@ -129,6 +135,7 @@ def branch_detail(request,id):
         'activist_list':activist_list,
         'probationary_list':probationary_list,
         'official_list':official_list,
+        'user':request.user,
     }
     return render_to_response('branch_detail.html',context)
 
@@ -146,13 +153,14 @@ def branch_assessment(request):
     context = {
         'branch':branch,
         'assessment_dic':assessment_dic,
+        'user':request.user,
     }
     return render_to_response('branch_assessment.html',context)
 
 def home(request):
     user = request.user
-    NEWS_NUMBER = 10
-    Notice_NUMBER = 7
+    NEWS_NUMBER = 5
+    Notice_NUMBER = 5
     ACTIVITY_NUMBER = 3
     news = News.objects.all().order_by('-date')[:NEWS_NUMBER]
     notices = Notice.objects.all().order_by('-date')[:Notice_NUMBER]
@@ -181,7 +189,7 @@ def home(request):
         'party_activity':party_activity,
         'other_activity':other_activity,
     }
-    return render_to_response('home.html',context,context_instance=RequestContext(request))
+    return render_to_response('home3.html',context,context_instance=RequestContext(request))
 
 @csrf_exempt
 def branch_search(request):
@@ -199,7 +207,8 @@ def branch_search(request):
             'student_list':student_list,
             'branch_list':branch_list,
             'type': status,
+            'user':request.user,
         }
         return render_to_response('branch_search.html',context)
     else:
-        return render_to_response('branch_search.html',{'branch_list':branch_list})
+        return render_to_response('branch_search.html',{'branch_list':branch_list,'user':request.user})

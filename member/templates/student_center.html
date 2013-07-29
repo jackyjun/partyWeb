@@ -5,8 +5,8 @@
 {% block head_part %}
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ student.name }}个人中心</h3>
-    <div style="width:900px">
+    <h3 class="text-info">{{ student.student_id }}{{ student.name }}</h3>
+    <div style="width:900px;">
         {% if permission == 0 %}
             普通用户功能：<br/>
             <a class="text-info" href="/student_info/">查看/修改个人信息</a><br/>

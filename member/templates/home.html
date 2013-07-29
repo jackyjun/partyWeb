@@ -31,18 +31,34 @@
             });
 		});
     </script>
+    <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/dark/dark.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/nivo-slider/style.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="/static/nivo-slider/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+        $(window).load(function() {
+            $('#slider').nivoSlider();
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <div class="first_part">
         <div class="slider">
-             <div class="slider-wrapper theme-default">
-                <div id="slider" class="nivoSlider">
-                    <img src="/static/images/1.jpg" alt="" title="HTML5 with jQuery plugin Qucksand " />
-                    <img src="/static/images/2.jpg" alt="" title="HTML5 with jQuery plugin Reel " />
-                    <img src="/static/images/3.jpg" alt="" data-transition="sliceDown" title="HTML5 with jQuery plugin Qucksand " />
-                    <img src="/static/images/5.jpg" alt="" title="#htmlcaption" />
+                <div class="slider-wrapper theme-default">
+                    <div id="slider" class="nivoSlider">
+                        <img src="/static/nivo-slider/images/b.jpg" data-thumb="/static/nivo-slider/toystory.jpg" alt="" />
+                        <a href="http://dev7studios.com"><img src="/static/nivo-slider/images/up.jpg" data-thumb="images/up.jpg" alt="" title="This is an example of a caption" /></a>
+                        <img src="/static/nivo-slider/images/a.jpg" data-thumb="/static/nivo-slider/images/walle.jpg" alt="" data-transition="slideInLeft" />
+                        <img src="/static/nivo-slider/images/c.jpg" data-thumb="/static/nivo-slider/images/nemo.jpg" alt="" title="#htmlcaption" />
+                    </div>
+                    <div id="htmlcaption" class="nivo-html-caption">
+                        <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+                    </div>
                 </div>
-             </div>
         </div>
         <div class="login">
             {% if user.is_active %}

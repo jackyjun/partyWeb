@@ -49,7 +49,7 @@ class Student(models.Model):
     league_member = models.BooleanField(max_length=1,verbose_name=u'是否团员',default=True,blank=True)
     apply_party_time = models.DateField(verbose_name=u'申请入党日期',null=True,blank=True)
     join_party_time = models.DateField(verbose_name=u'入党日期',null=True,blank=True)
-    party_branch = models.ForeignKey(PartyBranch,verbose_name=u'所属党支部',default=1,blank=True)
+    party_branch = models.ForeignKey(PartyBranch,verbose_name=u'所属党支部',null=True,blank=True)
 
     def __unicode__(self):
         return '%s: %s' % (self.student_id, self.name)
@@ -73,4 +73,6 @@ class StudentAssessment(models.Model):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
+        exclude = ('student_id','name')
+
 

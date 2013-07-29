@@ -4,6 +4,7 @@
      margin-left: 200px;
      margin-right: auto;
      width: 1200px;
+     color:#333;
    }
    .first_part{
        float:left;
@@ -18,12 +19,12 @@
      color:#3a87ad;
    }
    .login a:hover{
-     color:#000;
+     color:#767e89;
    }
    .slider{
      width:520px;
      float:left;
-     height:350px;
+     height:200px;
    }
    .news{
      float:left;
@@ -32,13 +33,13 @@
      height:300px;
    }
    .news a {
-      color:#000;
+      color:#767e89;
    }
    .news a:hover{
-       color:#3a87ad;
+        color:#0088cc;
    }
    .news a:visited{
-       color:#000;
+       color:#767e89;
    }
    .second_part{
        float:left;
@@ -48,13 +49,13 @@
       width:350px;
    }
    .notice, a {
-      color:#000;
+     color:#767e89;
    }
    .notice a:hover{
-       color:#3a87ad;
+        color:#0088cc;
    }
    .notice a:visited{
-       color:#000;
+     color:#767e89;
    }
    .activity{
       float:left;
@@ -62,13 +63,13 @@
       margin-right: 20px;
    }
    .activity, a {
-      color:#000;
+     color:#767e89;
    }
    .activity a:hover{
-       color:#3a87ad;
+        color:#0088cc;
    }
    .activity a:visited{
-       color:#000;
+     color:#767e89;
    }
    .links{
        float:left;

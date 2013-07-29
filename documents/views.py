@@ -13,7 +13,7 @@ def get_news(request,id):
     try:
         news = News.objects.get(id=id)
         news.date = news.date.strftime('%Y-%m-%d')
-        return render_to_response('news.html',{'news':news})
+        return render_to_response('news.html',{'news':news,'user':request.user})
     except News.DoesNotExist:
         return render_to_response('error.html',{'msg':'news does not exist.'})
 
@@ -21,7 +21,7 @@ def get_notice(request,id):
     try:
         notice = Notice.objects.get(id=id)
         notice.date = notice.date.strftime('%Y-%m-%d')
-        return render_to_response('detail.html',{'detail':notice})
+        return render_to_response('detail.html',{'detail':notice,'user':request.user})
     except Notice.DoesNotExist:
         return render_to_response('error.html',{'msg':'notice does not exist.'})
 
@@ -29,7 +29,7 @@ def get_regulation(request,id):
     try:
         regulation = Regulation.objects.get(id=id)
         regulation.date = regulation.date.strftime('%Y-%m-%d')
-        return render_to_response('detail.html',{'detail':regulation})
+        return render_to_response('detail.html',{'detail':regulation,'user':request.user})
     except Regulation.DoesNotExist:
         return render_to_response('error.html',{'msg':'regulation does not exist.'})
 
@@ -47,7 +47,7 @@ def list_news(request,page):
         news_list = paginator.page(paginator.num_pages)
     for news in news_list:
         news.date = news.date.strftime('%Y-%m-%d')
-    return render_to_response('list.html',{'item_list':news_list,'title':u'新闻动态','type':'news'})
+    return render_to_response('list.html',{'item_list':news_list,'title':u'新闻动态','type':'news','user':request.user})
 
 def list_notice(request,type,page):
     #type 0 == all
@@ -68,7 +68,7 @@ def list_notice(request,type,page):
         notice_list = paginator.page(paginator.num_pages)
     for notice in notice_list:
         notice.date = notice.date.strftime('%Y-%m-%d')
-    return render_to_response('list.html',{'item_list':notice_list,'title':title,'type':'notice'})
+    return render_to_response('list.html',{'item_list':notice_list,'title':title,'type':'notice','user':request.user})
 
 def list_regulation(request,page):
     REGULATION_COUNT = 10
@@ -84,16 +84,20 @@ def list_regulation(request,page):
         regulation_list = paginator.page(paginator.num_pages)
     for regulation in regulation_list:
         regulation.date = regulation.date.strftime('%Y-%m-%d')
-    return render_to_response('list.html',{'item_list':regulation_list,'title':u'制度条例','type':'regulation'})
+    return render_to_response('list.html',
+                              {
+                                'item_list':regulation_list,
+                               'title':u'制度条例',
+                               'type':'regulation',
+                               'user':request.user
+                              })
 
 def list_price(request):
     price_list = Price.objects.all().order_by('-deadline')
     list = []
     for price in price_list:
         price_dic = {}
-        if price.deadline < date.today():
-            flag = -1
-        else:
+        if price.deadline >= date.today():
             try:
                 if request.user.is_active:
                     userStudent = UserStudent.objects.get(user = request.user)
@@ -104,16 +108,17 @@ def list_price(request):
                     flag = 0
             except StudentPrice.DoesNotExist:
                 flag = 0
-        price.date = price.date.strftime('%Y-%m-%d')
-        price.deadline = price.deadline.strftime('%Y-%m-%d')
-        price_dic[price] = flag
-        list.append(price_dic)
-    return render_to_response('price_list.html',{'price_list':list})
+            price.date = price.date.strftime('%Y-%m-%d')
+            price.deadline = price.deadline.strftime('%Y-%m-%d')
+            price_dic[price] = flag
+            list.append(price_dic)
+    return render_to_response('price_list.html',{'price_list':list,'user':request.user})
 
 def price_detail(request,id):
     try:
         price = Price.objects.get(id=id)
-        return render_to_response('price_detail.html',{'price':price})
+        price.date = price.date.strftime('%Y-%m-%d')
+        return render_to_response('price_detail.html',{'price':price,'user':request.user})
     except Price.DoesNotExist:
         return redirect(list_price)
 
@@ -149,7 +154,7 @@ def student_price(request):
         price.deadline = price.deadline.strftime('%Y-%m-%d')
         price_dic[studentPrice] = price
     print price_dic
-    return render_to_response('student_price.html',{'price_dic':price_dic})
+    return render_to_response('student_price.html',{'price_dic':price_dic,'user':request.user})
 
 @csrf_exempt
 @login_required(login_url='/user_login/')
@@ -166,6 +171,7 @@ def examine_price(request,id):
             context ={
                 'price': price,
                 'student_dic':student_dic,
+                'user':request.user,
             }
             return render_to_response('examine_price.html',context)
         else:
@@ -181,7 +187,7 @@ def examine_price(request,id):
                 price.save()
             return redirect(examine_price_list)
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @login_required(login_url='/user_login/')
 def examine_price_result(request,id):
@@ -196,10 +202,11 @@ def examine_price_result(request,id):
         context ={
             'price': price,
             'student_dic':student_dic,
+            'user':request.user,
         }
         return render_to_response('examine_price_result.html',context)
     else:
-        return render_to_response('permission_error.html')
+        return render_to_response('permission_error.html',{'user':request.user})
 
 @login_required(login_url='/user_login/')
 def examine_price_list(request):
@@ -209,7 +216,7 @@ def examine_price_list(request):
         for price in price_list:
             price.date = price.date.strftime('%Y-%m-%d')
             price.deadline = price.deadline.strftime('%Y-%m-%d')
-        return render_to_response('examine_price_list.html',{'price_list':price_list})
+        return render_to_response('examine_price_list.html',{'price_list':price_list,'user':request.user})
     else:
         return render_to_response('permission_error.html')
 
@@ -218,7 +225,7 @@ def attachment_list(request):
     attachment_list = Attachment.objects.all()
     for attachment in attachment_list:
         attachment.date = attachment.date.strftime('%Y-%m-%d')
-    return render_to_response('attachment_list.html',{'attachment_list':attachment_list})
+    return render_to_response('attachment_list.html',{'attachment_list':attachment_list,'user':request.user})
 
 @login_required(login_url='/user_login/')
 def get_attachment(request,id):
