@@ -39,4 +39,4 @@ class StudentActivity(models.Model):
 class ActivityForm(ModelForm):
     class Meta:
         model = Activity
-        exclude = ('status',)
+        exclude = ('status','publisher')

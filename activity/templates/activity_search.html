@@ -10,6 +10,8 @@
 {% block content %}
     <div style="width:900px" >
         <h3 class="text-info">活动信息管理</h3>
+        <a class="text-info" href="/add_activity/">我要发布活动</a>
+        <hr/>
         <form action="/search_activity/" method="post">
             活动名称：<input type="text" name="title">
             <select name="type">
@@ -41,7 +43,7 @@
                             <td>
                                 {% if activity.status %}
                                     已审核
-                                    <a href="/examine_result/{{ activity.id }}" class="text-info">查看</a>
+                                    <a href="/examine_result/{{ activity.id }}" class="text-info">[查看]</a>
                                 {% else %}
                                     <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
                                 {% endif %}

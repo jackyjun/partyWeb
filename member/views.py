@@ -9,6 +9,7 @@ from activity.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
+from datetime import *
 
 @csrf_exempt
 def user_login(request):
@@ -98,6 +99,7 @@ def back_student_info(request,id):
         form = StudentForm(instance=student)
         return render(request, 'back_student_info.html', {
             'form': form,
+            'student':student,
             'user':request.user,
         })
     else:
@@ -200,7 +202,11 @@ def branch_search(request):
         if int(branch):
             student_list = Student.objects.filter(party_branch_id = branch,political_status = status)
         else:
-            student_list = Student.objects.all()
+            student_list = Student.objects.filter(political_status = status)
+        for student in student_list:
+            if student.apply_party_time or student.join_party_time:
+                student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
+                student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
         if len(student_list)==0:
             status = u'0'
         context = {
@@ -209,6 +215,7 @@ def branch_search(request):
             'type': status,
             'user':request.user,
         }
+        print student_list
         return render_to_response('branch_search.html',context)
     else:
         return render_to_response('branch_search.html',{'branch_list':branch_list,'user':request.user})

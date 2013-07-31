@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3 class="text-info">个人信息</h3>
+    <h3 class="text-info">{{ student.student_id }}{{ student.name }}</h3>
     <div style="width:900px">
     <hr/>
         {% for field in form %}

@@ -9,8 +9,7 @@
 {% block content %}
     <h3 class="text-info">{{ activity.title }}活动审核</h3>
     <div style="width:900px">
-        <hr/>
-        <h4 class="text-info">活动报名列表</h4>
+        <!--<h4 class="text-info">活动报名列表</h4>-->
         活动时间:{{ activity.start_time }}
         <table class="table">
             <thead>
@@ -42,6 +41,6 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a href="/examine_activity/{{ activity.id }}" class="text-info">修改审核</a>
+        <a href="/examine_activity/{{ activity.id }}" class="text-info">修改审核结果</a>
     </div>
 {% endblock %}

@@ -25,7 +25,6 @@ def list_activity(request,type=5):
     if type != 5:
         activity_list = Activity.objects.filter(type=type).order_by('-deadline')
         title = choice[int(type)][1]
-        print title
     else:
         activity_list = Activity.objects.all().order_by('-deadline')
     list = []
@@ -62,7 +61,16 @@ def join_activity(request,type,id):
     user = request.user
     userStudent = UserStudent.objects.get(user = user)
     student = userStudent.student
-    StudentActivity.objects.get_or_create(student_id = student.id,activity_id = id)
+    try:
+        activity = Activity.objects.get(id=id)
+        if activity.deadline >= date.today():
+            StudentActivity.objects.get_or_create(student_id = student.id,activity_id = id)
+        else:
+            print("late for deadline,u can't join it.")
+    except Activity.DoesNotExist:
+        print('activity does not exist')
+
+
     return redirect('/list_activity/%s'%type)
 
 @login_required(login_url='/user_login/')
@@ -72,9 +80,14 @@ def cancel_activity(request,type,id):
     student = userStudent.student
     try:
         studentActivity = StudentActivity.objects.get(student_id = student.id,activity_id = id)
-        studentActivity.delete()
+        activity = Activity.objects.get(id=id)
+        if activity.deadline >= date.today():
+            studentActivity.delete()
+        else:
+            print('time error')
         return redirect('/list_activity/%s'%type)
     except StudentActivity.DoesNotExist:
+        print('activity error')
         return redirect('/list_activity/%s'%type)
 
 @login_required(login_url='/user_login/')
@@ -83,7 +96,14 @@ def add_activity(request):
         if request.method == 'POST':
             form = ActivityForm(request.POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
-                form.save()
+                activity = form.save(commit=False)
+                try:
+                    userStudent = UserStudent.objects.get(user = request.user)
+                    student = userStudent.student
+                    activity.publisher = student.name
+                except UserStudent.DoesNotExist:
+                    activity.publisher = u'管理员'
+                activity.save()
                 return render_to_response('activity_search.html',{'user':request.user})
         else:
             form = ActivityForm()
@@ -100,10 +120,14 @@ def modify_activity(request,id):
     activity = Activity.objects.get(id=id)
     if user.is_staff:
         if request.method == 'POST':
-            form = ActivityForm(request.POST,instance=activity) # A form bound to the POST data
-            if form.is_valid(): # All validation rules pass
+            form = ActivityForm(request.POST,instance=activity)
+            if form.is_valid():
                 form.save()
-                return render_to_response('activity_search.html',{'user':request.user})
+                return render_to_response('activity_search.html',
+                                          {'user':request.user,
+                                           'prompt':True,
+                                           'prompt_msg':'活动信息修改成功！',
+                                          })
         else:
             form = ActivityForm(instance=activity)
         return render(request, 'modify_activity.html', {

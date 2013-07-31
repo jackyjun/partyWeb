@@ -15,7 +15,7 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">{{ branch.name }}信息</h3>
-    <a href="/branch_summary/" class="text-info" >返回党支部信息列表</a>
+    <a href="/branch_summary/" class="text-info" ><<党支部结构</a>
     <div style="width:900px">
         <hr/>
         <h4 class="text-info">正式党员信息</h4>
@@ -32,7 +32,13 @@
                     <tr>
                         <td>{{ official.student_id }}</td>
                         <td>{{ official.name }}</td>
-                        <td>{{ official.join_party_time }}</td>
+                        <td>
+                            {% if official.join_party_time %}
+                                {{ official.join_party_time }}
+                            {% else %}
+                                无
+                            {% endif %}
+                        </td>
                     </tr>
                 {%  endfor %}
             </tbody>
@@ -51,7 +57,13 @@
                     <tr>
                         <td>{{ probationary.student_id }}</td>
                         <td>{{ probationary.name }}</td>
-                        <td>{{ probationary.join_party_time }}</td>
+                        <td>
+                            {% if probationary.join_party_time %}
+                                {{ probationary.join_party_time }}
+                            {% else %}
+                                无
+                            {% endif %}
+                        </td>
                     </tr>
                 {%  endfor %}
             </tbody>
@@ -70,7 +82,13 @@
                     <tr>
                         <td>{{ activist.student_id }}</td>
                         <td>{{ activist.name }}</td>
-                        <td>{{ activist.join_party_time }}</td>
+                        <td>
+                            {% if activist.join_party_time %}
+                                {{ activist.join_party_time }}
+                            {% else %}
+                                无
+                            {% endif %}
+                        </td>
                     </tr>
                 {%  endfor %}
             </tbody>
@@ -89,7 +107,13 @@
                     <tr>
                         <td>{{ masses.student_id }}</td>
                         <td>{{ masses.name }}</td>
-                        <td>{{ masses.league_member}}</td>
+                        <td>
+                            {% if masses.league_member %}
+                                是
+                            {% else %}
+                                否
+                            {% endif %}
+                        </td>
                     </tr>
                 {%  endfor %}
             </tbody>

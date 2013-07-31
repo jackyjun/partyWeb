@@ -23,6 +23,11 @@
     {{ error }}
 </div>
 {% endif %}
+{% if prompt %}
+    <script type="text/javascript">
+        alert("{{ prompt_msg }}");
+    </script>
+{% endif %}
 <div class="bodypart">
 {% block content %}
 

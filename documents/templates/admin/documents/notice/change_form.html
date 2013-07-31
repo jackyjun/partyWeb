@@ -9,6 +9,12 @@
     tinymce.init({
         selector: "textarea",
         language : 'zh_CN',
+        plugins: [
+        "advlist autolink lists charmap print preview anchor",
+        "searchreplace visualblocks  fullscreen",
+        "insertdatetime table contextmenu paste preview textcolor"
+        ],
+        toolbar: "insertfile undo redo preview | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
         width:"900px",
         height:"200px"
      });

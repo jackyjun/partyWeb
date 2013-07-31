@@ -1,12 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block title %}
-    文件下载
+    {{ title }}
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">文件下载</h3>
-    {% for attachment in attachment_list %}
-        <div style="font-size:15px;margin-bottom: 5px;">
-            <a href="/get_attachment/{{ attachment.id }}">{{ attachment.title }}&nbsp;&nbsp;&nbsp;&nbsp;{{ attachment.date }}</a><br/>
-        </div>
-    {% endfor %}
+    <h3 class="text-info">文件管理</h3>
+    <div style="width:900px">
+    <a class="text-info" href="/upload_attachment/">我要上传文件</a>
+    <hr/>
+    <table class="table">
+        <thead>
+            <tr>
+                <td><h5>文件名</h5></td>
+                <td><h5>上传日期</h5></td>
+                <td><h5>操作</h5></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attachment in attachment_list %}
+                <tr>
+                    <td>{{ attachment.title }}</td>
+                    <td>{{ attachment.date }}</td>
+                    <td>
+                        <a class="text-info" href="/get_attachment/{{ attachment.id }}">下载</a>
+                        <a class="text-info" href="/delete_attachment/{{ attachment.id }}">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
 {% endblock %}

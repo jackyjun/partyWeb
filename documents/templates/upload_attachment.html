@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block head_part %}
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#id_date').datepicker({
+                dateFormat:"yy-mm-dd",
+                changeMonth:true,
+                changeYear:true
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">文件上传</h3>
+    <div style="width:900px">
+    <hr/>
+        <form action="/upload_attachment/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {% for field in form %}
+                <div style="margin-bottom: 10px;">
+                    <div style="font-size:14px;margin-bottom: 10px;">
+                        <div style="float:left;width:110px;">{{ field.label}}</div>
+                        <div>&nbsp;{{ field }}</div>
+                 </div>
+             {% endfor %}
+            <p><input type="submit" class="btn" value="上传" /></p>
+        </form>
+    </div>
+{% endblock %}

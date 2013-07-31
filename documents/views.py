@@ -5,10 +5,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from member.models import UserStudent,Student
-from models import News,Regulation,Notice,Price,StudentPrice,Attachment
+from models import News,Regulation,Notice,Price,StudentPrice,Attachment,AttachmentForm
 from django.contrib.auth.decorators import login_required
 from datetime import *
 from django.http import HttpResponse
+
 def get_news(request,id):
     try:
         news = News.objects.get(id=id)
@@ -222,16 +223,45 @@ def examine_price_list(request):
 
 @login_required(login_url='/user_login/')
 def attachment_list(request):
-    attachment_list = Attachment.objects.all()
-    for attachment in attachment_list:
-        attachment.date = attachment.date.strftime('%Y-%m-%d')
-    return render_to_response('attachment_list.html',{'attachment_list':attachment_list,'user':request.user})
+    if request.user.is_staff:
+        attachment_list = Attachment.objects.all().order_by('-date')
+        for attachment in attachment_list:
+            attachment.date = attachment.date.strftime('%Y-%m-%d')
+        return render_to_response('attachment_list.html',{'attachment_list':attachment_list,'user':request.user})
+    else:
+        return render_to_response('permission_error.html')
 
 @login_required(login_url='/user_login/')
 def get_attachment(request,id):
-    attachment = Attachment.objects.get(id=id)
-    file = attachment.file
-    response = HttpResponse(file)
-    response['Content-Disposition'] = 'attachment; filename="%s"'%file.name
-    return response
+    if request.user.is_staff:
+        attachment = Attachment.objects.get(id=id)
+        file = attachment.file
+        response = HttpResponse(file)
+        response['Content-Disposition'] = 'attachment; filename="%s"'%file.name
+        return response
+    else:
+        return render_to_response('permission_error.html')
 
+def upload_attachment(request):
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = AttachmentForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect(attachment_list)
+        else:
+            form = AttachmentForm()
+        return render(request, 'upload_attachment.html', {'form': form})
+    else:
+        return render_to_response('')
+
+def delete_attachment(request,id):
+    if request.user.is_staff:
+        try:
+            attachment = Attachment.objects.get(id=id)
+            attachment.delete()
+            return redirect(attachment_list)
+        except Attachment.DoesNotExist:
+            print('attachment does not exist')
+    else:
+        return render_to_response('permission_error.html')

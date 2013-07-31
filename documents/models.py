@@ -75,3 +75,7 @@ class StudentPrice(models.Model):
     student = models.ForeignKey(Student)
     price = models.ForeignKey(Price)
     status = models.IntegerField(max_length=1,choices=STATUS_CHOICE,default=1)
+
+class AttachmentForm(ModelForm):
+     class Meta:
+        model = Attachment

@@ -1,18 +1,16 @@
-<!--base page-->
 {% extends 'base2.html' %}
 {% block title %}
     首页
 {% endblock %}
 {% block head_part %}
+    <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/nivo-slider/themes/light/light.css" type="text/css" />
+    <link rel="stylesheet" href="/static/nivo-slider/nivo-slider.css" type="text/css"  />
     <link rel="stylesheet" href="/static/css/home2.css" type="text/css" />
-    <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/static/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/static/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/static/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
     <script type="text/javascript" src="/static/nivo-slider/jquery.nivo.slider.js"></script>
     <script type="text/javascript">
-        $(window).load(function() {
-            $('#slider').nivoSlider();
+        $(document).ready(function(){
+           $('#slider').nivoSlider();
         });
     </script>
 {% endblock %}

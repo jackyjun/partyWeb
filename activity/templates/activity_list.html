@@ -36,7 +36,7 @@
                         {% elif flag == -1 %}
                             已结束报名
                         {% else %}
-                             <a class="text-info" href="/cancel_activity/{{ type }}/{{ activity.id }}">取消报名</a>
+                             已报名<a class="text-info" href="/cancel_activity/{{ type }}/{{ activity.id }}">[取消报名]</a>
                         {% endif %}
                     </td>
                     <td><a class="text-info" href="/activity_detail/{{ activity.id }}">详情</a> </td>
