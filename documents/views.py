@@ -113,7 +113,29 @@ def list_price(request):
             price.deadline = price.deadline.strftime('%Y-%m-%d')
             price_dic[price] = flag
             list.append(price_dic)
-    return render_to_response('price_list.html',{'price_list':list,'user':request.user})
+    prompt_msg = {
+        '1':u'申请奖项成功！',
+        '2':u'取消申请奖项成功！',
+        '-1':u'超过截止时间,无法申请！',
+        '-2':u'奖项不存在',
+        '-3':u'超过截止时间，无法取消申请',
+        '-4':u'未申请此奖项！',
+    }
+    if 'status' in request.GET:
+        prompt = request.GET['status']
+    else:
+        prompt = 0
+    if int(prompt)!=0:
+        context = {
+            'price_list':list,
+            'prompt':True,
+            'prompt_msg': prompt_msg[prompt],
+        }
+    else:
+        context = {
+            'price_list':list,
+        }
+    return render(request,'price_list.html',context)
 
 def price_detail(request,id):
     try:
@@ -128,8 +150,16 @@ def apply_price(request,id):
     user = request.user
     userStudent = UserStudent.objects.get(user = user)
     student = userStudent.student
-    StudentPrice.objects.get_or_create(student_id = student.id,price_id = id)
-    return redirect(list_price)
+    try:
+        price = Price.objects.get(id=id)
+        if price.deadline >= date.today():
+            StudentPrice.objects.get_or_create(student_id = student.id,price_id = id)
+            status = 1
+        else:
+            status = -1
+    except Price.DoesNotExist:
+        status = -2
+    return redirect('/list_price?status=%s'%status)
 
 @login_required(login_url='/user_login/')
 def cancel_price(request,id):
@@ -137,11 +167,16 @@ def cancel_price(request,id):
     userStudent = UserStudent.objects.get(user = user)
     student = userStudent.student
     try:
-        studentPrice= StudentPrice.objects.get(student_id = student.id,price_id = id)
-        studentPrice.delete()
-        return redirect(list_price)
+        price = Price.objects.get(id=id)
+        if price.deadline >date.today():
+            studentPrice= StudentPrice.objects.get(student_id = student.id,price_id = id)
+            studentPrice.delete()
+            status = 2
+        else:
+            status = -3
     except StudentPrice.DoesNotExist:
-        return redirect(list_price)
+        status = -4
+    return redirect('/list_price?status=%s'%status)
 
 @login_required(login_url='/user_login/')
 def student_price(request):
@@ -186,7 +221,7 @@ def examine_price(request,id):
                 studentPrice.save()
                 price.status = True
                 price.save()
-            return redirect(examine_price_list)
+            return redirect('/examine_price_list/?examine=True')
     else:
         return render_to_response('permission_error.html',{'user':request.user})
 
@@ -211,13 +246,22 @@ def examine_price_result(request,id):
 
 @login_required(login_url='/user_login/')
 def examine_price_list(request):
-    #examine price list
     if request.user.is_superuser:
         price_list = Price.objects.all()
         for price in price_list:
             price.date = price.date.strftime('%Y-%m-%d')
             price.deadline = price.deadline.strftime('%Y-%m-%d')
-        return render_to_response('examine_price_list.html',{'price_list':price_list,'user':request.user})
+        if 'examine' in request.GET:
+            context= {
+                'price_list':price_list,
+                'prompt':True,
+                'prompt_msg':'审核成功！',
+            }
+        else:
+            context = {
+                'price_list':price_list,
+            }
+        return render(request,'examine_price_list.html',context)
     else:
         return render_to_response('permission_error.html')
 

@@ -6,11 +6,22 @@
             width:300px;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $("a[name='delete']").click(function(){
+                var flag = confirm('确认删除该活动？');
+                if(flag){
+                    var id = $(this).attr("id");
+                    location.href="/delete_activity/"+id;
+                }
+            });
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <div style="width:900px" >
         <h3 class="text-info">活动信息管理</h3>
-        <a class="text-info" href="/add_activity/">我要发布活动</a>
+        <a class="text-info" href="/student_center/"><<用户中心</a><br/>
         <hr/>
         <form action="/search_activity/" method="post">
             活动名称：<input type="text" name="title">
@@ -23,44 +34,55 @@
             </select>
             <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
         </form>
-                {% if flag == True%}
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td><h5>活动名称</h5></td>
-                                <td><h5>活动发起人</h5></td>
-                                <td><h5>活动时间</h5></td>
-                                <td><h5>审核状态</h5></td>
-                                <td><h5>操作</h5></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    {% for activity in activity_list %}
+        <a class="text-info" href="/add_activity/">我要发布活动</a>
+        {% if flag == True%}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>活动名称</h5></td>
+                        <td><h5>活动发起人</h5></td>
+                        <td><h5>活动时间</h5></td>
+                        <td><h5>审核状态</h5></td>
+                        <td><h5>操作</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in need_examine_activity_list %}
                         <tr>
                             <td>{{ activity.title }}</td>
                             <td>{{ activity.publisher }}</td>
                             <td>{{ activity.start_time }}</td>
                             <td>
-                                {% if activity.status %}
-                                    已审核
-                                    <a href="/examine_result/{{ activity.id }}" class="text-info">[查看]</a>
-                                {% else %}
-                                    <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
-                                {% endif %}
+                                <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
                             </td>
                             <td>
-                                <a href="/activity_detail/{{ activity.id }}" class="text-info">查看</a>
-                                <a href="/modify_activity/{{ activity.id }}" class="text-info">修改</a>
-                                <a href="/delete_activity/{{ activity.id }}" class="text-info">删除</a>
+                                <a href="/activity_detail/{{ activity.id }}" class="text-info" target="_blank">查看</a>
+                                <a href="/modify_activity/{{ activity.id }}" class="text-info" target="_blank">修改</a>
+                                <a class="text-info" style="cursor: pointer" name="delete" id="{{ activity.id }}">删除</a>
                             </td>
                         </tr>
                     {%  endfor %}
-                        </tbody>
-                        </table>
-                {% elif flag == False %}
-                    <div class="text-info">未搜索到结果。</div>
-                {% else %}
-                {% endif %}
+                    {% for activity in examine_activity_list %}
+                        <tr>
+                            <td>{{ activity.title }}</td>
+                            <td>{{ activity.publisher }}</td>
+                            <td>{{ activity.start_time }}</td>
+                            <td>
+                                已审核<a href="/examine_result/{{ activity.id }}" class="text-info" target="_blank">[查看]</a>
+                            </td>
+                            <td>
+                                <a href="/activity_detail/{{ activity.id }}" class="text-info" target="_blank">查看</a>
+                                <a href="/modify_activity/{{ activity.id }}" class="text-info" target="_blank">修改</a>
+                                <a class="text-info" style="cursor: pointer" name="delete" id="{{ activity.id }}">删除</a>
+                            </td>
+                        </tr>
+                    {%  endfor %}
+                </tbody>
+                </table>
+        {% elif flag == False %}
+            <div class="text-info">未搜索到结果。</div>
+        {% else %}
+        {% endif %}
 
 
     </div>

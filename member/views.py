@@ -65,15 +65,22 @@ def student_info(request):
         form = StudentForm(request.POST,instance=student) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             form.save()
-            return redirect(student_info)
+            return redirect('/student_info?update=True')
     else:
         userStudent = UserStudent.objects.get(user = user)
         student = userStudent.student
         form = StudentForm(instance=student)
-    return render(request, 'student_info.html', {
-        'form': form,
-        'user':user,
-    })
+        if 'update'in request.GET:
+            context = {
+                'prompt':True,
+                'prompt_msg':'修改成功',
+                'form': form,
+            }
+        else:
+            context = {
+                'form': form,
+            }
+    return render(request, 'student_info.html', context)
 
 @login_required(login_url='/user_login/')
 def student_center(request):

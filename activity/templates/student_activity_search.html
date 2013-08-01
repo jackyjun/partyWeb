@@ -18,6 +18,7 @@
             </select>
             <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
         </form>
+        <a class="text-info" href="/student_center/"><<用户中心</a>
                 {% if flag == True%}
                     <table class="table">
                         <thead>
@@ -31,11 +32,11 @@
                         <tbody>
                     {% for student,count in activity_dic.items %}
                         <tr>
-                            <td><a class="text-info" href="/back_student_info/{{ student.id }}">{{ student.student_id }}</a></td>
+                            <td><a class="text-info" href="/back_student_info/{{ student.id }}" target="_blank">{{ student.student_id }}</a></td>
                             <td>{{ student.name }}</td>
                             <td>{{ count }}</td>
                             <td>
-                                <a href="/student_activity_detail/{{ student.id }}" class="text-info">详情</a>
+                                <a href="/student_activity_detail/{{ student.id }}" class="text-info" target="_blank">详情</a>
                             </td>
                         </tr>
                     {%  endfor %}

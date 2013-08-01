@@ -8,6 +8,18 @@
             text-align: center;
         }
     </style>
+    <script>
+    $(document).ready(function(){
+        $("a[name='cancel']").click(function(){
+            var flag = confirm('确认取消报名？');
+            if(flag){
+                var id = $(this).attr("id");
+                var type = $(this).attr("rel");
+                location.href="/cancel_activity/"+type+"/"+id;
+            }
+        });
+    });
+    </script>
 {% endblock %}
 {% block content %}
     <h3 class="text-info">{{ title }}信息</h3>
@@ -36,10 +48,10 @@
                         {% elif flag == -1 %}
                             已结束报名
                         {% else %}
-                             已报名<a class="text-info" href="/cancel_activity/{{ type }}/{{ activity.id }}">[取消报名]</a>
+                             已报名<a rel="{{ type }}"style="cursor:pointer;" class="text-info" name="cancel" id="{{ activity.id }}" >[取消报名]</a>
                         {% endif %}
                     </td>
-                    <td><a class="text-info" href="/activity_detail/{{ activity.id }}">详情</a> </td>
+                    <td><a class="text-info" href="/activity_detail/{{ activity.id }}" target="_blank">详情</a> </td>
                 </tr>
                 {% endfor %}
             {% endfor %}

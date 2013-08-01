@@ -1,4 +1,7 @@
 {% extends 'base.html'%}
+{% block title %}
+    活动情况
+{% endblock %}
 {% block head_part %}
     <style>
         .table td{
@@ -8,6 +11,7 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">{{ student.student_id }}{{ student.name }}的活动情况</h3>
+    <a class="text-info" href="/student_center/"> <<用户中心</a>
     <div style="width:900px">
         <table class="table">
             <thead>

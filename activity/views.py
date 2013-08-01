@@ -19,6 +19,10 @@ def get_activity(request,id):
                               })
 
 def list_activity(request,type=5):
+    if 'prompt' in request.GET:
+        prompt = request.GET['prompt']
+    else:
+        prompt = -1
     choice = Activity.TYPE_CHOICE
     user = request.user
     title = u'活动'
@@ -48,13 +52,32 @@ def list_activity(request,type=5):
         activity.deadline = activity.deadline.strftime('%Y-%m-%d')
         activity_dic[activity] = flag
         list.append(activity_dic)
-    return render_to_response('activity_list.html',
-                              {
-                               'activity_list':list,
-                               'title':title,
-                               'type':type,
-                               'user':request.user,
-                              })
+    #prompt dic
+    prompt_msg = {
+        '0':u'取消报名活动成功！',
+        '1':u'报名活动成功！',
+        '-2':u'超过截止时间,无法报名！',
+        '-3':u'活动不存在',
+        '-4':u'超过截止时间，无法取消报名',
+        '-5':u'未报名此活动！',
+    }
+    if int(prompt)!=-1:
+        context = {
+            'activity_list':list,
+            'title':title,
+            'type':type,
+            'user':request.user,
+            'prompt':True,
+            'prompt_msg': prompt_msg[prompt],
+        }
+    else:
+        context = {
+            'activity_list':list,
+            'title':title,
+            'type':type,
+            'user':request.user,
+        }
+    return render_to_response('activity_list.html',context)
 
 @login_required(login_url='/user_login/')
 def join_activity(request,type,id):
@@ -65,13 +88,14 @@ def join_activity(request,type,id):
         activity = Activity.objects.get(id=id)
         if activity.deadline >= date.today():
             StudentActivity.objects.get_or_create(student_id = student.id,activity_id = id)
+            status = 1
         else:
             print("late for deadline,u can't join it.")
+            status = -2
     except Activity.DoesNotExist:
         print('activity does not exist')
-
-
-    return redirect('/list_activity/%s'%type)
+        status = -3
+    return redirect('/list_activity/%s?prompt=%s'%(type,status))
 
 @login_required(login_url='/user_login/')
 def cancel_activity(request,type,id):
@@ -83,12 +107,12 @@ def cancel_activity(request,type,id):
         activity = Activity.objects.get(id=id)
         if activity.deadline >= date.today():
             studentActivity.delete()
+            status = 0
         else:
-            print('time error')
-        return redirect('/list_activity/%s'%type)
+            status = -4
     except StudentActivity.DoesNotExist:
-        print('activity error')
-        return redirect('/list_activity/%s'%type)
+        status = -5
+    return redirect('/list_activity/%s?prompt=%s'%(type,status))
 
 @login_required(login_url='/user_login/')
 def add_activity(request):
@@ -104,7 +128,7 @@ def add_activity(request):
                 except UserStudent.DoesNotExist:
                     activity.publisher = u'管理员'
                 activity.save()
-                return render_to_response('activity_search.html',{'user':request.user})
+                return redirect('/search_activity?operate=1')
         else:
             form = ActivityForm()
         return render(request, 'add_activity.html', {
@@ -112,31 +136,26 @@ def add_activity(request):
             'user':request.user,
         })
     else:
-        return render_to_response('permission_error.html')
+        return render(request,'permission_error.html')
 
 @login_required(login_url='/user_login/')
 def modify_activity(request,id):
     user = request.user
-    activity = Activity.objects.get(id=id)
     if user.is_staff:
-        if request.method == 'POST':
-            form = ActivityForm(request.POST,instance=activity)
-            if form.is_valid():
-                form.save()
-                return render_to_response('activity_search.html',
-                                          {'user':request.user,
-                                           'prompt':True,
-                                           'prompt_msg':'活动信息修改成功！',
-                                          })
-        else:
-            form = ActivityForm(instance=activity)
-        return render(request, 'modify_activity.html', {
-            'form': form,
-            'id':id,
-            'user':request.user,
-        })
+        try:
+            activity = Activity.objects.get(id=id)
+            if request.method == 'POST':
+                form = ActivityForm(request.POST,instance=activity)
+                if form.is_valid():
+                    form.save()
+                    return redirect('/search_activity?operate=2')
+            else:
+                form = ActivityForm(instance=activity)
+            return render(request, 'modify_activity.html', {'form': form,'id':id})
+        except Activity.DoesNotExist:
+            return redirect('/search_activity?operate=5')
     else:
-        return render_to_response('permission_error.html',{'user':request.user})
+        return render(request,'permission_error.html')
 
 @login_required(login_url='/user_login/')
 def delete_activity(request,id):
@@ -144,10 +163,14 @@ def delete_activity(request,id):
     if user.is_staff:
         try:
             activity = Activity.objects.get(id = id)
-            activity.delete()
-            return render_to_response('activity_search.html',{'user':request.user})
+            count = StudentActivity.objects.filter(activity=activity).count()
+            if count ==0:
+                activity.delete()
+                return redirect('/search_activity?operate=3')
+            else:
+                return redirect('/search_activity?operate=6')
         except Activity.DoesNotExist:
-            return render_to_response('activity_search.html',{'user':request.user})
+            return redirect('/search_activity?operate=5')
     else:
         return render_to_response('permission_error.html',{'user':request.user})
 
@@ -161,32 +184,59 @@ def search_activity(request):
             type = request.POST['type']
             flag = True
             if int(type)!= -1:
-                list = Activity.objects.filter(type=type)
+                list = Activity.objects.filter(type=type,title__contains=title).order_by('-start_time')
             else:
-                list = Activity.objects.all()
-            activity_list = []
+                list = Activity.objects.filter(title__contains=title).order_by('-start_time')
+            examine_activity_list = []
+            need_examine_activity_list = []
             for activity in list:
-                if title in activity.title:
-                    activity.start_time = activity.start_time.strftime('%Y-%m-%d')
-                    activity_list.append(activity)
-            if len(activity_list)==0:
+                activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+                if activity.status:
+                    examine_activity_list.append(activity)
+                else:
+                    need_examine_activity_list.append(activity)
+            if len(need_examine_activity_list)==0 and len(examine_activity_list)==0:
                 flag = False
             context = {
-                'activity_list':activity_list,
+                'examine_activity_list':examine_activity_list,
+                'need_examine_activity_list':need_examine_activity_list,
                 'flag':flag,
-                'user':request.user,
             }
-            return render_to_response('activity_search.html',context)
+            return render(request,'activity_search.html',context)
         else:
-            activity_list = Activity.objects.all()
+            activity_list = Activity.objects.all().order_by('-start_time')
+            examine_activity_list = []
+            need_examine_activity_list = []
             for activity in activity_list:
                 activity.start_time = activity.start_time.strftime('%Y-%m-%d')
-            context = {
-                'activity_list':activity_list,
-                'flag':True,
-                'user':request.user,
-            }
-            return render_to_response('activity_search.html',context)
+                if activity.status:
+                    examine_activity_list.append(activity)
+                else:
+                    need_examine_activity_list.append(activity)
+            if 'operate' in request.GET:
+                operate = request.GET['operate']
+                operate_dic = {
+                    '1':u'发布活动成功',
+                    '2':u'修改活动成功',
+                    '3':u'删除活动成功',
+                    '4':u'审核活动成功',
+                    '5':u'此活动不存在',
+                    '6':u'此活动已有人报名，无法删除'
+                }
+                context = {
+                    'prompt':True,
+                    'prompt_msg':operate_dic[operate],
+                    'need_examine_activity_list':need_examine_activity_list,
+                    'examine_activity_list':examine_activity_list,
+                    'flag':True,
+                }
+            else:
+                context = {
+                    'need_examine_activity_list':need_examine_activity_list,
+                    'examine_activity_list':examine_activity_list,
+                    'flag':True,
+                }
+            return render(request,'activity_search.html',context)
     else:
         return render_to_response('permission_error.html',{'user':request.user})
 
@@ -222,7 +272,7 @@ def examine_activity(request,id):
                 studentActivity.save()
             activity.status = True
             activity.save()
-            return redirect(search_activity)
+            return redirect('/search_activity?operate=4')
     else:
         return render_to_response('permission_error.html',{'user':request.user})
 

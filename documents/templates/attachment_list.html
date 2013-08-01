@@ -8,12 +8,24 @@
             text-align: center;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $("a[name='cancel']").click(function(){
+                var flag = confirm('确认删除？');
+                if(flag){
+                    var id = $(this).attr("id");
+                    location.href="/delete_attachment/"+id;
+                }
+            });
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <h3 class="text-info">文件管理</h3>
     <div style="width:900px">
-    <a class="text-info" href="/upload_attachment/">我要上传文件</a>
+    <a class="text-info" href="/student_center/"><<用户中心</a><br/>
     <hr/>
+    <a class="text-info" href="/upload_attachment/">我要上传文件</a>
     <table class="table">
         <thead>
             <tr>
@@ -29,7 +41,7 @@
                     <td>{{ attachment.date }}</td>
                     <td>
                         <a class="text-info" href="/get_attachment/{{ attachment.id }}">下载</a>
-                        <a class="text-info" href="/delete_attachment/{{ attachment.id }}">删除</a>
+                        <a class="text-info" name="cancel" style="cursor: pointer;" id="{{ attachment.id }}">删除</a>
                     </td>
                 </tr>
             {% endfor %}

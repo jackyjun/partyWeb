@@ -9,9 +9,8 @@
 {% block content %}
     <h3 class="text-info">{{ price.title }}奖项审核</h3>
     <div style="width:900px">
-        <hr/>
-        <h4 class="text-info">奖项申请列表</h4>
         奖项发布时间:{{ price.date }}
+        <hr/>
         <form action="/examine_price/{{ price.id }}" method="post">
             <table class="table">
                 <thead>

@@ -11,6 +11,7 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">奖项审核管理</h3>
+    <a class="text-info" href="/student_center/"><<用户中心</a>
     <div style="width:900px">
     <table class="table">
         <thead>
@@ -32,10 +33,10 @@
                         {% if price.status == False %}
                             <a class="text-info" href="/examine_price/{{ price.id }}">未审核</a>
                         {% else %}
-                             已审核<a class="text-info" href="/examine_price_result/{{ price.id }}">(查看)</a>
+                             已审核<a class="text-info" href="/examine_price_result/{{ price.id }} "target="_blank">(查看)</a>
                         {% endif %}
                     </td>
-                    <td><a class="text-info" href="/price_detail/{{ price.id }}">详情</a> </td>
+                    <td><a class="text-info" href="/price_detail/{{ price.id }}" target="_blank">详情</a> </td>
                 </tr>
             {% endfor %}
         </tbody>

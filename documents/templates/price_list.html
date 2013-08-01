@@ -8,10 +8,21 @@
             text-align: center;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $("a[name='cancel']").click(function(){
+                var flag = confirm('确认取消申请？');
+                if(flag){
+                    var id = $(this).attr("id");
+                    location.href="/cancel_price/"+id;
+                }
+            });
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <h3 class="text-info">可申请奖项信息</h3>
-    <a href="/student_center/"> <<用户中心</a>
+    <a class="text-info" href="/student_center/"> <<用户中心</a>
     <div style="width:900px">
     <table class="table">
         <thead>
@@ -34,10 +45,10 @@
                         {% elif flag == -1 %}
                             已结束申请
                         {% else %}
-                             已申请<a class="text-info" href="/cancel_price/{{ price.id }}">[取消申请]</a>
+                             已申请<a class="text-info" style="cursor:pointer;" id="{{ price.id }}" name="cancel">[取消申请]</a>
                         {% endif %}
                     </td>
-                    <td><a class="text-info" href="/price_detail/{{ price.id }}">详情</a> </td>
+                    <td><a class="text-info" href="/price_detail/{{ price.id }}" target="_blank">详情</a> </td>
                 </tr>
                 {% endfor %}
             {% endfor %}

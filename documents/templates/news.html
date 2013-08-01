@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% block title %}{{ news.title }}{% endblock %}
 {% block content %}
     <div class="text-center" style="width: 900px">
         <h3>{{news.title}}</h3>
         <hr style="margin:0 auto 0 auto;width:300px;">
         <h5>{{ news.publisher }} &nbsp; &nbsp; &nbsp;{{ news.date }}</h5>
             <hr style="margin:0 auto 5px auto;width:300px;">
-        <img src="/static/media/{{news.image}}" width="200px" height="200px"/>
+        <img src="/static/media/{{news.image}}" width="400px" height="400px"/>
         <div style="margin-top: 20px;">
             {% autoescape off %}
                 {{ news.content }}
