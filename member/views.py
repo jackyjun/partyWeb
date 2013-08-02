@@ -43,14 +43,14 @@ def login_view(request):
                 login(request, user)
                 #s = Student(user_id = user.id,party_branch_id=1)
                 #s.save()
-                return redirect('/home/')
+                return redirect('/student_center/')
             else:
-              return render_to_response('login.html',{'errorMsg':'登录错误'})
+                return render(request,'login.html',{'errorMsg':'登录错误'})
         else:
             # Return an 'invalid login' error message.
-            return render_to_response('login.html',{'errorMsg':'用户名或密码错误'})
+            return render(request,'login.html',{'errorMsg':'用户名或密码错误'})
     else:
-        return render_to_response('login.html')
+        return render(request,'login.html')
 
 def user_logout(request):
       logout(request)
@@ -64,7 +64,12 @@ def student_info(request):
         student = userStudent.student
         form = StudentForm(request.POST,instance=student) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            form.save()
+            student = form.save(commit=False)
+            if student.party_branch_id:
+                student.save()
+            else:
+                student.party_branch_id = 1
+                student.save()
             return redirect('/student_info?update=True')
     else:
         userStudent = UserStudent.objects.get(user = user)
@@ -85,19 +90,15 @@ def student_info(request):
 @login_required(login_url='/user_login/')
 def student_center(request):
     student = UserStudent.objects.get(user = request.user).student
-    if request.user.is_staff:
-        if request.user.is_superuser:
-            permission = 0
-        else:
-            permission = 1
-    else:
-        permission = 2
-    return render_to_response('student_center.html',
-                              {'student':student,
-                               'permission':permission,
-                               'user':request.user,
-                              })
+    return render(request,'student_center.html',{'student':student})
 
+@login_required(login_url='/user_login/')
+def admin_center(request):
+    student = UserStudent.objects.get(user = request.user).student
+    if request.user.is_staff:
+        return render(request,'admin_center.html',{'student':student})
+    else:
+        return render(request,'permission_error.html')
 @login_required(login_url='/user_login/')
 def back_student_info(request,id):
     user = request.user
@@ -167,9 +168,8 @@ def branch_assessment(request):
     return render_to_response('branch_assessment.html',context)
 
 def home(request):
-    user = request.user
-    NEWS_NUMBER = 5
-    Notice_NUMBER = 5
+    NEWS_NUMBER = 8
+    Notice_NUMBER = 8
     ACTIVITY_NUMBER = 3
     news = News.objects.all().order_by('-date')[:NEWS_NUMBER]
     notices = Notice.objects.all().order_by('-date')[:Notice_NUMBER]
@@ -189,10 +189,11 @@ def home(request):
         item.start_time = item.start_time.strftime('%Y-%m-%d')
     for item in other_activity:
         item.start_time = item.start_time.strftime('%Y-%m-%d')
+    branch_list = PartyBranch.objects.all()[:5]
     context = {
-        'user':user,
         'news':news,
         'notices':notices,
+        'branch_list':branch_list,
         'graduates_activity':graduates_activity,
         'youth_activity':youth_activity,
         'party_activity':party_activity,

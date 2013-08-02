@@ -6,7 +6,9 @@
         <hr style="margin:0 auto 0 auto;width:300px;">
         <h5>{{ news.publisher }} &nbsp; &nbsp; &nbsp;{{ news.date }}</h5>
             <hr style="margin:0 auto 5px auto;width:300px;">
-        <img src="/static/media/{{news.image}}" width="400px" height="400px"/>
+        {% if news.image %}
+            <img src="/static/media/{{news.image}}" width="250px" height="250px"/>
+        {% endif %}
         <div style="margin-top: 20px;">
             {% autoescape off %}
                 {{ news.content }}

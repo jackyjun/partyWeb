@@ -280,8 +280,10 @@ def get_attachment(request,id):
     if request.user.is_staff:
         attachment = Attachment.objects.get(id=id)
         file = attachment.file
+        list = file.name.split('.')
+        file_name = date.today().strftime('%Y%m%d')+'.'+list[1]
         response = HttpResponse(file)
-        response['Content-Disposition'] = 'attachment; filename="%s"'%file.name
+        response['Content-Disposition'] = 'attachment; filename="%s"'%file_name
         return response
     else:
         return render_to_response('permission_error.html')

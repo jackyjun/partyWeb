@@ -8,7 +8,7 @@ class PartyBranch(models.Model):
         verbose_name = u'党支部'
         verbose_name_plural = u'党支部'
 
-    name = models.CharField(max_length=100,verbose_name=u'党支部')
+    name = models.CharField(max_length=100,verbose_name=u'党支部名称')
     official_party_number = models.IntegerField(default=0,verbose_name=u'正式党员人数')
     probationary_party_number = models.IntegerField(default=0,verbose_name=u'预备党员人数')
     activist_number = models.IntegerField(default=0,verbose_name=u'积极分子人数')
@@ -49,7 +49,7 @@ class Student(models.Model):
     league_member = models.BooleanField(max_length=1,verbose_name=u'是否团员',default=True,blank=True)
     apply_party_time = models.DateField(verbose_name=u'申请入党日期',null=True,blank=True)
     join_party_time = models.DateField(verbose_name=u'入党日期',null=True,blank=True)
-    party_branch = models.ForeignKey(PartyBranch,verbose_name=u'所属党支部',null=True,blank=True)
+    party_branch = models.ForeignKey(PartyBranch,verbose_name=u'所属党支部',blank=True,null=True)
 
     def __unicode__(self):
         return '%s: %s' % (self.student_id, self.name)

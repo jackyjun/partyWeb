@@ -10,16 +10,16 @@
 }
 .news{
     background-color: #fff;
-    height:200px;
+    height:300px;
     float:left;
-    width:550px;
+    width:490px;
 }
 .title{
-    margin-left: 20px;
+    margin-left: 30px;
     text-align: left;
 }
 .item{
-    margin-left: 20px;
+    margin-left: 30px;
     margin-top: 5px;
     margin-bottom: 5px;
     font-size: 14px;
@@ -31,18 +31,24 @@
     color:#0088cc;
 }
 .item-title{
+    text-align: left;
+    width:300px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
     float:left;
 }
 .item-date{
+    width:90px;
     float:left;
     margin-left: 5px;
 }
 .notice{
     background-color: #fff;
     margin-left:20px;
-    height:200px;
+    height:300px;
     float:left;
-    width:420px;
+    width:480px;
 }
 .third{
     float:left;
@@ -50,17 +56,25 @@
 }
 .activity{
     background-color: #fff;
-    height:200px;
+    height:210px;
     float:left;
-    width:650px;
+    width:490px;
 }
 .activity .nav{
     margin-left: 20px;
 }
+.structure{
+    margin-left: 20px;
+    background-color: #fff;
+    height:210px;
+    float:left;
+    width:210px;
+}
+
 .links{
     background-color: #fff;
     margin-left:20px;
-    height:200px;
+    height:210px;
     float:left;
-    width:320px;
+    width:250px;
 }

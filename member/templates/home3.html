@@ -1,6 +1,6 @@
 {% extends 'base2.html' %}
 {% block title %}
-    首页
+    上海大学计算机学院党总支工作平台
 {% endblock %}
 {% block head_part %}
     <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css"/>
@@ -18,8 +18,8 @@
     <div class="slider">
         <div class="slider-wrapper theme-light">
             <div id="slider" class="nivoSlider">
-                <img src="/static/nivo-slider/images/up.jpg" data-thumb="/static/nivo-slider/toystory.jpg" alt="" />
-                <a href="http://dev7studios.com"><img src="/static/nivo-slider/images/up.jpg" data-thumb="images/up.jpg" alt="" title="This is an example of a caption" /></a>
+                <img src="/static/nivo-slider/images/up2.png" data-thumb="/static/nivo-slider/up2.jpg" alt="" />
+                <a href="http://dev7studios.com"><img src="/static/nivo-slider/images/up2.png" data-thumb="images/up2.jpg" alt="" title="This is an example of a caption" /></a>
                 <img src="/static/nivo-slider/images/walle.jpg" data-thumb="/static/nivo-slider/images/walle.jpg" alt="" data-transition="slideInLeft" />
                 <img src="/static/nivo-slider/images/nemo.jpg" data-thumb="/static/nivo-slider/images/nemo.jpg" alt="" title="#htmlcaption" />
             </div>
@@ -40,7 +40,7 @@
                      <br/>
                 </div>
             {% endfor %}
-            <div class="item"><a href="#">更多</a></div>
+            <div class="item" style="margin-right:70px;float:right;"><a href="/list_news/1">更多...</a></div>
         </div>
         <div class="notice">
             <h4 class="text-info title">通知公告</h4>
@@ -53,6 +53,7 @@
                      <br/>
                 </div>
             {% endfor %}
+            <div class="item" style="margin-right:60px;float:right;"><a href="/list_notice/0/1">更多...</a></div>
         </div>
     </div>
     <div class="third">
@@ -61,7 +62,7 @@
             <ul  class="nav nav-tabs">
                 <li class="active"><a href="#graduates" data-toggle="tab">研究生活动</a></li>
                 <li><a href="#youth" data-toggle="tab">团组织活动</a></li>
-                <li><a href="#party" data-toggle="tab">党组织活动</a></li>
+                <li><a href="#party" data-toggle="tab">党组织生活</a></li>
                 <li><a href="#other" data-toggle="tab">其他活动</a></li>
             </ul>
             <div class="tab-content">
@@ -73,6 +74,7 @@
                             <br/>
                         </div>
                     {% endfor %}
+                    <div class="item" style="margin-right:70px;float:right;"><a href="/list_activity/0">更多...</a></div>
                 </div>
                 <div class="tab-pane" id="youth">
                     {% for item in youth_activity %}
@@ -82,6 +84,7 @@
                             <br/>
                         </div>
                     {% endfor %}
+                    <div class="item" style="margin-right:70px;float:right;"><a href="/list_activity/1">更多...</a></div>
                 </div>
                 <div class="tab-pane" id="party">
                     {% for item in party_activity %}
@@ -91,34 +94,45 @@
                             <br/>
                         </div>
                     {% endfor %}
+                    <div class="item" style="margin-right:70px;float:right;"><a href="/list_activity/2">更多...</a></div>
                 </div>
                 <div class="tab-pane" id="other">
-                    {% for item in party_activity %}
+                    {% for item in other_activity %}
                         <div class="item">
                             <div class="item-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
                             <div class="item-date">{{ item.start_time }}</div>
                             <br/>
                         </div>
                     {% endfor %}
+                    <div class="item" style="margin-right:70px;float:right;"><a href="/list_activity/3">更多...</a></div>
                 </div>
             </div>
+        </div>
+        <div class="structure">
+            <h4 class="text-info title">党支部结构</h4>
+            {% for branch in branch_list %}
+                <div class="item" style="text-align: left;">
+                    <a href="/branch_detail/{{ branch.id }}">{{ branch.name }}</a>
+                </div>
+            {% endfor %}
+            <div class="item" style="margin-right:60px;float:right;"><a href="/branch_summary/">更多...</a></div>
         </div>
         <div class="links">
             <h4 class="text-info title">友情链接</h4>
             <div class="item" style="text-align: left;">
-                <a href="#">上海大学</a>
+                <a href="http://www.shu.edu.cn">上海大学</a>
             </div>
             <div class="item"  style="text-align: left;">
-                <a href="#">上海大学</a>
+                <a href="http://www.ces.shu.edu.cn">上海大学计算机学院</a>
             </div>
             <div class="item"  style="text-align: left;">
-                <a href="#">上海大学</a>
+                <a href="http://www.hpcc.shu.edu.cn">上海大学高性能中心</a>
             </div>
             <div class="item"  style="text-align: left;">
-                <a href="#">上海大学</a>
+                <a href="http://bbs.lehu.shu.edu.cn">上海大学乐乎社区</a>
             </div>
             <div class="item"  style="text-align: left;">
-                <a href="#">上海大学</a>
+                <a href="http://www.lib.shu.edu.cn/">上海大学图书馆</a>
             </div>
         </div>
     </div>
