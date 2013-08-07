@@ -3,6 +3,7 @@ body{
     background-color: #f2f2f2;
     font-size: 14px;
     color: #767e89;
+    font-family: "微软雅黑";
     /*color: #333;*/
 }
 .container{
@@ -14,10 +15,10 @@ body{
     height: 120px;
 }
 .header-logo{
-    width:358px;
-    height: 90px;
+    width:990px;
+    height: 120px;
     float: left;
-    background: url("");
+    background: url("/static/images/logo.png");
 }
 .footer{
     width:990px;

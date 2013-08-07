@@ -1,4 +1,6 @@
-
+    body{
+        font-family: "微软雅黑";
+    }
    .bodypart{
      margin-top: 80px;
      margin-left: 200px;
@@ -16,7 +18,7 @@
       height:50px;
    }
    .login a{
-     color:#3a87ad;
+     color:#0088cc;
    }
    .login a:hover{
      color:#767e89;

@@ -5,6 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', 'member.views.home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^news/(?P<id>\d+)','documents.views.get_news'),
     url(r'^notice/(?P<id>\d+)','documents.views.get_notice'),

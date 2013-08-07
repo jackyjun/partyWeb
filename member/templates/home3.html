@@ -18,13 +18,9 @@
     <div class="slider">
         <div class="slider-wrapper theme-light">
             <div id="slider" class="nivoSlider">
-                <img src="/static/nivo-slider/images/up2.png" data-thumb="/static/nivo-slider/up2.jpg" alt="" />
-                <a href="http://dev7studios.com"><img src="/static/nivo-slider/images/up2.png" data-thumb="images/up2.jpg" alt="" title="This is an example of a caption" /></a>
-                <img src="/static/nivo-slider/images/walle.jpg" data-thumb="/static/nivo-slider/images/walle.jpg" alt="" data-transition="slideInLeft" />
-                <img src="/static/nivo-slider/images/nemo.jpg" data-thumb="/static/nivo-slider/images/nemo.jpg" alt="" title="#htmlcaption" />
-            </div>
-            <div id="htmlcaption" class="nivo-html-caption">
-                <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+                {% for nivoslider in nivosliders %}
+                    <img src="/static/media/{{ nivoslider.image }}" title="{{ nivoslider.title }}">
+                {% endfor %}
             </div>
         </div>
     </div>

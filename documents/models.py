@@ -79,3 +79,12 @@ class StudentPrice(models.Model):
 class AttachmentForm(ModelForm):
      class Meta:
         model = Attachment
+
+class NivoSlider(models.Model):
+    class Meta:
+        verbose_name = u'轮播图片'
+        verbose_name_plural = u'轮播图片'
+    title = models.CharField(max_length=200,verbose_name=u'图片标题')
+    image = models.ImageField(upload_to='nivoslider',verbose_name=u'图片')
+    def __unicode__(self):
+        return '%s' %self.title

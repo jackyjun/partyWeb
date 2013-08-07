@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response,redirect,render
 from django.template import RequestContext
 from models import Student,StudentForm,StudentAssessment,PartyBranch,UserStudent
-from documents.models import News,Notice
+from documents.models import News,Notice,NivoSlider
 from activity.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -171,8 +171,10 @@ def home(request):
     NEWS_NUMBER = 8
     Notice_NUMBER = 8
     ACTIVITY_NUMBER = 3
+    NIVOSLIDER_NUMBER = 4
     news = News.objects.all().order_by('-date')[:NEWS_NUMBER]
     notices = Notice.objects.all().order_by('-date')[:Notice_NUMBER]
+    nivosliders = NivoSlider.objects.all()
     graduates_activity = Activity.objects.filter(type=0).order_by('-start_time')[:ACTIVITY_NUMBER]
     youth_activity = Activity.objects.filter(type=1).order_by('-start_time')[:ACTIVITY_NUMBER]
     party_activity = Activity.objects.filter(type=2).order_by('-start_time')[:ACTIVITY_NUMBER]
@@ -193,6 +195,7 @@ def home(request):
     context = {
         'news':news,
         'notices':notices,
+        'nivosliders':nivosliders,
         'branch_list':branch_list,
         'graduates_activity':graduates_activity,
         'youth_activity':youth_activity,
