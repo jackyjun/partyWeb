@@ -28,6 +28,7 @@ class Notice(models.Model):
     date = models.DateField(verbose_name=u'通知日期')
     publisher = models.CharField(max_length=45,verbose_name=u'发布者')
     content = models.TextField(verbose_name=u'通知内容')
+    file = models.FileField(verbose_name=u'附件',upload_to='notice',blank=True)
     def __unicode__(self):
         return '%s: %s' % (self.date, self.title)
 
@@ -63,6 +64,8 @@ class Price(models.Model):
     deadline = models.DateField(verbose_name=u'申请截止日期')
     requirement = models.TextField(verbose_name=u'奖项要求',default='',blank=True)
     status = models.BooleanField(verbose_name=u'是否已审核',default=False)
+    first_file = models.FileField(verbose_name=u'附件1',upload_to='price',blank=True)
+    second_file = models.FileField(verbose_name=u'附件2',upload_to='price',blank=True)
     def __unicode__(self):
         return '%s: %s' % (self.date, self.title)
 

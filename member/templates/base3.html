@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-responsive.min.css" type="text/css" />
+    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css" />
+    {% block head_part %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        {% include 'top3.html' %}
+        {% block content %}
+        {% endblock %}
+        {% include 'foot2.html' %}
+    </div>
+</body>
+</html>

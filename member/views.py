@@ -76,12 +76,8 @@ def student_info(request):
             student = userStudent.student
             student_dic = {}
             student_dic[u'政治面貌'] = student.get_political_status_display
-            if student.league_member:
-                student_dic[u'是否团员'] = u'是'
-            else:
-                student_dic[u'是否团员'] = u'否'
-            student_dic[u'申请加入共产党时间'] = student.apply_party_time.strftime('%Y-%m-%d')
-            student_dic[u'加入共产党时间'] =   student.join_party_time.strftime('%Y-%m-%d')
+            student_dic[u'申请加入共产党时间'] = student.apply_party_time
+            student_dic[u'加入共产党时间'] =   student.join_party_time
             student_dic[u'所属党支部'] = student.party_branch
             context = {
                 'form': form,
@@ -92,12 +88,8 @@ def student_info(request):
         student = userStudent.student
         student_dic = {}
         student_dic[u'政治面貌'] = student.get_political_status_display
-        if student.league_member:
-            student_dic[u'是否团员'] = u'是'
-        else:
-            student_dic[u'是否团员'] = u'否'
-        student_dic[u'申请加入共产党时间'] = student.apply_party_time.strftime('%Y-%m-%d')
-        student_dic[u'加入共产党时间'] =   student.join_party_time.strftime('%Y-%m-%d')
+        student_dic[u'申请加入共产党时间'] = student.apply_party_time
+        student_dic[u'加入共产党时间'] =   student.join_party_time
         student_dic[u'所属党支部'] = student.party_branch
         form = StudentForm(instance=student)
         if 'update'in request.GET:
@@ -126,6 +118,7 @@ def admin_center(request):
         return render(request,'admin_center.html',{'student':student})
     else:
         return render(request,'permission_error.html')
+
 @login_required(login_url='/user_login/')
 def back_student_info(request,id):
     user = request.user
@@ -194,6 +187,9 @@ def branch_assessment(request):
     }
     return render_to_response('branch_assessment.html',context)
 
+def branch_structure(request):
+    return render(request,'branch_structure.html')
+
 def home(request):
     NEWS_NUMBER = 8
     Notice_NUMBER = 8
@@ -229,7 +225,7 @@ def home(request):
         'party_activity':party_activity,
         'other_activity':other_activity,
     }
-    return render_to_response('home3.html',context,context_instance=RequestContext(request))
+    return render_to_response('home4.html',context,context_instance=RequestContext(request))
 
 @csrf_exempt
 def branch_search(request):
