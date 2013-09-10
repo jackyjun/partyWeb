@@ -299,7 +299,7 @@ def upload_attachment(request):
             form = AttachmentForm()
         return render(request, 'upload_attachment.html', {'form': form})
     else:
-        return render_to_response('')
+        return render_to_response('permission_error.html')
 
 def delete_attachment(request,id):
     if request.user.is_staff:

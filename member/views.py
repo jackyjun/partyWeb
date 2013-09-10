@@ -3,12 +3,13 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from django.shortcuts import render_to_response,redirect,render
 from django.template import RequestContext
-from models import Student,StudentForm,StudentAssessment,PartyBranch,UserStudent
+from models import Student,StudentForm,StudentAssessment,PartyBranch,UserStudent,ImportXlsForm
 from documents.models import News,Notice,NivoSlider
 from activity.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.contrib.auth.models import User
 from datetime import *
 
 @csrf_exempt
@@ -41,9 +42,10 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                student = Student.objects.get_or_create(student_id=user.username)
-                UserStudent.objects.get_or_create(student=student[0],user=user)
-                return redirect('/student_center/')
+                if user.is_staff:
+                    return redirect('/admin_center/')
+                else:
+                    return redirect('/student_center/')
             else:
                 return render(request,'login.html',{'errorMsg':'登录错误'})
         else:
@@ -51,6 +53,25 @@ def login_view(request):
             return render(request,'login.html',{'errorMsg':'用户名或密码错误'})
     else:
         return render(request,'login.html')
+
+@csrf_exempt
+@login_required(login_url='/user_login/')
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST['old_password']
+        new_password = request.POST['new_password']
+        user = authenticate(username=request.user.username,password=old_password)
+        if user is not None:
+            if user.is_active:
+                user.set_password(new_password)
+                user.save()
+                return render(request,'change_password.html',{'prompt':True,'prompt_msg':'修改密码成功'})
+            else:
+                 return render(request,'change_password.html',{'prompt':True,'prompt_msg':'修改密码失败'})
+        else:
+            return render(request,'change_password.html',{'prompt':True,'prompt_msg':'原密码错误'})
+    else:
+        return render(request,'change_password.html')
 
 def user_logout(request):
       logout(request)
@@ -74,35 +95,96 @@ def student_info(request):
         else:
             userStudent = UserStudent.objects.get(user = user)
             student = userStudent.student
+            student_list = []
+            student_dic = {}
+            student_dic[u'学科类型'] = student.get_subject_display()
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'培养类型'] = student.get_training_display()
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'专业'] = student.major
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'性别'] = student.get_gender_display()
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'实验室'] = student.laboratory
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'座位号'] = student.seat_number
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'职位'] = student.duty
+            student_list.append(student_dic)
             student_dic = {}
             student_dic[u'政治面貌'] = student.get_political_status_display
-            student_dic[u'申请加入共产党时间'] = student.apply_party_time
-            student_dic[u'加入共产党时间'] =   student.join_party_time
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'入党时间'] = student.apply_party_time
+            student_list.append(student_dic)
+            student_dic = {}
+            student_dic[u'转正时间'] =   student.join_party_time
+            student_list.append(student_dic)
+            student_dic = {}
             student_dic[u'所属党支部'] = student.party_branch
+            student_list.append(student_dic)
             context = {
                 'form': form,
+                'student_list':student_list,
             }
             return render(request, 'student_info.html',context)
     else:
         userStudent = UserStudent.objects.get(user = user)
         student = userStudent.student
+        student_list = []
+        student_dic = {}
+        student_dic[u'学科类型'] = student.get_subject_display()
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'培养类型'] = student.get_training_display()
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'专业'] = student.major
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'性别'] = student.get_gender_display()
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'实验室'] = student.laboratory
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'座位号'] = student.seat_number
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'职位'] = student.duty
+        student_list.append(student_dic)
         student_dic = {}
         student_dic[u'政治面貌'] = student.get_political_status_display
-        student_dic[u'申请加入共产党时间'] = student.apply_party_time
-        student_dic[u'加入共产党时间'] =   student.join_party_time
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'入党时间'] = student.apply_party_time
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'转正时间'] =   student.join_party_time
+        student_list.append(student_dic)
+        student_dic = {}
         student_dic[u'所属党支部'] = student.party_branch
+        student_list.append(student_dic)
         form = StudentForm(instance=student)
         if 'update'in request.GET:
             context = {
                 'prompt':True,
                 'prompt_msg':'修改成功',
                 'form': form,
-                'student':student_dic,
+                'student':student,
+                'student_list':student_list,
             }
         else:
             context = {
                 'form': form,
-                'student':student_dic,
+                'student':student,
+                'student_list':student_list,
             }
         return render(request, 'student_info.html', context)
 
@@ -113,11 +195,14 @@ def student_center(request):
 
 @login_required(login_url='/user_login/')
 def admin_center(request):
-    student = UserStudent.objects.get(user = request.user).student
-    if request.user.is_staff:
-        return render(request,'admin_center.html',{'student':student})
+    if request.user.is_superuser:
+         return render(request,'admin_center.html')
     else:
-        return render(request,'permission_error.html')
+        student = UserStudent.objects.get(user = request.user).student
+        if request.user.is_staff:
+            return render(request,'admin_center.html',{'student':student})
+        else:
+            return render(request,'permission_error.html')
 
 @login_required(login_url='/user_login/')
 def back_student_info(request,id):
@@ -132,6 +217,78 @@ def back_student_info(request,id):
         })
     else:
         return render_to_response('permission_error.html')
+
+@csrf_exempt
+def student_search(request):
+    user = request.user
+    student_list = []
+    if user.is_staff:
+        party_branch_list = PartyBranch.objects.all()
+        context = {}
+        context['party_branch_list'] = party_branch_list
+        if request.method=='GET':
+            return render(request,'student_search.html',context)
+        else:
+            student_id = request.POST['student_id']
+            name = request.POST['name']
+            if request.POST['subject']!='-1':
+                subject = [int(request.POST['subject'])]
+            else:
+                subject = [0,1,2,3]
+            if request.POST['training']!='-1':
+                training = [int(request.POST['training'])]
+            else:
+                training = [0,1]
+            if request.POST['gender']!='-1':
+                gender = [int(request.POST['gender'])]
+            else:
+                gender = [0,1]
+            if request.POST['political_status']!='-1':
+                political_status = [int(request.POST['political_status'])]
+            else:
+                political_status = [0,1,2,3]
+            major = request.POST['major']
+            professor = request.POST['professor']
+            phone = request.POST['phone']
+            dormitory = request.POST['dormitory']
+            laboratory = request.POST['laboratory']
+            seat_number = request.POST['seat_number']
+            if request.POST['party_branch_id']!='-1':
+                student_list = Student.objects.filter(
+                                        student_id__contains=student_id,
+                                        name__contains=name,
+                                        subject__in=subject,
+                                        training__in=training,
+                                        gender__in = gender,
+                                        major__contains=major,
+                                        professor__contains=professor,
+                                        phone__contains=phone,
+                                        dormitory__contains=dormitory,
+                                        laboratory__contains=laboratory,
+                                        seat_number__contains=seat_number,
+                                        party_branch_id=request.POST['party_branch_id'],
+                                        political_status__in=political_status
+                                    )
+            else:
+                student_list = Student.objects.filter(
+                                                        student_id__contains=student_id,
+                                                        name__contains=name,
+                                                        subject__in=subject,
+                                                        training__in=training,
+                                                        gender__in = gender,
+                                                        major__contains=major,
+                                                        professor__contains=professor,
+                                                        phone__contains=phone,
+                                                        dormitory__contains=dormitory,
+                                                        laboratory__contains=laboratory,
+                                                        seat_number__contains=seat_number,
+                                                        political_status__in=political_status
+                                                    )
+            context['student_list'] = student_list
+            print student_list
+            return render(request,'student_search.html',context)
+    return render_to_response('permission_error.html')
+
 
 def branch_summary(request):
     branch_list = PartyBranch.objects.all()
@@ -172,20 +329,24 @@ def branch_detail(request,id):
 @login_required(login_url='/user_login/')
 def branch_assessment(request):
     user = request.user
-    userStudent = UserStudent.objects.get(user = user)
-    student = userStudent.student
-    branch = PartyBranch.objects.get(id = student.party_branch_id)
-    student_list = Student.objects.filter(party_branch_id = student.party_branch_id)
-    assessment_dic = {}
-    for student in student_list:
-        list = StudentAssessment.objects.filter(student = student)
-        assessment_dic[student] = list
-    context = {
-        'branch':branch,
-        'assessment_dic':assessment_dic,
-        'user':request.user,
-    }
-    return render_to_response('branch_assessment.html',context)
+    if user.is_superuser:
+        context = {
+        }
+        pass
+    else:
+        userStudent = UserStudent.objects.get(user = user)
+        student = userStudent.student
+        branch = PartyBranch.objects.get(id = student.party_branch_id)
+        student_list = Student.objects.filter(party_branch_id = student.party_branch_id)
+        assessment_dic = {}
+        for student in student_list:
+            list = StudentAssessment.objects.filter(student = student)
+            assessment_dic[student] = list
+        context = {
+            'branch':branch,
+            'assessment_dic':assessment_dic,
+        }
+    return render(request,'branch_assessment.html',context)
 
 def branch_structure(request):
     return render(request,'branch_structure.html')
@@ -253,3 +414,134 @@ def branch_search(request):
         return render_to_response('branch_search.html',context)
     else:
         return render_to_response('branch_search.html',{'branch_list':branch_list,'user':request.user})
+
+@csrf_exempt
+@login_required(login_url='/user_login/')
+def import_xls(request):
+    #import student info
+    FILE_PATH = '/home/sjh/test.xls'
+    from xlrd import open_workbook
+    import re
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = ImportXlsForm(request.POST, request.FILES)
+            if form.is_valid():
+                f = request.FILES['file']
+                if re.match(r'\w+\.xls',f.name):
+                    print f.name
+                    with open(FILE_PATH, 'wb+') as destination:
+                        for chunk in f.chunks():
+                            destination.write(chunk)
+                    GENDER_CHOICE = {
+                        0: u'男',
+                        1: u'女',
+                    }
+                    POLITICAL_STATUS_CHOICE = {
+                        0: u'群众',
+                        1: u'入党积极分子',
+                        2: u'预备党员',
+                        3: u'正式党员',
+                    }
+                    SUBJECT_CHOICE = {
+                        0:u'学术型硕士',
+                        1:u'专业型硕士',
+                        2:u'联合培养型硕士',
+                        3:u'博士',
+                    }
+                    TRAINING_CHOICE = {
+                        0:u'统分',
+                        1:u'委培',
+                    }
+                    wb = open_workbook(FILE_PATH)
+                    s = wb.sheets()[0]
+                    test_time = date.today()
+                    for row in range(1,s.nrows):
+                        #load data by row
+                        values = []
+                        for col in range(s.ncols):
+                            #load data by col
+                            values.append(s.cell(row,col).value)
+
+                        #subject_choice
+                        subject = 0
+                        for k,v in SUBJECT_CHOICE.items():
+                            if values[2] == v:
+                                subject = k
+                                break
+
+                        #training_choice
+                        training = 0
+                        for k,v in TRAINING_CHOICE.items():
+                            if values[3] == v:
+                                training = k
+                                break
+
+                        #gender_choice
+                        gender = 0
+                        for k,v in GENDER_CHOICE.items():
+                            if values[6] == v:
+                                gender = k
+                                break
+
+                        #political_status
+                        political_status = 0
+                        for k,v in POLITICAL_STATUS_CHOICE.items():
+                            if values[12] == v:
+                                political_status = k
+                                break
+
+                        #party_branch
+                        party_branch_id = 1
+                        party_branch_list = PartyBranch.objects.all()
+                        for party_branch in party_branch_list:
+                            if values[11] == party_branch.name:
+                                party_branch_id = party_branch.id
+                                break
+
+                        #party_time
+                        apply_party_time = None
+                        join_party_time = None
+                        if re.match(r'\d{4}-\d{1,2}-\d{1,2}',values[13]):
+                            apply_party_time = datetime.strptime(values[13],'%Y-%m-%d').date()
+                        if re.match(r'\d{4}-\d{1,2}-\d{1,2}',values[14]):
+                            join_party_time = datetime.strptime(values[14],'%Y-%m-%d').date()
+
+                        user = User.objects.create_user(values[0],None,values[0])
+                        user.save()
+                        student = Student.objects.get_or_create(
+                                    student_id=values[0],
+                                    name = values[1],
+                                    subject = subject,
+                                    training = training,
+                                    major = values[4],
+                                    professor = values[5],
+                                    gender = gender,
+                                    phone = values[7],
+                                    dormitory = values[8],
+                                    laboratory = values[9],
+                                    seat_number = values[10],
+                                    party_branch_id = party_branch_id,
+                                    political_status = political_status,
+                                    apply_party_time = apply_party_time,
+                                    join_party_time = join_party_time,
+                                    duty = values[15]
+                                )
+                        UserStudent.objects.get_or_create(user=user,student=student[0])
+                    context = {
+                        'form':form,
+                        'prompt':True,
+                        'prompt_msg':'数据读入成功！'
+                    }
+                    return render(request,'import_xls.html',context)
+                else:
+                    context = {
+                        'form':form,
+                        'prompt':True,
+                        'prompt_msg':'上传文件格式不对，请重新上传'
+                    }
+                    return render(request,'import_xls.html',context)
+        else:
+            form = ImportXlsForm()
+            return render(request,'import_xls.html', {'form': form})
+    else:
+        return render(request,'permission_error.html')

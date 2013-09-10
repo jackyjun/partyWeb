@@ -1,0 +1,85 @@
+{% extends 'base3-other.html' %}
+{% block title %}
+    学生信息查询
+{% endblock %}
+{% block head_part %}
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">学生信息查询</h3>
+    <form action="#" method="post">
+        学号：<input type="text" name="student_id"/>
+        姓名：<input type="text" name="name"/>
+        学科类型：
+        <select name="subject">
+            <option value="-1">所有</option>
+            <option value="0">学术型硕士</option>
+            <option value="1">专业型硕士</option>
+            <option value="2">联合培养型硕士</option>
+            <option value="3">博士</option>
+        </select>
+        <br/>
+        性别：
+        <select name="gender">
+            <option value="-1">所有</option>
+            <option value="0">男</option>
+            <option value="1">女</option>
+        </select>
+        导师：<input type="text" name="professor"/>
+        培养类型：
+        <select name="training">
+            <option value="-1">所有</option>
+            <option value="0">统分</option>
+            <option value="1">委培</option>
+        </select>
+        <br/>
+        专业：<input type="text" name="major"/>
+        手机：<input type="text" name="phone"/>
+        所属党支部：
+        <select name="party_branch_id">
+            <option value="-1">所有</option>
+            {% for party_branch in party_branch_list %}
+                <option value="{{ party_branch.id }}">{{ party_branch.name }}</option>
+            {% endfor %}
+        </select>
+        <br/>
+        实验室:<input type="text" name="laboratory"/>
+        座位号:<input type="text" name="seat_number"/>
+        政治面貌：
+        <select name="political_status">
+            <option value="-1">所有</option>
+            <option value="0">群众</option>
+            <option value="1">入党积极分子</option>
+            <option value="2">预备党员</option>
+            <option value="3">正式党员</option>
+        </select>
+        <br/>
+       寝室:<input type="text" name="dormitory"/><br/>
+        <input type="submit" clas="btn" value="查询"/>
+    </form>
+    <table class="table table-hover">
+        <thead>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>政治面貌</th>
+            <th>学术类型</th>
+            <th>导师</th>
+            <th>实验室</th>
+            <th>职务</th>
+            <th>手机</th>
+        </thead>
+        <tbody>
+            {% for student in student_list %}
+                <tr>
+                    <td>{{ student.student_id }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.get_political_status_display }}</td>
+                    <td>{{ student.get_subject_display }}</td>
+                    <td>{{ student.professor }}</td>
+                    <td>{{ student.laboratory }}</td>
+                    <td>{{ student.duty }}</td>
+                    <td>{{ student.phone }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -38,13 +38,14 @@ def list_activity(request,type=5):
             flag = -1
         else:
             try:
-                if user.is_active:
+                if user.is_active and user.is_superuser==False:
                     userStudent = UserStudent.objects.get(user = user)
                     student = userStudent.student
                     StudentActivity.objects.get(student_id = student.id,activity_id = activity.id)
                     flag = 1
                 else:
                     flag = 0
+
             except StudentActivity.DoesNotExist:
                 flag = 0
         activity.start_time = activity.start_time.strftime('%Y-%m-%d')
@@ -297,23 +298,85 @@ def examine_result(request,id):
 
 @csrf_exempt
 @login_required(login_url='/user_login/')
+def search_single_student_activity(request):
+    if request.user.is_staff:
+        branch_list = PartyBranch.objects.all()
+        if request.method == 'POST':
+            student_id = request.POST['student_id']
+            name = request.POST['name']
+            activity_name = request.POST['activity_name']
+            student_list = Student.objects.filter(student_id__contains=student_id,name__contains=name)
+            activity_list = Activity.objects.filter(title__contains=activity_name)
+            dic = {}
+            for activity in activity_list:
+                student_activity_list = StudentActivity.objects.filter(activity=activity)
+                student_activity_dic = {}
+                for student_activity in student_activity_list:
+                    for student in student_list:
+                        if student_activity.student == student:
+                            student_activity_dic[student] = student_activity
+                if len(student_activity_dic):
+                    dic[activity] = student_activity_dic
+            print dic
+            context = {
+                'dic':dic,
+                'branch_list':branch_list,
+                'flag':True,
+                'table_type':2,
+            }
+            return render(request,'student_activity_search.html',context)
+        else:
+            return render(request,'student_activity_search.html',{'branch_list':branch_list})
+    else:
+        return render(request,'permission_error.html')
+
+@csrf_exempt
+@login_required(login_url='/user_login/')
 def search_student_activity(request):
+    #search multiply student activity
     branch_list = PartyBranch.objects.all()
     if request.user.is_staff:
         if request.method == 'POST':
             try:
                 branch = request.POST['branch']
-                partyBranch = PartyBranch.objects.get(id = branch)
-                student_list = Student.objects.filter(party_branch = partyBranch)
+                student_id = request.POST['student_id']
+                name = request.POST['name']
+                start_time_str = request.POST['start_time']
+                end_time_str = request.POST['end_time']
+                if start_time_str == '':
+                    start_time_str = '1970-1-1'
+                if end_time_str =='':
+                    end_time_str = '2050-1-1'
+                if request.POST['type']!='-1':
+                    type = [int(request.POST['type'])]
+                else:
+                    type = [0,1,2,3]
+                start_time = datetime.strptime(start_time_str,'%Y-%m-%d')
+                end_time = datetime.strptime(end_time_str,'%Y-%m-%d')
+                if branch == '-1':
+                    student_list = Student.objects.filter(student_id__contains=student_id,name__contains=name)
+                else:
+                    student_list = Student.objects.filter(student_id__contains=student_id,name__contains=name,party_branch_id = branch)
                 activity_dic = {}
                 for student in student_list :
-                    activity_count = StudentActivity.objects.filter(student = student).exclude(status=0).count()
+                    student_activity_list = StudentActivity.objects.filter(student = student).exclude(status=0)
+                    activity_count = 0
+                    for student_activity in student_activity_list:
+                        activity = Activity.objects.get(id = student_activity.activity_id)
+                        if activity.type in type:
+                            activity_start_time = datetime.combine(activity.start_time,time())
+                            if activity_start_time>=start_time and activity_start_time<=end_time:
+                                activity_count += 1
                     activity_dic[student] = activity_count
                 context = {
                     'flag': True,
+                    'table_type':1,
                     'activity_dic':activity_dic,
                     'branch_list':branch_list,
                     'user':request.user,
+                    'start_time':start_time_str,
+                    'end_time':end_time_str,
+                    'type':request.POST['type'],
                 }
                 return render_to_response('student_activity_search.html',context)
             except PartyBranch.DoesNotExist:
@@ -327,13 +390,28 @@ def search_student_activity(request):
 def student_activity_detail(request,id):
     #back
     if request.user.is_staff:
+        type = request.GET['type']
+        start_time = request.GET['start_time']
+        end_time = request.GET['end_time']
+        if start_time == '':
+            start_time = '1970-1-1'
+        if end_time =='':
+            end_time = '2050-1-1'
+        if request.GET['type']=='-1':
+            type = [0,1,2,3]
+        else:
+            type = [int(request.GET['type'])]
+        start_time = datetime.strptime(start_time,'%Y-%m-%d')
+        end_time = datetime.strptime(end_time,'%Y-%m-%d')
         student = Student.objects.get(id=id)
         studentActivity_list = StudentActivity.objects.filter(student = student)
         activity_dic = {}
         for studentActivity in studentActivity_list:
             activity = studentActivity.activity
-            activity.start_time = activity.start_time.strftime('%Y-%m-%d')
-            activity_dic[activity] = studentActivity
+            activity_start_time = datetime.combine(activity.start_time,time())
+            if activity_start_time>=start_time and activity_start_time<=end_time and activity.type in type:
+                activity.start_time = activity.start_time.strftime('%Y-%m-%d')
+                activity_dic[activity] = studentActivity
         context = {
             'activity_dic':activity_dic,
             'student':student,

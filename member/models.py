@@ -82,6 +82,9 @@ class StudentAssessment(models.Model):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
-        exclude = ('student_id','political_status','league_member','apply_party_time','join_party_time','party_branch')
+        fields = ('phone','professor','dormitory')
 
-
+from django import forms
+#import xls
+class ImportXlsForm(forms.Form):
+    file  = forms.FileField()

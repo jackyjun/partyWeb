@@ -1,0 +1,18 @@
+{% extends 'base3-other.html' %}
+{% block title %}
+    党员发展信息
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+            width:300px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <form action="/import_xls/" method="post" enctype="multipart/form-data">
+        {{ form }}
+        <input type="submit" class="btn" value="上传" />
+    </form>
+{% endblock %}

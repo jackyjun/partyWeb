@@ -9,47 +9,114 @@
             width:300px;
         }
     </style>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#start_time,#end_time').datepicker({
+                dateFormat:"yy-mm-dd",
+                changeMonth:true,
+                changeYear:true
+            });
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <div style="width:900px" >
         <h3 class="text-info">学生活动信息检索</h3>
+        <a class="text-info" href="/admin_center/"><<管理中心</a>
+        <hr/>
+        学生活动参与情况查询：<br/>
+        <form action="/search_single_student_activity/" method="post">
+            学号：<input type="text" name="student_id"/>
+            姓名：<input type="text" name="name"/>
+            活动名称：<input type="text" name="activity_name"/>
+            <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
+        </form>
+        <hr/>
+        学生活动参与次数查询：<br/>
         <form action="/search_student_activity/" method="post">
+            学号：<input type="text" name="student_id"/>
+            姓名：<input type="text" name="name"/>
+            所属党支部：
             <select name="branch">
+                <option value="-1">所有</option>
                 {% for branch in branch_list %}
                     <option value="{{ branch.id }}">{{ branch.name }}</option>
                 {% endfor %}
             </select>
+            <br/>
+            活动类型：
+            <select name="type">
+                <option value="-1">所有</option>
+                <option value="0">研究生活动</option>
+                <option value="1">团组织活动</option>
+                <option value="2">党组织活动</option>
+                <option value="3">其他活动</option>
+            </select>
+            查询时间段：<input type="text" id="start_time" name="start_time"/>
+            ~<input type="text" id="end_time" name="end_time"/>
             <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
         </form>
-        <a class="text-info" href="/admin_center/"><<管理中心</a>
+        <hr/>
                 {% if flag == True%}
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td><h5>学号</h5></td>
-                                <td><h5>姓名</h5></td>
-                                <td><h5>参与活动次数</h5></td>
-                                <td><h5>详情</h5></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    {% for student,count in activity_dic.items %}
-                        <tr>
-                            <td><a class="text-info" href="/back_student_info/{{ student.id }}" target="_blank">{{ student.student_id }}</a></td>
-                            <td>{{ student.name }}</td>
-                            <td>{{ count }}</td>
-                            <td>
-                                <a href="/student_activity_detail/{{ student.id }}" class="text-info" target="_blank">详情</a>
-                            </td>
-                        </tr>
-                    {%  endfor %}
-                        </tbody>
+                    {% if table_type == 1 %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td><h5>学号</h5></td>
+                                    <td><h5>姓名</h5></td>
+                                    <td><h5>参与活动次数</h5></td>
+                                    <td><h5>详情</h5></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student,count in activity_dic.items %}
+                                    <tr>
+                                        <td>
+                                            <a class="text-info" href="/back_student_info/{{ student.id }}?type={{ type }}&start_time={{ start_time }}&end_time={{ end_time }}" target="_blank">
+                                                {{ student.student_id }}
+                                            </a>
+                                        </td>
+                                        <td>{{ student.name }}</td>
+                                        <td>{{ count }}</td>
+                                        <td>
+                                            <a href="/student_activity_detail/{{ student.id }}?type={{ type }}&start_time={{ start_time }}&end_time={{ end_time }}" class="text-info" target="_blank">
+                                                详情
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {%  endfor %}
+                            </tbody>
                         </table>
+                    {% elif table_type == 2 %}
+                       {% for activity,value in dic.items %}
+                           <a href="/activity_detail/{{ activity.id }}" target="_blank">
+                               <h4 class="text-info">{{ activity.title }}</h4>
+                           </a>
+                            <table class="table">
+                                <thead>
+                                    <tr style="text-align:center;">
+                                        <td><h5>学号</h5></td>
+                                        <td><h5>姓名</h5></td>
+                                        <td><h5>参与情况</h5></td>
+                                        <td><h5>获奖情况</h5></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student,student_activity in value.items %}
+                                    <tr>
+                                        <td>{{ student.student_id }}</td>
+                                        <td>{{ student.name }}</td>
+                                        <td>{{ student_activity.get_status_display }}</td>
+                                        <td>{{ student_activity.award }}</td>
+                                    </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                       {% endfor %}
+                    {% endif %}
                 {% elif flag == False %}
                     <div class="text-info">未搜索到结果。</div>
                 {% else %}
                 {% endif %}
-
-
     </div>
 {% endblock %}

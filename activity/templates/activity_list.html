@@ -28,6 +28,7 @@
         <thead>
             <tr>
                 <td><h5>活动名称</h5></td>
+                <td><h5>活动类型</h5></td>
                 <td><h5>活动开始日期</h5></td>
                 <td><h5>活动结束日期</h5></td>
                 <td><h5>报名截止日期</h5></td>
@@ -39,16 +40,20 @@
                 {% for activity,flag in item.items %}
                 <tr>
                     <td>{{ activity.title }}</td>
+                    <td>{{ activity.get_type_display }}</td>
                     <td>{{ activity.start_time }}</td>
                     <td>{{ activity.end_time }}</td>
                     <td>{{ activity.deadline }}</td>
                     <td>
-                        {% if flag == 0 %}
-                            <a class="text-info" href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a>
-                        {% elif flag == -1 %}
-                            已结束报名
+                        {% if user.is_superuser %}
                         {% else %}
-                             已报名<a rel="{{ type }}"style="cursor:pointer;" class="text-info" name="cancel" id="{{ activity.id }}" >[取消报名]</a>
+                            {% if flag == 0 %}
+                                <a class="text-info" href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a>
+                            {% elif flag == -1 %}
+                                已结束报名
+                            {% else %}
+                                 已报名<a rel="{{ type }}"style="cursor:pointer;" class="text-info" name="cancel" id="{{ activity.id }}" >[取消报名]</a>
+                            {% endif %}
                         {% endif %}
                     </td>
                     <td><a class="text-info" href="/activity_detail/{{ activity.id }}" target="_blank">详情</a> </td>

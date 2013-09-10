@@ -43,6 +43,7 @@
                 <thead>
                     <tr>
                         <td><h5>活动名称</h5></td>
+                        <td><h5>活动类型</h5></td>
                         <td><h5>活动发起人</h5></td>
                         <td><h5>活动时间</h5></td>
                         <td><h5>审核状态</h5></td>
@@ -53,6 +54,7 @@
                     {% for activity in need_examine_activity_list %}
                         <tr>
                             <td>{{ activity.title }}</td>
+                            <td>{{ activity.get_type_display }}</td>
                             <td>{{ activity.publisher }}</td>
                             <td>{{ activity.start_time }}</td>
                             <td>
@@ -68,6 +70,7 @@
                     {% for activity in examine_activity_list %}
                         <tr>
                             <td>{{ activity.title }}</td>
+                            <td>{{ activity.get_type_display }}</td>
                             <td>{{ activity.publisher }}</td>
                             <td>{{ activity.start_time }}</td>
                             <td>

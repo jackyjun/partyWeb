@@ -14,25 +14,27 @@
     </script>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">个人信息</h3>
+    <h3 class="text-info">{{ student.student_id }}{{ student.name }}</h3>
     <a class="text-info" href="/student_center/"><<用户中心</a>
     <div style="width:900px">
     <hr/>
-    <h4 class="text-info" style="margin-bottom: 20px;">党员相关信息</h4>
-    {% for k,v in student.items %}
-         <div style="margin-bottom: 10px;">
-            <div style="width:150px;font-weight:bold;float: left;">
-                {{ k }}</div>
-                {% if v %}
-                    {{ v }}
-                {% else %}
-                    暂无信息
-                {% endif %}
-                <br/>
-        </div>
+    <h4 class="text-info" style="margin-bottom: 20px;">个人相关信息</h4>
+    {% for student_dic in student_list %}
+        <div style="margin-bottom: 10px;">
+        {% for k,v in student_dic.items %}
+                <div style="width:150px;font-weight:bold;float: left;">
+                    {{ k }}</div>
+                    {% if v %}
+                        {{ v }}
+                    {% else %}
+                        暂无信息
+                    {% endif %}
+                    <br/>
+            </div>
+        {% endfor %}
     {% endfor %}
     <hr/>
-        <h4 class="text-info" style="margin-bottom: 20px;">个人基本信息</h4>
+        <h4 class="text-info" style="margin-bottom: 20px;">可修改信息</h4>
         <form action="/student_info/" method="post">{% csrf_token %}
             {% for field in form %}
                 <div class="text-error"> {{ field.errors }} </div>
