@@ -1,6 +1,6 @@
-{% extends 'base3-other.html' %}
+{% extends 'base3-other.html'%}
 {% block title %}
-    文件上传
+    申请奖项列表
 {% endblock %}
 {% block head_part %}
     <script type="text/javascript">
@@ -15,20 +15,21 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">文件上传</h3>
-    <a class="text-info" href="/attachment_list/"><<文件管理</a><br/>
+    <a class="text-info" href="/attachment_list/"><<文件管理</a>
     <div style="width:900px">
-    <hr/>
-        <form action="/upload_attachment/" method="post" enctype="multipart/form-data">{% csrf_token %}
-            {% for field in form %}
-                <div class="text-error"> {{ field.errors }} </div>
-                <div style="margin-bottom: 10px;">
-                    <div style="font-size:14px;margin-bottom: 10px;">
-                        <div style="float:left;width:110px;">{{ field.label}}</div>
-                        <div>&nbsp;{{ field }}</div>
-                 </div>
-             {% endfor %}
-             *文件上传限制最大3.5M
-            <p><input type="submit" class="btn" value="上传" /></p>
-        </form>
+        <hr/>
+            <form action="/upload_attachment/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                {% for field in form %}
+                    <div class="text-error"> {{ field.errors }} </div>
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-size:14px;margin-bottom: 10px;">
+                            <div style="float:left;width:110px;">{{ field.label}}</div>
+                            <div>&nbsp;{{ field }}</div>
+                        </div>
+                     </div>
+                 {% endfor %}
+                 *文件上传限制最大3.5M
+                <p><input type="submit" class="btn" value="上传" /></p>
+            </form>
     </div>
 {% endblock %}

@@ -19,7 +19,7 @@ class Student(models.Model):
     )
     POLITICAL_STATUS_CHOICE = (
         (0,u'群众'),
-        (1,u'入党积极分子'),
+        (1,u'共青团员'),
         (2,u'预备党员'),
         (3,u'正式党员'),
     )

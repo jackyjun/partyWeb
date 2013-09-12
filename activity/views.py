@@ -127,7 +127,7 @@ def add_activity(request):
                     student = userStudent.student
                     activity.publisher = student.name
                 except UserStudent.DoesNotExist:
-                    activity.publisher = u'管理员'
+                    activity.publisher = 'admin'
                 activity.save()
                 return redirect('/search_activity?operate=1')
         else:

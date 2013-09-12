@@ -438,7 +438,7 @@ def import_xls(request):
                     }
                     POLITICAL_STATUS_CHOICE = {
                         0: u'群众',
-                        1: u'入党积极分子',
+                        1: u'共青团员',
                         2: u'预备党员',
                         3: u'正式党员',
                     }
@@ -506,20 +506,21 @@ def import_xls(request):
                         if re.match(r'\d{4}-\d{1,2}-\d{1,2}',values[14]):
                             join_party_time = datetime.strptime(values[14],'%Y-%m-%d').date()
 
-                        user = User.objects.create_user(values[0],None,values[0])
+                        user = User.objects.create_user(str(long(values[0])),None,str(long(values[0])))
+                        user.first_name = values[1]
                         user.save()
                         student = Student.objects.get_or_create(
-                                    student_id=values[0],
+                                    student_id=str(long(values[0])),
                                     name = values[1],
                                     subject = subject,
                                     training = training,
                                     major = values[4],
                                     professor = values[5],
                                     gender = gender,
-                                    phone = values[7],
+                                    phone = str(long(values[7])),
                                     dormitory = values[8],
-                                    laboratory = values[9],
-                                    seat_number = values[10],
+                                    laboratory = str(long(values[9])),
+                                    seat_number = str(long(values[10])),
                                     party_branch_id = party_branch_id,
                                     political_status = political_status,
                                     apply_party_time = apply_party_time,
