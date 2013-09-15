@@ -1,0 +1,51 @@
+{% extends 'base3-other.html'%}
+{% block title %}
+    活动情况
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">{{ student.student_id }}{{ student.name }}的活动情况</h3>
+    <a class="text-info" href="/student_center/"> <<用户中心</a>
+    <div style="width:900px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td><h5>活动名称</h5></td>
+                    <td><h5>活动时间</h5></td>
+                    <td><h5>活动类型</h5></td>
+                    <td><h5>参与情况</h5></td>
+                    <td><h5>获奖情况</h5></td>
+                    <td><h5>审核情况</h5></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity,studentActivity in activity_dic.items %}
+                    <tr>
+                        <td>{{ activity.title }}</td>
+                        <td>{{ activity.start_time }}</td>
+                        <td>{{ activity.get_type_display }}</td>
+                        <td>
+                            {{ studentActivity.get_status_display }}
+                        </td>
+                        <td>
+                            {{ studentActivity.award }}
+                        </td>
+                        <td>
+                            {% if activity.status %}
+                                已审核
+                            {% else %}
+                                未审核
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

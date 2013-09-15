@@ -16,11 +16,11 @@ class Activity(models.Model):
         verbose_name_plural = u'活动'
     title = models.CharField(max_length=200,verbose_name=u'标题')
     type = models.IntegerField(max_length=1,verbose_name=u'活动类型',choices=TYPE_CHOICE)
-    publisher = models.CharField(max_length=45,verbose_name=u'活动发布者')
-    start_time = models.DateField(verbose_name=u'活动开始日期');
-    end_time = models.DateField(verbose_name=u'活动结束日期');
-    deadline = models.DateField(verbose_name=u'报名截止日期');
-    content = models.TextField(verbose_name=u'内容');
+    publisher = models.ForeignKey(User,verbose_name=u'活动发布者')
+    start_time = models.DateField(verbose_name=u'活动开始日期')
+    end_time = models.DateField(verbose_name=u'活动结束日期')
+    deadline = models.DateField(verbose_name=u'报名截止日期')
+    content = models.TextField(verbose_name=u'内容')
     status = models.BooleanField(verbose_name=u'是否已审核')
     def __unicode__(self):
         return '%s: %s' % (self.start_time, self.title)

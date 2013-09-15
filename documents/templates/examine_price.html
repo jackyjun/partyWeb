@@ -10,7 +10,7 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ price.title }}奖项审核</h3>
+    <h3 class="text-info">{{ price.title }}审核</h3>
     <div style="width:900px">
         奖项发布时间:{{ price.date }}
         <hr/>
@@ -21,6 +21,7 @@
                         <td><h5>学号</h5></td>
                         <td><h5>姓名</h5></td>
                         <td><h5>申请结果</h5></td>
+                        <td><h5>报名表下载</h5></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +45,13 @@
                                         <option value="3" selected="selected">通过</option>
                                     {% endif %}
                                 </select>
+                            </td>
+                            <td>
+                                {% if studentPrice.file %}
+                                    <a href="/download_price_form/{{ studentPrice.id }}">下载</a>
+                                {% else %}
+                                    该学生未提交报名表
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

@@ -15,11 +15,11 @@
             <a class="text-info" href="/student_search/">学生信息查询</a><br/>
             <a class="text-info" href="/search_student_activity/">学生活动情况查询</a><br/>
             <a class="text-info" href="/examine_price_list/">奖项审核管理</a><br/>
-            <a class="text-info" href="/admin/">新闻、通知等管理</a><br/>
+            <a class="text-info" href="/admin/">新闻、通知、奖项等管理</a><br/>
         {% elif user.is_staff %}
             <a class="text-info" href="/search_activity/">活动管理</a><br/>
             <a class="text-info" href="/search_student_activity/">搜索学生活动参与情况</a><br/>
-            <a class="text-info" href="/attachment_list/">文件管理</a><br/>
+            <a class="text-info" href="/attachment_list/">文件共享</a><br/>
         {% endif %}
     </div>
 {% endblock %}

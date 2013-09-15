@@ -24,7 +24,16 @@
 {% block content %}
     <div style="width:900px" >
         <h3 class="text-info">活动信息管理</h3>
-        <a class="text-info" href="/admin_center/"><<管理中心</a><br/>
+        <a class="text-info" href="/admin_center/">
+            <button class="btn btn-mini btn-info" type="button">
+                <i class=" icon-home icon-white"></i>管理中心
+            </button>
+        </a>
+        <a class="text-info" href="/add_activity/">
+            <button class="btn btn-mini btn-success" type="button">
+                <i class=" icon-plus icon-white"></i>发布活动
+            </button>
+        </a>
         <hr/>
         <form action="/search_activity/" method="post">
             活动名称：<input type="text" name="title">
@@ -37,7 +46,6 @@
             </select>
             <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
         </form>
-        <a class="text-info" href="/add_activity/">我要发布活动</a>
         {% if flag == True%}
             <table class="table">
                 <thead>
@@ -57,13 +65,44 @@
                             <td>{{ activity.get_type_display }}</td>
                             <td>{{ activity.publisher }}</td>
                             <td>{{ activity.start_time }}</td>
-                            <td>
-                                <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
+                            <td style="width:200px;" >
+                                {% if request.is_superuser %}
+                                    <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
+                                {% else %}
+                                    未审核
+                                {% endif %}
                             </td>
                             <td>
-                                <a href="/activity_detail/{{ activity.id }}" class="text-info" target="_blank">查看</a>
-                                <a href="/modify_activity/{{ activity.id }}" class="text-info" target="_blank">修改</a>
-                                <a class="text-info" style="cursor: pointer" name="delete" id="{{ activity.id }}">删除</a>
+                                <a class="text-info" href="/activity_detail/{{ activity.id }}" target="_blank">
+                                    <button class="btn btn-mini btn-info" type="button">
+                                        <i class="icon-eye-open icon-white"></i>
+                                    </button>
+                                </a>
+                                {% if user.is_superuser %}
+                                    <a class="text-info" href="/modify_activity/{{ activity.id }}" target="_blank">
+                                        <button class="btn btn-mini btn-success" type="button">
+                                            <i class="icon-edit icon-white"></i>
+                                        </button>
+                                    </a>
+                                    <a class="text-info" href="/modify_activity/{{ activity.id }}" name="delete" id="{{ activity.id }}" target="_blank">
+                                        <button class="btn btn-mini btn-danger" type="button">
+                                            <i class="icon-remove icon-white"></i>
+                                        </button>
+                                    </a>
+                                {% else %}
+                                    {% if activity.publisher == user %}
+                                        <a class="text-info" href="/modify_activity/{{ activity.id }}" target="_blank">
+                                            <button class="btn btn-mini btn-success" type="button">
+                                                <i class="icon-edit icon-white"></i>
+                                            </button>
+                                        </a>
+                                        <a class="text-info" href="/modify_activity/{{ activity.id }}" name="delete" id="{{ activity.id }}" target="_blank">
+                                            <button class="btn btn-mini btn-danger" type="button">
+                                               <i class="icon-remove icon-white"></i>
+                                            </button>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
                             </td>
                         </tr>
                     {%  endfor %}

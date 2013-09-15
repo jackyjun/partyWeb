@@ -209,10 +209,59 @@ def back_student_info(request,id):
     user = request.user
     if user.is_staff:
         student = Student.objects.get(id=id)
-        form = StudentForm(instance=student)
+        student_list = []
+        student_dic = {}
+        student_dic[u'学号'] = student.student_id
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'姓名'] = student.name
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'学科类型'] = student.get_subject_display()
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'培养类型'] = student.get_training_display()
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'专业'] = student.major
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'导师'] = student.professor
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'性别'] = student.get_gender_display()
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'寝室号'] = student.dormitory
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'实验室'] = student.laboratory
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'座位号'] = student.seat_number
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'职位'] = student.duty
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'政治面貌'] = student.get_political_status_display
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'入党时间'] = student.apply_party_time
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'转正时间'] =   student.join_party_time
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'所属党支部'] = student.party_branch
+        student_list.append(student_dic)
+        student_dic = {}
+        student_dic[u'手机号码'] = student.phone
+        student_list.append(student_dic)
+        student_dic = {}
+        student_list.append(student_dic)
         return render(request, 'back_student_info.html', {
-            'form': form,
-            'student':student,
+            'student_list':student_list,
             'user':request.user,
         })
     else:

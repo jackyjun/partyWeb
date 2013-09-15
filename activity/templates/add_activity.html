@@ -28,6 +28,16 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">发布活动</h3>
+    <a class="text-info" href="/search_activity/">
+        <button class="btn btn-mini btn-info" type="button">
+            <i class="icon-arrow-left icon-white"></i>活动管理
+        </button>
+    </a>
+    <a class="text-info" href="/admin_center/">
+        <button class="btn btn-mini btn-success" type="button">
+            <i class="icon-home icon-white"></i>管理中心
+        </button>
+    </a>
     <div style="width:900px">
     <hr/>
         <form action="/add_activity/" method="post">{% csrf_token %}

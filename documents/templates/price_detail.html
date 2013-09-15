@@ -3,15 +3,22 @@
     {{ price.title }}
 {% endblock %}
 {% block content %}
-    <div class="text-center" style="width: 900px">
+    <div class="text-center" style="width: 900px;">
         <h3>{{price.title}}</h3>
         <hr style="margin:0 auto 0 auto;width:300px;">
         <h5>发布日期：{{ price.date }} &nbsp; &nbsp; &nbsp;</h5>
         <hr style="margin:0 auto 0 auto;width:300px;">
-        <div style="margin-top: 20px;text-align: left;">
-        {% autoescape off %}
-            {{ price.requirement }}
-        {% endautoescape %}
+        <div style="margin-top: 20px;text-align: left;padding-bottom: 40px;">
+            {% autoescape off %}
+                {{ price.requirement }}
+            {% endautoescape %}
+            {% if price.first_file %}
+               <a href="/download_price_attachment/{{ price.id }}/1">附件1点击下载</a>
+            {% endif %}
+            <br/>
+            {% if price.second_file %}
+               <a href="/download_price_attachment/{{ price.id }}/1">附件2点击下载</a>
+            {% endif %}
         </div>
     </div>
 {%  endblock %}

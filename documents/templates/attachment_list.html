@@ -1,6 +1,6 @@
 {% extends 'base3-other.html'%}
 {% block title %}
-    {{ title }}
+   文件共享
 {% endblock %}
 {% block head_part %}
     <style>
@@ -21,16 +21,26 @@
     </script>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">文件管理</h3>
+    <h3 class="text-info">文件共享</h3>
     <div style="width:900px">
-    <a class="text-info" href="/admin_center/"><<管理中心</a><br/>
+
+    <a class="text-info" href="/admin_center/">
+        <button class="btn btn-mini btn-info" type="button">
+            <i class="icon-home icon-white"></i>管理中心
+        </button>
+    </a>
+    <a class="text-info" href="/upload_attachment/">
+        <button class="btn btn-mini btn-success" type="button">
+            上传文件<i class=" icon-arrow-up icon-white"></i>
+        </button>
+    </a>
     <hr/>
-    <a class="text-info" href="/upload_attachment/">我要上传文件</a>
     <table class="table">
         <thead>
             <tr>
                 <td><h5>文件名</h5></td>
                 <td><h5>上传日期</h5></td>
+                <td><h5>上传者</h5></td>
                 <td><h5>操作</h5></td>
             </tr>
         </thead>
@@ -39,9 +49,28 @@
                 <tr>
                     <td>{{ attachment.title }}</td>
                     <td>{{ attachment.date }}</td>
+                    <td>{{ attachment.publisher }}</td>
                     <td>
-                        <a class="text-info" href="/get_attachment/{{ attachment.id }}">下载</a>
-                        <a class="text-info" name="cancel" style="cursor: pointer;" id="{{ attachment.id }}">删除</a>
+                        <a class="text-info" href="/get_attachment/{{ attachment.id }}">
+                            <button class="btn btn-mini btn-info" type="button">
+                                下载<i class="icon-download icon-white"></i>
+                            </button>
+                        </a>
+                        {% if user.is_superuser %}
+                            <a class="text-info" name="cancel" id="{{ attachment.id }}" href="#">
+                                <button class="btn btn-mini btn-danger" type="button">
+                                    删除<i class="icon-remove icon-white"></i>
+                                </button>
+                            </a>
+                        {% else %}
+                            {% if attachment.publisher == user %}
+                                <a class="text-info" name="cancel" id="{{ attachment.id }}" href="#">
+                                    <button class="btn btn-mini btn-danger" type="button">
+                                        删除<i class="icon-remove icon-white"></i>
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

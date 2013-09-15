@@ -30,6 +30,7 @@
                 <td><h5>奖项名称</h5></td>
                 <td><h5>申请截止日期</h5></td>
                 <td><h5>申请状态</h5></td>
+                <td><h5>报名表上传状态</h5></td>
                 <td><h5>奖项要求</h5></td>
             </tr>
         </thead>
@@ -46,6 +47,15 @@
                             已结束申请
                         {% else %}
                              已申请<a class="text-info" style="cursor:pointer;" id="{{ price.id }}" name="cancel">[取消申请]</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if flag == 1 %}
+                            未上传 <a href="/upload_price_form/{{ price.id }}">[立即上传]</a>
+                        {% elif flag == 2 %}
+                            已上传
+                        {% else %}
+                            未报名
                         {% endif %}
                     </td>
                     <td><a class="text-info" href="/price_detail/{{ price.id }}" target="_blank">详情</a> </td>

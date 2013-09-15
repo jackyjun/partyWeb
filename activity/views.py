@@ -122,12 +122,7 @@ def add_activity(request):
             form = ActivityForm(request.POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 activity = form.save(commit=False)
-                try:
-                    userStudent = UserStudent.objects.get(user = request.user)
-                    student = userStudent.student
-                    activity.publisher = student.name
-                except UserStudent.DoesNotExist:
-                    activity.publisher = 'admin'
+                activity.publisher = request.user
                 activity.save()
                 return redirect('/search_activity?operate=1')
         else:
@@ -437,4 +432,4 @@ def user_activity_detail(request):
         'student':student,
         'user':request.user,
     }
-    return render_to_response('student_activity_detail.html',context)
+    return render_to_response('user_activity_detail.html',context)

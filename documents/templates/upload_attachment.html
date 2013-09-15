@@ -15,7 +15,11 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">文件上传</h3>
-    <a class="text-info" href="/attachment_list/"><<文件管理</a>
+    <a class="text-info" href="/attachment_list/">
+        <button class="btn btn-mini btn-info" type="button">
+            <i class=" icon-arrow-left icon-white"></i>文件管理
+        </button>
+    </a>
     <div style="width:900px">
         <hr/>
             <form action="/upload_attachment/" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -28,7 +32,7 @@
                         </div>
                      </div>
                  {% endfor %}
-                 *文件上传限制最大3.5M
+                 <div class="text-error">*文件上传大小最大限制为3.5MB</div>
                 <p><input type="submit" class="btn" value="上传" /></p>
             </form>
     </div>

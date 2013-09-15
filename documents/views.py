@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from member.models import UserStudent,Student
-from models import News,Regulation,Notice,Price,StudentPrice,Attachment,AttachmentForm
+from models import News,Regulation,Notice,Price,StudentPrice,Attachment,AttachmentForm,StudentPriceForm
 from django.contrib.auth.decorators import login_required
 from datetime import *
 from django.http import HttpResponse
@@ -93,26 +93,31 @@ def list_regulation(request,page):
                                'user':request.user
                               })
 
+@login_required(login_url='/user_login/')
 def list_price(request):
     price_list = Price.objects.all().order_by('-deadline')
     list = []
     for price in price_list:
         price_dic = {}
         if price.deadline >= date.today():
-            try:
-                if request.user.is_active:
-                    userStudent = UserStudent.objects.get(user = request.user)
-                    student = userStudent.student
-                    StudentPrice.objects.get(student_id = student.id,price_id = price.id)
-                    flag = 1
-                else:
+            if price.status==False:
+                try:
+                    if request.user.is_active:
+                        userStudent = UserStudent.objects.get(user = request.user)
+                        student = userStudent.student
+                        studentPrice = StudentPrice.objects.get(student_id = student.id,price_id = price.id)
+                        if studentPrice.file:
+                            flag = 2
+                        else:
+                            flag = 1
+                    else:
+                        flag = 0
+                except StudentPrice.DoesNotExist:
                     flag = 0
-            except StudentPrice.DoesNotExist:
-                flag = 0
-            price.date = price.date.strftime('%Y-%m-%d')
-            price.deadline = price.deadline.strftime('%Y-%m-%d')
-            price_dic[price] = flag
-            list.append(price_dic)
+                price.date = price.date.strftime('%Y-%m-%d')
+                price.deadline = price.deadline.strftime('%Y-%m-%d')
+                price_dic[price] = flag
+                list.append(price_dic)
     prompt_msg = {
         '1':u'申请奖项成功！',
         '2':u'取消申请奖项成功！',
@@ -190,7 +195,31 @@ def student_price(request):
         price.deadline = price.deadline.strftime('%Y-%m-%d')
         price_dic[studentPrice] = price
     print price_dic
-    return render_to_response('student_price.html',{'price_dic':price_dic,'user':request.user})
+    return render(request,'student_price.html',{'price_dic':price_dic})
+
+@csrf_exempt
+@login_required(login_url='/user_login/')
+def upload_price_form(request,id):
+    if request.method == 'POST':
+        try:
+            student = UserStudent.objects.get(user=request.user).student
+            price = Price.objects.get(id=id)
+            student_price = StudentPrice.objects.get(price=price,student=student)
+            form = StudentPriceForm(request.POST, request.FILES,instance=student_price)
+            if form.is_valid():
+                form.save()
+                return redirect(list_price)
+        except StudentPrice.DoesNotExist:
+            return redirect(list_price)
+    else:
+        student = UserStudent.objects.get(user=request.user).student
+        price = Price.objects.get(id=id)
+        try:
+            student_price = StudentPrice.objects.get(price=price,student=student)
+            form = StudentPriceForm(instance=student_price)
+            return render(request, 'upload_price_form.html', {'form': form,'id':id})
+        except StudentPrice.DoesNotExist:
+            return redirect(list_price)
 
 @csrf_exempt
 @login_required(login_url='/user_login/')
@@ -266,6 +295,49 @@ def examine_price_list(request):
         return render_to_response('permission_error.html')
 
 @login_required(login_url='/user_login/')
+def download_price_attachment(request,id,type):
+    #price attachment
+    try:
+        price = Price.objects.get(id=id)
+        if int(type)==1:
+            file = price.first_file
+        elif int(type)==2:
+            file = price.second_file
+        else:
+            return redirect('/price_detail%s/'%id)
+        if file:
+            list = file.name.split('.')
+            file_name = date.today().strftime('%Y%m%d')+'.'+list[1]
+            response = HttpResponse(file)
+            response['Content-Disposition'] = 'attachment; filename="%s"'%file_name
+            return response
+        else:
+            return redirect('/price_detail/%s'%id)
+    except Price.DoesNotExist:
+        return redirect('/price_detail/%s'%id)
+
+@login_required(login_url='/user_login/')
+def download_price_form(request,id):
+    #student price form
+    if request.user.is_superuser:
+        try:
+            student_price = StudentPrice.objects.get(id=id)
+            if student_price.file:
+                file = student_price.file
+                list = file.name.split('.')
+                student = student_price.student
+                file_name = student.student_id+'.'+list[1]
+                response = HttpResponse(file)
+                response['Content-Disposition'] = 'attachment; filename="%s"'%file_name
+                return response
+            else:
+                return redirect('/examine_price_list')
+        except StudentPrice.DoesNotExist:
+            return redirect('/examine_price_list/')
+    else:
+        return render_to_response('permission_error.html')
+
+@login_required(login_url='/user_login/')
 def attachment_list(request):
     if request.user.is_staff:
         attachment_list = Attachment.objects.all().order_by('-date')
@@ -288,12 +360,15 @@ def get_attachment(request,id):
     else:
         return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def upload_attachment(request):
     if request.user.is_staff:
         if request.method == 'POST':
             form = AttachmentForm(request.POST, request.FILES)
             if form.is_valid():
-                form.save()
+                attachment = form.save(commit=False)
+                attachment.publisher = request.user
+                attachment.save()
                 return redirect(attachment_list)
         else:
             form = AttachmentForm()
@@ -301,6 +376,7 @@ def upload_attachment(request):
     else:
         return render_to_response('permission_error.html')
 
+@login_required(login_url='/user_login/')
 def delete_attachment(request,id):
     if request.user.is_staff:
         try:

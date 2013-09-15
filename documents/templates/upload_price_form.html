@@ -1,0 +1,28 @@
+{% extends 'base3-other.html'%}
+{% block title %}
+    申请奖项列表
+{% endblock %}
+{% block head_part %}
+{% endblock %}
+{% block content %}
+    <h3 class="text-info">上传报名表</h3>
+    <div style="width:900px">
+        <hr/>
+            <form action="/upload_price_form/{{ id }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                 {% for field in form %}
+                    <div class="text-error"> {{ field.errors }} </div>
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-size:14px;margin-bottom: 10px;">
+                            <div style="float:left;width:110px;">{{ field.label}}</div>
+                            <div>&nbsp;{{ field }}</div>
+                        </div>
+                     </div>
+                 {% endfor %}
+                <p><input type="submit" class="btn" value="上传" /></p>
+                <div class="text-error">
+                    *文件要求：文件类型统一为doc,文件大小不得大于2M<br/>
+                    *报名表只能上传一次，请确认后上传
+                </div>
+            </form>
+    </div>
+{% endblock %}
