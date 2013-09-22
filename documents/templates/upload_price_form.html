@@ -6,6 +6,7 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">上传报名表</h3>
+    <a class="text-info" href="/student_center/"><<用户中心</a>
     <div style="width:900px">
         <hr/>
             <form action="/upload_price_form/{{ id }}" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -18,11 +19,11 @@
                         </div>
                      </div>
                  {% endfor %}
-                <p><input type="submit" class="btn" value="上传" /></p>
                 <div class="text-error">
                     *文件要求：文件类型统一为doc,文件大小不得大于2M<br/>
                     *报名表只能上传一次，请确认后上传
                 </div>
+                <p><input type="submit" class="btn" value="上传" /></p>
             </form>
     </div>
 {% endblock %}

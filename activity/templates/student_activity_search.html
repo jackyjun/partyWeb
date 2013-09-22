@@ -21,15 +21,24 @@
 {% endblock %}
 {% block content %}
     <div style="width:900px" >
-        <h3 class="text-info">学生活动信息检索</h3>
-        <a class="text-info" href="/admin_center/"><<管理中心</a>
+        <h3 class="text-info">学生活动信息查询</h3>
+        <a class="text-info" style="text-decoration: none;" href="/search_activity/">
+            <button class="btn btn-mini" type="button">
+                <i class="icon-arrow-left"></i>活动管理
+            </button>
+        </a>
+        <a class="text-info" style="text-decoration: none;" href="/admin_center/">
+            <button class="btn btn-mini" type="button">
+                <i class="icon-home"></i>管理中心
+            </button>
+        </a>
         <hr/>
         学生活动参与情况查询：<br/>
         <form action="/search_single_student_activity/" method="post">
             学号：<input type="text" name="student_id"/>
             姓名：<input type="text" name="name"/>
             活动名称：<input type="text" name="activity_name"/>
-            <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
+            <input style="margin-bottom: 12px;" type="submit" class="btn " value="查询">
         </form>
         <hr/>
         学生活动参与次数查询：<br/>
@@ -54,7 +63,7 @@
             </select>
             查询时间段：<input type="text" id="start_time" name="start_time"/>
             ~<input type="text" id="end_time" name="end_time"/>
-            <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
+            <input style="margin-bottom: 12px;" type="submit" class="btn " value="查询">
         </form>
         <hr/>
                 {% if flag == True%}

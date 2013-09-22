@@ -12,6 +12,7 @@
             {% autoescape off %}
                 {{ price.requirement }}
             {% endautoescape %}
+            <hr/>
             {% if price.first_file %}
                <a href="/download_price_attachment/{{ price.id }}/1">附件1点击下载</a>
             {% endif %}

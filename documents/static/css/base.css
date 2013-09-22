@@ -16,7 +16,7 @@ body{
     font-size: 16px;
 }
 .navbar-login{
-    margin-left: 150px;
+    margin-left: 50px;
     float:right;
 }
 .header{
@@ -29,6 +29,7 @@ body{
     float: left;
     background: url("/static/images/logo.jpg");
 }
+
 .footer{
     width:990px;
     float:left;

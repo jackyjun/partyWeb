@@ -437,6 +437,9 @@ def home(request):
     }
     return render_to_response('home4.html',context,context_instance=RequestContext(request))
 
+def contact(request):
+    return render(request,'contact.html')
+
 @csrf_exempt
 def branch_search(request):
     branch_list = PartyBranch.objects.all()
@@ -550,11 +553,10 @@ def import_xls(request):
                         #party_time
                         apply_party_time = None
                         join_party_time = None
-                        if re.match(r'\d{4}-\d{1,2}-\d{1,2}',values[13]):
-                            apply_party_time = datetime.strptime(values[13],'%Y-%m-%d').date()
-                        if re.match(r'\d{4}-\d{1,2}-\d{1,2}',values[14]):
-                            join_party_time = datetime.strptime(values[14],'%Y-%m-%d').date()
-
+                        if re.match(r'\d{4}-\d{1,2}-\d{1,2}',str(values[13])):
+                            apply_party_time = datetime.strptime(str(values[13]),'%Y-%m-%d').date()
+                        if re.match(r'\d{4}-\d{1,2}-\d{1,2}',str(values[14])):
+                            join_party_time = datetime.strptime(str(values[14]),'%Y-%m-%d').date()
                         user = User.objects.create_user(str(long(values[0])),None,str(long(values[0])))
                         user.first_name = values[1]
                         user.save()

@@ -25,6 +25,16 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">修改活动</h3>
+    <a class="text-info" style="text-decoration: none;" href="/search_activity/">
+        <button class="btn btn-mini" type="button">
+            <i class="icon-arrow-left"></i>活动管理
+        </button>
+    </a>
+    <a class="text-info" style="text-decoration: none;" href="/admin_center/">
+        <button class="btn btn-mini" type="button">
+            <i class="icon-home"></i>管理中心
+        </button>
+    </a>
     <div style="width:900px">
     <hr/>
         <form action="/modify_activity/{{ id }}" method="post">{% csrf_token %}

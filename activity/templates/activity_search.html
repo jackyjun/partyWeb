@@ -8,6 +8,9 @@
             text-align: center;
             width:300px;
         }
+        a{
+           text-decoration: none;
+        }
     </style>
     <script>
         $(document).ready(function(){
@@ -24,14 +27,19 @@
 {% block content %}
     <div style="width:900px" >
         <h3 class="text-info">活动信息管理</h3>
-        <a class="text-info" href="/admin_center/">
-            <button class="btn btn-mini btn-info" type="button">
-                <i class=" icon-home icon-white"></i>管理中心
+        <a style="text-decoration: none;" href="/admin_center/">
+            <button class="btn btn-mini" type="button">
+                <i class=" icon-home icon-black"></i>管理中心
             </button>
         </a>
-        <a class="text-info" href="/add_activity/">
-            <button class="btn btn-mini btn-success" type="button">
-                <i class=" icon-plus icon-white"></i>发布活动
+        <a style="text-decoration: none;"  href="/add_activity/">
+            <button class="btn btn-mini" type="button">
+                <i class=" icon-plus icon-black"></i>发布活动
+            </button>
+        </a>
+        <a href="/search_student_activity/">
+            <button class="btn btn-mini" type="button">
+                <i class=" icon-search icon-black"></i>活动信息查询
             </button>
         </a>
         <hr/>
@@ -44,7 +52,7 @@
                 <option value="2">党组织活动</option>
                 <option value="3">其他活动</option>
             </select>
-            <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
+            <input style="margin-bottom: 12px;" type="submit" class="btn" value="查询">
         </form>
         {% if flag == True%}
             <table class="table">
@@ -66,37 +74,37 @@
                             <td>{{ activity.publisher }}</td>
                             <td>{{ activity.start_time }}</td>
                             <td style="width:200px;" >
-                                {% if request.is_superuser %}
+                                {% if user.is_superuser %}
                                     <a href="/examine_activity/{{ activity.id }}" class="text-info">未审核</a>
                                 {% else %}
                                     未审核
                                 {% endif %}
                             </td>
                             <td>
-                                <a class="text-info" href="/activity_detail/{{ activity.id }}" target="_blank">
-                                    <button class="btn btn-mini btn-info" type="button">
-                                        <i class="icon-eye-open icon-white"></i>
+                                <a style="text-decoration: none;" href="/activity_detail/{{ activity.id }}" target="_blank">
+                                    <button class="btn btn-mini" type="button">
+                                        <i class="icon-eye-open icon-black"></i>
                                     </button>
                                 </a>
                                 {% if user.is_superuser %}
-                                    <a class="text-info" href="/modify_activity/{{ activity.id }}" target="_blank">
-                                        <button class="btn btn-mini btn-success" type="button">
-                                            <i class="icon-edit icon-white"></i>
+                                    <a  style="text-decoration: none;" href="/modify_activity/{{ activity.id }}">
+                                        <button class="btn btn-mini" type="button">
+                                            <i class="icon-edit icon-black"></i>
                                         </button>
                                     </a>
-                                    <a class="text-info" href="/modify_activity/{{ activity.id }}" name="delete" id="{{ activity.id }}" target="_blank">
-                                        <button class="btn btn-mini btn-danger" type="button">
-                                            <i class="icon-remove icon-white"></i>
+                                    <a  href="#" name="delete" id="{{ activity.id }}">
+                                        <button class="btn btn-mini" type="button">
+                                            <i class="icon-remove icon-black"></i>
                                         </button>
                                     </a>
                                 {% else %}
                                     {% if activity.publisher == user %}
-                                        <a class="text-info" href="/modify_activity/{{ activity.id }}" target="_blank">
+                                        <a style="text-decoration: none;" href="/modify_activity/{{ activity.id }}">
                                             <button class="btn btn-mini btn-success" type="button">
                                                 <i class="icon-edit icon-white"></i>
                                             </button>
                                         </a>
-                                        <a class="text-info" href="/modify_activity/{{ activity.id }}" name="delete" id="{{ activity.id }}" target="_blank">
+                                        <a style="text-decoration: none;" class="text-info" href="#" name="delete" id="{{ activity.id }}">
                                             <button class="btn btn-mini btn-danger" type="button">
                                                <i class="icon-remove icon-white"></i>
                                             </button>
@@ -113,12 +121,39 @@
                             <td>{{ activity.publisher }}</td>
                             <td>{{ activity.start_time }}</td>
                             <td>
-                                已审核<a href="/examine_result/{{ activity.id }}" class="text-info" target="_blank">[查看]</a>
+                                已审核<a style="text-decoration: none;" href="/examine_result/{{ activity.id }}" class="text-info" target="_blank">[查看]</a>
                             </td>
                             <td>
-                                <a href="/activity_detail/{{ activity.id }}" class="text-info" target="_blank">查看</a>
-                                <a href="/modify_activity/{{ activity.id }}" class="text-info" target="_blank">修改</a>
-                                <a class="text-info" style="cursor: pointer" name="delete" id="{{ activity.id }}">删除</a>
+                                <a style="text-decoration: none;" href="/activity_detail/{{ activity.id }}" target="_blank">
+                                    <button class="btn btn-mini" type="button">
+                                        <i class="icon-eye-open icon-black"></i>
+                                    </button>
+                                </a>
+                                {% if user.is_superuser %}
+                                    <a style="text-decoration: none;" href="/modify_activity/{{ activity.id }}">
+                                        <button class="btn btn-mini" type="button">
+                                            <i class="icon-edit icon-black"></i>
+                                        </button>
+                                    </a>
+                                    <a href="#" name="delete" id="{{ activity.id }}">
+                                        <button class="btn btn-mini" type="button">
+                                            <i class="icon-remove icon-black"></i>
+                                        </button>
+                                    </a>
+                                {% else %}
+                                    {% if activity.publisher == user %}
+                                        <a style="text-decoration: none;" href="/modify_activity/{{ activity.id }}">
+                                            <button class="btn btn-mini btn-success" type="button">
+                                                <i class="icon-edit icon-white"></i>
+                                            </button>
+                                        </a>
+                                        <a href="#" name="delete" id="{{ activity.id }}">
+                                            <button class="btn btn-mini btn-danger" type="button">
+                                               <i class="icon-remove icon-white"></i>
+                                            </button>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
                             </td>
                         </tr>
                     {%  endfor %}

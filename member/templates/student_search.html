@@ -6,6 +6,12 @@
 {% endblock %}
 {% block content %}
     <h3 class="text-info">学生信息查询</h3>
+    <a class="text-info" style="text-decoration: none;" href="/admin_center/">
+        <button class="btn btn-mini" type="button">
+            <i class="icon-home icon-black"></i>管理中心
+        </button>
+    </a>
+    <hr/>
     <form action="#" method="post">
         学号：<input type="text" name="student_id"/>
         姓名：<input type="text" name="name"/>
@@ -54,8 +60,9 @@
         </select>
         <br/>
        寝室:<input type="text" name="dormitory"/><br/>
-        <input type="submit" clas="btn" value="查询"/>
+        <input type="submit" class="btn" value="查询"/>
     </form>
+    <hr/>
     <table class="table table-hover">
         <thead>
             <th>学号</th>
