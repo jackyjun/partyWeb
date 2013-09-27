@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>it's new</title>
+    <link rel="stylesheet" href="/static/css/new_base.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/new_home.css" type="text/css" />
+    <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/nivo-slider/themes/light/light.css" type="text/css" />
+    <link rel="stylesheet" href="/static/nivo-slider/nivo-slider.css" type="text/css"  />
+    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="/static/nivo-slider/jquery.nivo.slider.js"></script>
+    <script>
+        $("document").ready(function(){
+            $('#slider').nivoSlider({
+                 pauseTime: 7000
+            });
+            $(".tab-pane").each(function(){
+               if(!$(this).hasClass('active')){
+                $(this).hide();
+               }
+            });
+            $(".tab-item").hover(function(){
+                var array = $(this).attr("id").split('_');
+                 $(".tab-item").each(function(){
+                    var array2 = $(this).attr("id").split('_');
+                    if(array[1]==array2[1])
+                    {
+                        $(this).removeClass("tab-item-hover");
+                        if($("#"+array2[2]).hasClass('active')){
+                           $("#"+array2[2]).removeClass('active').hide();
+                        }
+                    }
+                 });
+                $(this).addClass("tab-item-hover");
+                $("#"+array[2]).addClass('active').show();
+            });
+        });
+    </script>
+</head>
+<body>
+     <div class="container">
+        <div class="header"></div>
+        <ul id="nav">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">新闻动态</a></li>
+            <li><a href="#">通知公告</a></li>
+            <li><a href="#">制度条例</a></li>
+            <li><a href="#">E家党支部</a>
+                <ul>
+                    <li><a href="#">党支部结构</a></li>
+                    <li><a href="#">党组织生活</a></li>
+                    <li><a href="#">党员发展信息</a></li>
+                    <li><a href="#">党员考核信息</a></li>
+                    <li><a href="#">党员发展公示</a></li>
+                </ul>
+            </li>
+            <li><a href="#">团学活动</a>
+                <ul>
+                    <li><a href="#">团支部活动</a></li>
+                    <li><a href="#">研究生会活动</a></li>
+                </ul>
+            </li>
+           <li><a href="#">组织架构</a></li>
+           <li><a href="#">关于我们</a></li>
+           <li><a href="#">我要登录</a></li>
+        </ul>
+        <div class="slider">
+            <div class="slider-wrapper theme-light">
+                <div id="slider" class="nivoSlider">
+                    <img src="/static/media/nivoslider/1.jpg" >
+                    <img src="/static/media/nivoslider/2.jpg" >
+                    <img src="/static/media/nivoslider/3.jpg" >
+                    <img src="/static/media/nivoslider/1.jpg" >
+                </div>
+            </div>
+        </div>
+        <!--<div class="navbar">
+            <div class="navbar-item"><a href="#">首页</a></div>
+            <div class="navbar-item"><a href="#">新闻动态</a></div>
+            <div class="navbar-item"><a href="#">通知公告</a></div>
+            <div class="navbar-item"><a href="#">制度条例</a></div>
+            <div class="navbar-item"><a href="#">E家党支部</a></div>
+            <div class="navbar-item"><a href="#">团学活动</a></div>
+            <div class="navbar-item"><a href="#">组织架构</a></div>
+            <div class="navbar-item"><a href="#">关于我们</a></div>
+            <div class="navbar-item-login"><a href="#">我要登录</a></div>
+        </div>-->
+        <div class="activity">
+            <div class="item-title">学生活动</div>
+            <div class="tab">
+                <div class="tab-item tab-item-hover" id="tab_activity_party">党组织生活</div>
+                <div class="tab-item" id="tab_activity_youth">团组织活动</div>
+                <div class="tab-item" id="tab_activity_student">研究生会活动</div>
+                <div class="tab-item" id="tab_activity_other">其他活动</div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="party">
+                    <div class="item-link">
+                        <div class="item-link-title">
+                            <a href="#">关于XXXXXXXX的决定</a>
+                        </div>
+                        <div class="item-link-date">
+                            2013-9-23
+                        </div>
+                    </div>
+                                        <div class="item-link">
+                        <div class="item-link-title">
+                            <a href="#">关于XXXXXXXX的决定</a>
+                        </div>
+                        <div class="item-link-date">
+                            2013-9-23
+                        </div>
+                    </div>
+                                        <div class="item-link">
+                        <div class="item-link-title">
+                            <a href="#">关于XXXXXXXX的决定</a>
+                        </div>
+                        <div class="item-link-date">
+                            2013-9-23
+                        </div>
+                    </div>                    <div class="item-link">
+                        <div class="item-link-title">
+                            <a href="#">关于XXXXXXXX的决定</a>
+                        </div>
+                        <div class="item-link-date">
+                            2013-9-23
+                        </div>
+                    </div>
+                                        <div class="item-link">
+                        <div class="item-link-title">
+                            <a href="#">关于XXXXXXXX的决定</a>
+                        </div>
+                        <div class="item-link-date">
+                            2013-9-23
+                        </div>
+                    </div>
+                    <div class="item-link">
+                        <div class="item-link-more">
+                            <a href="#">更多</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="youth">
+                    youthdsds
+                </div>
+                <div class="tab-pane" id="student">
+                    studentdsd
+                </div>
+                <div class="tab-pane" id="other">
+                    otherdsds
+                </div>
+            </div>
+        </div>
+        <div class="party">
+            <div class="item-title">E家党支部</div>
+            <div class="tab">
+                <div class="tab-item tab-item-hover" id="tab_party_structure">党支部结构</div>
+                <div class="tab-item" id="tab_party_notice">党员发展公示</div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="structure">dadada</div>
+                <div class="tab-pane" id="notice">dadadasss</div>
+            </div>
+        </div>
+        <div class="news">
+            <div class="item-title">新闻动态</div>
+            <div class="news-content">
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+               <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-more">
+                        <a href="#">更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notice">
+            <div class="item-title">通知公告</div>
+             <div class="news-content">
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+               <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-title">
+                        <a href="#">关于XXXXXXXX的决定</a>
+                    </div>
+                    <div class="item-link-date">
+                        2013-9-23
+                    </div>
+                </div>
+                <div class="item-link">
+                    <div class="item-link-more">
+                        <a href="#">更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="links">
+            <div class="links-item">友情链接：</div>
+            <div class="links-item"><a href="#">上海大学</a></div>
+            <div class="links-item"><a href="#">上海大学党委组织部</a></div>
+            <div class="links-item"><a href="#">上海大学研究生工作党委</a></div>
+            <div class="links-item"><a href="#">上海大学研究生部</a></div>
+            <div class="links-item"><a href="#">上海大学计算机工程与科学学院</a></div>
+        </div>
+        <div class="footer">
+            <div class="footer-item">
+               为使网站达到最佳浏览效果，请使用IE7.0以上版本或者chrome、firefox等浏览器 <br/>
+               上海大学计算机工程与科学学院 版权所有 © 2013
+            </div>
+        </div>
+    </div>
+</body>
+</html>

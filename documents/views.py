@@ -73,7 +73,7 @@ def list_notice(request,type,page):
 
 def list_regulation(request,page):
     REGULATION_COUNT = 10
-    item_list = Regulation.objects.all().order_by('-date')
+    item_list = Regulation.objects.all().order_by('-date').order_by('-id')
     paginator = Paginator(item_list,REGULATION_COUNT)
     try:
         regulation_list = paginator.page(page)

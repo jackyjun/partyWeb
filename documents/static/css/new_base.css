@@ -1,0 +1,141 @@
+/*
+**base.css
+**this is new ui base css file
+**created by shu 2013.9.27
+*/
+body{
+    text-align: center;
+    background-color: #ebeaea;
+    font-size: 14px;
+    /*color: #767e89;*/
+    color: #000;
+    font-family: "微软雅黑";
+    /*color: #333;*/
+}
+.container{
+    margin-left:auto;
+    margin-right:auto;
+    width: 990px;
+}
+
+.header{
+    height: 115px;
+    width:990px;
+    float: left;
+    color:#ffffff;
+    font-size: 20px ;
+    margin-bottom: 5px;
+    /*background-color:#941e23;*/
+    background: url("/static/images/logo.jpg");
+}
+#nav, #nav ul {
+    list-style: none;
+    margin-bottom: 5px;
+    font-size: 17px;
+    float:left;
+    width:990px;
+    height:40px;
+
+}
+ul{
+    width:900px;
+    margin:0;
+    padding:0;
+}
+#nav{
+    background-color: #941e23;
+}
+#nav li {
+    float:left;
+    margin:10px 0px 0px 15px;
+    width:85px;
+	color: #fff;
+}
+#nav li a:hover{
+    color:#767e89;
+}
+#nav a:link, #nav a:visited {
+	display: block;
+	text-decoration: none;
+	color: #fff;
+}
+#nav ul {
+	display: none;
+    z-index: 20;
+	position: absolute;
+}
+#nav ul li {
+	float: none;
+    width:130px;
+    font-size:15px;
+    border-bottom: 1px solid #efeeee;
+	background-color: #941e23;
+	margin: 0;
+	padding: 0;
+}
+#nav li:hover ul {
+	display: block;
+}
+
+/*.navbar{
+    margin-bottom: 10px;
+    font-size: 15px;
+    float:left;
+    width:990px;
+    height:35px;
+    background-color: #941e23;
+}
+
+.navbar-item{
+    float:left;
+    margin:8px 0px 0px 15px;
+    width:80px;
+}
+.navbar-item-login {
+    margin:8px 10px 0px 15px;
+    width:80px;
+    float:right;
+}
+
+.navbar a:hover{
+    color:#767e89;
+}
+
+.navbar a{
+    color:#ffffff;
+    text-decoration: none;
+}*/
+.tab{
+    height:30px;
+}
+
+.tab-item{
+    float:left;
+    margin:10px 0px 0px 15px;
+}
+
+.tab-item-hover{
+    color:#941e23;
+    display: block;
+    border-bottom: 2px solid #941e23;
+}
+
+.tab-content{
+    margin:10px 0px 0px 15px;
+    text-align: left;
+}
+
+.footer{
+    float:left;
+    margin-top: 10px;
+    background-color: #fff;
+    width:990px;
+    height:60px;
+    color:#555;
+}
+.footer-item{
+    margin-top: 10px;
+}
+.pull-right{
+    float:right;
+}

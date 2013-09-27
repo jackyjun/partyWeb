@@ -365,6 +365,31 @@ def branch_detail(request,id):
     activist_list = student_list.filter(political_status=1)
     probationary_list = student_list.filter(political_status=2)
     official_list = student_list.filter(political_status=3)
+    for item in student_list:
+        if item.apply_party_time:
+            item.apply_party_time = item.apply_party_time.strftime('%Y-%m-%d')
+        if item.join_party_time:
+            item.join_party_time = item.join_party_time.strftime('%Y-%m-%d')
+    for item in masses_list:
+        if item.apply_party_time:
+            item.apply_party_time = item.apply_party_time.strftime('%Y-%m-%d')
+        if item.join_party_time:
+            item.join_party_time = item.join_party_time.strftime('%Y-%m-%d')
+    for item in activist_list:
+        if item.apply_party_time:
+            item.apply_party_time = item.apply_party_time.strftime('%Y-%m-%d')
+        if item.join_party_time:
+            item.join_party_time = item.join_party_time.strftime('%Y-%m-%d')
+    for item in probationary_list:
+        if item.apply_party_time:
+            item.apply_party_time = item.apply_party_time.strftime('%Y-%m-%d')
+        if item.join_party_time:
+            item.join_party_time = item.join_party_time.strftime('%Y-%m-%d')
+    for item in official_list:
+        if item.apply_party_time:
+            item.apply_party_time = item.apply_party_time.strftime('%Y-%m-%d')
+        if item.join_party_time:
+            item.join_party_time = item.join_party_time.strftime('%Y-%m-%d')
     context = {
         'branch':branch,
         'masses_list': masses_list,
@@ -435,7 +460,10 @@ def home(request):
         'party_activity':party_activity,
         'other_activity':other_activity,
     }
-    return render_to_response('home4.html',context,context_instance=RequestContext(request))
+    return render(request,'home4.html',context)
+
+def new_home(request):
+    return render(request,'new_home.html')
 
 def contact(request):
     return render(request,'contact.html')

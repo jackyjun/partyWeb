@@ -1,0 +1,115 @@
+/*
+**new_home.css
+**this is new ui base css file
+**created by shu 2013.9.27
+*/
+.slider{
+    float:left;
+    z-index:-1;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.slider-wrapper{
+    width:970px;
+}
+
+.activity{
+    width:490px;
+    height:280px;
+    margin-right: 10px;
+    float:left;
+    background-color: #fff;
+}
+
+.party{
+    width:490px;
+    height:280px;
+    float:left;
+    background-color: #fff;
+}
+
+.news{
+    margin-top: 10px;
+    height:250px;
+    float:left;
+    width:490px;
+    margin-right: 10px;
+    background-color: #fff;
+}
+.news-content{
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.notice{
+    margin-top: 10px;
+    height:250px;
+    float:left;
+    width:490px;
+    background-color: #fff;
+
+}
+.item-title{
+    margin:10px 15px 0px 15px;
+    text-align: left;
+    font-size:19px;
+    border-bottom: 5px solid #941e23;
+    min-height: 25px;
+}
+
+.item-link{
+    color:#555;
+    margin-right: 15px;
+    border-bottom: 1px solid #efeeee;
+    line-height:30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-link-title{
+    float:left;
+    text-decoration: none;
+}
+.item-link a{
+    color:#555;
+    text-decoration: none;
+}
+
+.item-link a:hover{
+    float:left;
+    color:#941e23;
+}
+
+.item-link-date {
+    float:right;
+}
+.item-link-more{
+    float:right;
+}
+
+.links{
+    margin-top: 10px;
+    color:#fff;
+    text-align:left;
+    background-color: #941e23;
+    height:35px;
+    float:left;
+    width:990px;
+}
+
+.links-item{
+    float:left;
+    margin:8px 0px 0px 30px;
+}
+
+.links-item a{
+    color:#ffffff;
+    text-decoration: none;
+}
+
+.links-item a:hover{
+    color:#767e89;
+}
+
