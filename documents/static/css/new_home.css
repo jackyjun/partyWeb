@@ -15,16 +15,16 @@
 }
 
 .activity{
-    width:490px;
-    height:280px;
+    width:450px;
+    height:370px;
     margin-right: 10px;
     float:left;
     background-color: #fff;
 }
 
 .party{
-    width:490px;
-    height:280px;
+    width:530px;
+    height:370px;
     float:left;
     background-color: #fff;
 }
@@ -33,7 +33,7 @@
     margin-top: 10px;
     height:250px;
     float:left;
-    width:490px;
+    width:450px;
     margin-right: 10px;
     background-color: #fff;
 }
@@ -46,7 +46,7 @@
     margin-top: 10px;
     height:250px;
     float:left;
-    width:490px;
+    width:530px;
     background-color: #fff;
 
 }
@@ -54,7 +54,7 @@
     margin:10px 15px 0px 15px;
     text-align: left;
     font-size:19px;
-    border-bottom: 5px solid #941e23;
+    border-bottom: 5px solid #f27515;
     min-height: 25px;
 }
 
@@ -67,19 +67,33 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+item-link-normal{
+    color:#555;
+}
+.item-link-normal a{
+    color:#555;
+    text-decoration: none;
+}
 
+.item-link-normal a:hover{
+    color: #f27515;
+}
 .item-link-title{
+    width:300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     float:left;
     text-decoration: none;
 }
 .item-link a{
+    float:left;
     color:#555;
     text-decoration: none;
 }
 
 .item-link a:hover{
-    float:left;
-    color:#941e23;
+    color: #f27515;
 }
 
 .item-link-date {
@@ -88,12 +102,18 @@
 .item-link-more{
     float:right;
 }
+.table{
+    width:490px;
+}
+.table td{
+    text-align: center;
+}
 
 .links{
     margin-top: 10px;
     color:#fff;
     text-align:left;
-    background-color: #941e23;
+    background-color: #f27515;
     height:35px;
     float:left;
     width:990px;
@@ -110,6 +130,6 @@
 }
 
 .links-item a:hover{
-    color:#767e89;
+    /*color:#767e89;*/
+    color: #f23c00;
 }
-

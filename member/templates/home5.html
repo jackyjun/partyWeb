@@ -1,90 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>计算机研究生党总支平台</title>
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/new_base.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/new_home.css" type="text/css" />
+{% extends 'base5.html' %}
+{% block title %}
+    上海大学计算机学院党总支工作平台
+{% endblock %}
+{% block head_part %}
     <link rel="stylesheet" href="/static/nivo-slider/themes/default/default.css" type="text/css"/>
     <link rel="stylesheet" href="/static/nivo-slider/themes/light/light.css" type="text/css" />
     <link rel="stylesheet" href="/static/nivo-slider/nivo-slider.css" type="text/css"  />
-</head>
-<body>
-     <div class="container">
-        <div class="header"></div>
-        <ul id="nav">
-            <li><a href="/new_home/">首页</a></li>
-            <li><a href="/list_news/1">新闻动态</a></li>
-            <li><a href="/list_notice/0/1">通知公告</a></li>
-            <li><a href="/list_regulation/1">制度条例</a></li>
-            <li><a href="#">E家党支部</a>
-                <ul>
-                  <li><a href="/branch_summary/">党支部结构</a></li>
-                  <li><a href="/list_activity/2">党组织生活</a></li>
-                  <li><a href="/branch_search/">党员发展信息</a></li>
-                  <li><a href="/branch_assessment/">党员考核信息</a></li>
-                  <li><a href="/list_notice/2/1">组织发展公示</a></li>
-                </ul>
-            </li>
-            <li><a href="#">团学活动</a>
-                <ul>
-                  <li><a href="/list_activity/1">团组织活动</a></li>
-                  <li><a href="/list_activity/0">研究生会活动</a></li>
-                </ul>
-            </li>
-            <li><a href="/branch_structure/">组织架构</a></li>
-            <li><a href="/contact/">关于我们</a></li>
-            {% if user.is_active %}
-                {% if user.is_staff %}
-                    {% if user.is_superuser %}
-                        <li><a href="#">>>{{ user }}</a>
-                        <ul>
-                            <li><a href="/admin_center/">管理中心</a></li>
-                            <li><a href="/user_logout/">注销</a></li>
-                        </ul>
-                        </li>
-                    {% else %}
-                        <li><a href="#">{{ user }}</a>
-                            <ul>
-                                <li><a href="/student_center/">用户中心</a></li>
-                                <li><a href="/admin_center/">管理中心</a></li>
-                                <li><a href="/user_logout/">注销</a></li>
-                            </ul>
-                        </li>
-                    {% endif %}
-                {% else %}
-                    <li><a href="#">{{ user }}</a>
-                    <ul>
-                        <li><a href="/student_center/">用户中心</a></li>
-                        <li><a href="/user_logout/">注销</a></li>
-                    </ul>
-                    </li>
-                {% endif %}
-            {% else %}
-                <li><a href="/user_login/">我要登录</a></li>
-            {% endif %}
-        </ul>
-        <div class="slider">
-            <div class="slider-wrapper theme-light">
-                <div id="slider" class="nivoSlider">
-                    {% for nivoslider in nivosliders %}
-                        <img src="/media/{{ nivoslider.image }}" title="{{ nivoslider.title }}">
-                    {% endfor %}
-                </div>
+    <link rel="stylesheet" href="/static/css/new_home.css" type="text/css" />
+    <script type="text/javascript" src="/static/nivo-slider/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+        $("document").ready(function(){
+            $('#slider').nivoSlider({
+                 pauseTime: 7000
+            });
+            $(".tab-pane").each(function(){
+               if(!$(this).hasClass('active')){
+                $(this).hide();
+               }
+            });
+            $(".tab-item").hover(function(){
+                var array = $(this).attr("id").split('_');
+                 $(".tab-item").each(function(){
+                    var array2 = $(this).attr("id").split('_');
+                    if(array[1]==array2[1])
+                    {
+                        $(this).removeClass("tab-item-hover");
+                        if($("#"+array2[2]).hasClass('active')){
+                           $("#"+array2[2]).removeClass('active').hide();
+                        }
+                    }
+                 });
+                $(this).addClass("tab-item-hover");
+                $("#"+array[2]).addClass('active').show();
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="slider">
+        <div class="slider-wrapper theme-light">
+            <div id="slider" class="nivoSlider">
+                {% for nivoslider in nivosliders %}
+                    <img src="/media/{{ nivoslider.image }}" title="{{ nivoslider.title }}">
+                {% endfor %}
             </div>
         </div>
-        <!--<div class="navbar">
-            <div class="navbar-item"><a href="#">首页</a></div>
-            <div class="navbar-item"><a href="#">新闻动态</a></div>
-            <div class="navbar-item"><a href="#">通知公告</a></div>
-            <div class="navbar-item"><a href="#">制度条例</a></div>
-            <div class="navbar-item"><a href="#">E家党支部</a></div>
-            <div class="navbar-item"><a href="#">团学活动</a></div>
-            <div class="navbar-item"><a href="#">组织架构</a></div>
-            <div class="navbar-item"><a href="#">关于我们</a></div>
-            <div class="navbar-item-login"><a href="#">我要登录</a></div>
-        </div>-->
-        <div class="activity">
+    </div>
+    <div class="activity">
             <div class="item-title">研究生活动</div>
             <div class="tab">
                 <div class="tab-item tab-item-hover" id="tab_activity_party">党组织生活</div>
@@ -259,41 +221,4 @@
             <div class="links-item"><a href="http://yjsb.shu.edu.cn/">上海大学研究生部</a></div>
             <div class="links-item"><a href="http://www.ces.shu.edu.cn/">上海大学计算机工程与科学学院</a></div>
         </div>
-        <div class="footer">
-            <div class="footer-item">
-               为使网站达到最佳浏览效果，请使用IE7.0以上版本或者chrome、firefox等浏览器 <br/>
-               上海大学计算机工程与科学学院 版权所有 © 2013
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
-    <script type="text/javascript" src="/static/nivo-slider/jquery.nivo.slider.js"></script>
-    <script>
-        $("document").ready(function(){
-            $('#slider').nivoSlider({
-                 pauseTime: 7000
-            });
-            $(".tab-pane").each(function(){
-               if(!$(this).hasClass('active')){
-                $(this).hide();
-               }
-            });
-            $(".tab-item").hover(function(){
-                var array = $(this).attr("id").split('_');
-                 $(".tab-item").each(function(){
-                    var array2 = $(this).attr("id").split('_');
-                    if(array[1]==array2[1])
-                    {
-                        $(this).removeClass("tab-item-hover");
-                        if($("#"+array2[2]).hasClass('active')){
-                           $("#"+array2[2]).removeClass('active').hide();
-                        }
-                    }
-                 });
-                $(this).addClass("tab-item-hover");
-                $("#"+array[2]).addClass('active').show();
-            });
-        });
-    </script>
-</body>
-</html>
+{% endblock %}

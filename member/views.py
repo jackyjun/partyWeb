@@ -425,7 +425,7 @@ def branch_assessment(request):
 def branch_structure(request):
     return render(request,'branch_structure.html')
 
-def home(request):
+def old_home(request):
     NEWS_NUMBER = 8
     Notice_NUMBER = 8
     ACTIVITY_NUMBER = 3
@@ -462,8 +462,55 @@ def home(request):
     }
     return render(request,'home4.html',context)
 
-def new_home(request):
-    return render(request,'new_home.html')
+def home(request):
+    NEWS_NUMBER = 5
+    Notice_NUMBER = 5
+    ACTIVITY_NUMBER = 7
+    NIVOSLIDER_NUMBER = 4
+    news = News.objects.all().order_by('-date')[:NEWS_NUMBER]
+    notices = Notice.objects.all().order_by('-date')[:Notice_NUMBER]
+    develop_notices = Notice.objects.all().order_by('-date').filter(type=2)[:Notice_NUMBER]
+    nivosliders = NivoSlider.objects.all()
+    graduates_activity = Activity.objects.filter(type=0).order_by('-start_time')[:ACTIVITY_NUMBER]
+    youth_activity = Activity.objects.filter(type=1).order_by('-start_time')[:ACTIVITY_NUMBER]
+    party_activity = Activity.objects.filter(type=2).order_by('-start_time')[:ACTIVITY_NUMBER]
+    other_activity = Activity.objects.filter(type=3).order_by('-start_time')[:ACTIVITY_NUMBER]
+    for item in news:
+        item.date = item.date.strftime('%Y-%m-%d')
+    for item in notices:
+        item.date = item.date.strftime('%Y-%m-%d')
+    for item in develop_notices:
+        item.date = item.date.strftime('%Y-%m-%d')
+    for item in graduates_activity:
+        item.start_time = item.start_time.strftime('%Y-%m-%d')
+    for item in youth_activity:
+        item.start_time = item.start_time.strftime('%Y-%m-%d')
+    for item in party_activity:
+        item.start_time = item.start_time.strftime('%Y-%m-%d')
+    for item in other_activity:
+        item.start_time = item.start_time.strftime('%Y-%m-%d')
+    branch_list = PartyBranch.objects.all()[:5]
+    branch_context = {}
+    for branch in branch_list:
+        student_list = Student.objects.filter(party_branch_id = branch.id)
+        masses_list = student_list.filter(political_status=0)
+        activist_list = student_list.filter(political_status=1)
+        probationary_list = student_list.filter(political_status=2)
+        official_list = student_list.filter(political_status=3)
+        list = [len(official_list),len(probationary_list),len(activist_list)]
+        branch_context[branch] = list
+    context = {
+        'branch_context':branch_context,
+        'news':news,
+        'notices':notices,
+        'develop_notices':develop_notices,
+        'nivosliders':nivosliders,
+        'graduates_activity':graduates_activity,
+        'youth_activity':youth_activity,
+        'party_activity':party_activity,
+        'other_activity':other_activity,
+    }
+    return render(request,'home5.html',context)
 
 def contact(request):
     return render(request,'contact.html')

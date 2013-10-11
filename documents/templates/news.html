@@ -1,17 +1,28 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}{{ news.title }}{% endblock %}
 {% block content %}
-    <div class="text-center" style="width: 900px">
-        <h3>{{news.title}}</h3>
-        <hr style="margin:0 auto 0 auto;width:300px;">
-        <h5>{{ news.publisher }} &nbsp; &nbsp; &nbsp;{{ news.date }}</h5>
-            <hr style="margin:0 auto 5px auto;width:300px;">
-        {% if news.image %}
-            <img src="/static/media/{{news.image}}" width="400px" height="400px"/>
-        {% endif %}
-        <div style="margin-top: 20px;">
+    <div class="other-content">
+        <div class="detail">
+            <h3 class="detail-title">
+                {{news.title}}
+            </h3>
+            <h5>
+                <div class="detail-date-publisher">
+                    <hr>
+                    <div class="detail-publisher">
+                        {{ news.publisher }}
+                    </div>
+                    <div class="detail-date">
+                        {{ news.date }}
+                    </div>
+                    <hr>
+                </div>
+            </h5>
+            {% if news.image %}
+                <img src="/static/media/{{news.image}}" width="400px" height="400px"/>
+            {% endif %}
             {% autoescape off %}
-                <div style="text-align: left;">
+                <div class="detail-content">
                     {{ news.content }}
                 </div>
             {% endautoescape %}

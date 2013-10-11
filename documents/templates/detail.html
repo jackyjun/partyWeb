@@ -1,19 +1,32 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}{{ detail.title }}{% endblock %}
 {% block head_part %}
     <style>
     </style>
 {% endblock %}
 {% block content %}
-    <div class="text-center" style="width: 900px;">
-        <h3>{{detail.title}}</h3>
-        <hr style="margin:0 auto 0 auto;width:300px;">
-        <h5>{{ detail.publisher }} &nbsp; &nbsp; &nbsp;{{ detail.date }}</h5>
-        <hr style="margin:0 auto 0 auto;width:300px;">
-    </div>
-    <div style="margin-top: 20px;width: 900px;">
-        {% autoescape off %}
-            {{ detail.content }}
-        {% endautoescape %}
+    <div class="other-content">
+        <div class="detail">
+            <h3 class="detail-title">
+                {{detail.title}}
+            </h3>
+            <h5>
+                <div class="detail-date-publisher">
+                    <hr>
+                    <div class="detail-publisher">
+                        {{ detail.publisher }}
+                    </div>
+                    <div class="detail-date">
+                        {{ detail.date }}
+                    </div>
+                    <hr>
+                </div>
+            </h5>
+            {% autoescape off %}
+                <div class="detail-content">
+                    {{ detail.content }}
+                </div>
+            {% endautoescape %}
+        </div>
     </div>
 {%  endblock %}
