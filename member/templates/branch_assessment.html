@@ -1,4 +1,4 @@
-{% extends 'base3-other.html'%}
+{% extends 'base5.html'%}
 {% block title %}
     党支部考核信息
 {% endblock %}
@@ -10,32 +10,34 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ branch }}考核信息</h3>
-    <div style="width:900px">
-    <table class="table">
-    <thead>
-        <tr>
-            <td><h5>学号</h5></td>
-            <td><h5>姓名</h5></td>
-            <td><h5>政治面貌</h5></td>
-            <td><h5>考核等级</h5></td>
-            <td><h5>考核时间</h5></td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for student,list in assessment_dic.items %}
-            {% for assesment in list %}
-                <tr >
-                    <td>{{ student.student_id }}</td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.get_political_status_display }}</td>
-                    <td>{{ assesment.grade }}</td>
-                    <td>{{ assesment.date }}</td>
+    <div class="other-content">
+        <div class="list">
+            <h3 class="list-title">{{ branch }}考核信息</h3>
+            <div class="list-text-left">正在建设中。</div>
+            <!--<table class="table">
+            <thead>
+                <tr>
+                    <td><h5>学号</h5></td>
+                    <td><h5>姓名</h5></td>
+                    <td><h5>政治面貌</h5></td>
+                    <td><h5>考核等级</h5></td>
+                    <td><h5>考核时间</h5></td>
                 </tr>
-            {% endfor %}
-        {% endfor %}
-    </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+                {% for student,list in assessment_dic.items %}
+                    {% for assesment in list %}
+                        <tr >
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.get_political_status_display }}</td>
+                            <td>{{ assesment.grade }}</td>
+                            <td>{{ assesment.date }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+            </table>-->
+        </div>
     </div>
 {% endblock %}

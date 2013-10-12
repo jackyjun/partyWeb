@@ -1,4 +1,4 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}
     党员发展信息
 {% endblock %}
@@ -11,74 +11,78 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div style="width:900px" >
-        <h3 class="text-info">党员发展信息</h3>
-        <form action="/branch_search/" method="post">
-            <select name="branch">
-                <option value="0">所有党支部</option>
-                {% for branch in branch_list %}
-                    <option value="{{ branch.id }}">{{ branch.name }}</option>
-                {% endfor %}
-            </select>
-            <select name="status">
-                <option value="3">正式党员</option>
-                <option value="2">预备党员</option>
-                <option value="1">共青团员</option>
-            </select>
-            <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
-        </form>
-        {% if type == "3" %}
-            <table class="table">
-                <thead>
+    <div class="other-content">
+        <div class="list">
+            <h3 class="list-title">党员发展信息</h3>
+            <div class="list-text-left">
+                <form action="/branch_search/" method="post">
+                    <select name="branch">
+                        <option value="0">所有党支部</option>
+                        {% for branch in branch_list %}
+                            <option value="{{ branch.id }}">{{ branch.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="status">
+                        <option value="3">正式党员</option>
+                        <option value="2">预备党员</option>
+                        <option value="1">共青团员</option>
+                    </select>
+                    <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
+                </form>
+            </div>
+        </div>
+       {% if type == "3" %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <td><h5>学号</h5></td>
+                    <td><h5>姓名</h5></td>
+                    <td><h5>入党时间</h5></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in student_list %}
                     <tr>
-                        <td><h5>学号</h5></td>
-                        <td><h5>姓名</h5></td>
-                        <td><h5>入党时间</h5></td>
+                        <td>{{ student.student_id }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>
+                            {% if student.join_party_time %}
+                                {{ student.join_party_time }}
+                            {% else %}
+                                无
+                            {% endif %}
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for student in student_list %}
-                        <tr>
-                            <td>{{ student.student_id }}</td>
-                            <td>{{ student.name }}</td>
-                            <td>
-                                {% if student.join_party_time %}
-                                    {{ student.join_party_time }}
-                                {% else %}
-                                    无
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {%  endfor %}
-                </tbody>
-            </table>
-        {% elif type == "1" or type == "2" %}
-            <table class="table">
-                <thead>
+                {%  endfor %}
+            </tbody>
+        </table>
+    {% elif type == "1" or type == "2" %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <td><h5>学号</h5></td>
+                    <td><h5>姓名</h5></td>
+                    <td><h5>申请入党时间</h5></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in student_list %}
                     <tr>
-                        <td><h5>学号</h5></td>
-                        <td><h5>姓名</h5></td>
-                        <td><h5>申请入党时间</h5></td>
+                        <td>{{ student.student_id }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>
+                            {% if student.apply_party_time %}
+                                {{ student.apply_party_time }}
+                            {% else %}
+                                无
+                            {% endif %}
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for student in student_list %}
-                        <tr>
-                            <td>{{ student.student_id }}</td>
-                            <td>{{ student.name }}</td>
-                            <td>
-                                {% if student.apply_party_time %}
-                                    {{ student.apply_party_time }}
-                                {% else %}
-                                    无
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {%  endfor %}
-                </tbody>
-            </table>
-       {% elif type == "0" %}
-            <div class="text-info">未搜索到结果</div>
-        {% endif %}
+                {%  endfor %}
+            </tbody>
+        </table>
+   {% elif type == "0" %}
+        <div class="text-info">未搜索到结果</div>
+    {% endif %}
     </div>
 {% endblock %}

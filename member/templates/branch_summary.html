@@ -11,32 +11,34 @@
 {% endblock %}
 {% block content %}
     <div class="other-content">
-        <h3 class="list-title">党支部结构</h3>
-        <table class="table">
-        <thead>
-            <tr>
-                <td><h5>党支部</h5></td>
-                <td><h5>正式党员人数</h5></td>
-                <td><h5>预备党员人数</h5></td>
-                <td><h5>共青团员人数</h5></td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for branch,detail in context.items %}
+        <div class="list">
+            <h3 class="list-title">党支部结构</h3>
+            <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <div class="text-link">
-                            <a  href="/branch_detail/{{ branch.id }}">
-                                {{ branch.name }}
-                            </a>
-                        </div>
-                    </td>
-                    {% for count in detail %}
-                        <td>{{ count }}</td>
-                    {% endfor %}
+                    <td><h5>党支部</h5></td>
+                    <td><h5>正式党员人数</h5></td>
+                    <td><h5>预备党员人数</h5></td>
+                    <td><h5>共青团员人数</h5></td>
                 </tr>
-            {% endfor %}
-        </tbody>
-        </table>
+            </thead>
+            <tbody>
+                {% for branch,detail in context.items %}
+                    <tr>
+                        <td>
+                            <div class="text-link">
+                                <a  href="/branch_detail/{{ branch.id }}">
+                                    {{ branch.name }}
+                                </a>
+                            </div>
+                        </td>
+                        {% for count in detail %}
+                            <td>{{ count }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

@@ -23,49 +23,56 @@
 {% endblock %}
 {% block content %}
     <div class="other-content">
-        <h3 class="list-title">{{ title }}</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>活动名称</h5></td>
-                    <td><h5>活动类型</h5></td>
-                    <td><h5>活动开始日期</h5></td>
-                    <td><h5>活动结束日期</h5></td>
-                    <td><h5>报名截止日期</h5></td>
-                    <td><h5>报名状态</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in activity_list %}
-                    {% for activity,flag in item.items %}
+        <div class="list">
+            <h3 class="list-title">{{ title }}</h3>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            <div class="text-link">
-                                <a href="/activity_detail/{{ activity.id }}" target="_blank">
-                                    {{ activity.title }}
-                                </a>
-                            </div>
-                        </td>
-                        <td>{{ activity.get_type_display }}</td>
-                        <td>{{ activity.start_time }}</td>
-                        <td>{{ activity.end_time }}</td>
-                        <td>{{ activity.deadline }}</td>
-                        <td>
-                            {% if user.is_superuser %}
-                            {% else %}
-                                {% if flag == 0 %}
-                                    <a class="text-color" href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a>
-                                {% elif flag == -1 %}
-                                    已结束报名
-                                {% else %}
-                                     已报名<a rel="{{ type }}"style="cursor:pointer;" class="text-info" name="cancel" id="{{ activity.id }}" >[取消报名]</a>
-                                {% endif %}
-                            {% endif %}
-                        </td>
+                        <td><h5>活动名称</h5></td>
+                        <td><h5>活动类型</h5></td>
+                        <td><h5>活动开始日期</h5></td>
+                        <td><h5>活动结束日期</h5></td>
+                        <td><h5>报名截止日期</h5></td>
+                        <td><h5>报名状态</h5></td>
                     </tr>
+                </thead>
+                <tbody>
+                    {% for item in activity_list %}
+                        {% for activity,flag in item.items %}
+                        <tr>
+                            <td>
+                                <div class="text-link-inverse">
+                                    <a href="/activity_detail/{{ activity.id }}" target="_blank">
+                                        {{ activity.title }}
+                                    </a>
+                                </div>
+                            </td>
+                            <td>{{ activity.get_type_display }}</td>
+                            <td>{{ activity.start_time }}</td>
+                            <td>{{ activity.end_time }}</td>
+                            <td>{{ activity.deadline }}</td>
+                            <td>
+                                {% if user.is_superuser %}
+                                {% else %}
+                                    {% if flag == 0 %}
+                                        <div class="text-link-inverse">
+                                            <a href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a>
+                                        </div>
+                                    {% elif flag == -1 %}
+                                        已结束报名
+                                    {% else %}
+                                         已报名
+                                        <div class="text-link-inverse">
+                                        <a rel="{{ type }}"style="cursor:pointer;"  name="cancel" id="{{ activity.id }}" >[取消报名]</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

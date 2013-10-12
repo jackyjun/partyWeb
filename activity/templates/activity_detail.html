@@ -1,17 +1,23 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}{{ activity.title }}{% endblock %}
 {% block content %}
-    <div class="text-center" style="width: 900px;">
-        <hr style="margin:0 auto 0 auto;width:700px;">
-        <h5>
-            报名截止日期：{{ activity.deadline}} &nbsp;&nbsp;&nbsp;
-            活动日期：{{ activity.start_time }}~{{ activity.end_time }}
-        </h5>
-        <hr style="margin:0 auto 0 auto;width:700px;">
+    <div class="other-content">
+        <div class="detail">
+            <div class="detail-title">
+                <h3>{{ activity.title }}</h3>
+                <hr style="margin:0 auto 0 auto;width:700px;">
+                <h5>
+                    报名截止日期：{{ activity.deadline}} &nbsp;&nbsp;&nbsp;
+                    活动日期：{{ activity.start_time }}~{{ activity.end_time }}
+                </h5>
+                <hr style="margin:0 auto 0 auto;width:700px;">
+            </div>
+            <div class="detail-content">
+                {% autoescape off %}
+                    {{ activity.content }}
+                {% endautoescape %}
+            </div>
+        </div>
     </div>
-    <div style="margin-top: 20px;width: 900px;">
-        {% autoescape off %}
-            {{ activity.content }}
-        {% endautoescape %}
-    </div>
+
 {%  endblock %}
