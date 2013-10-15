@@ -1,4 +1,4 @@
-{% extends 'base3-other.html'%}
+{% extends 'base5.html'%}
 {% block title %}
     可申请奖项列表
 {% endblock %}
@@ -10,6 +10,8 @@
     </style>
 {% endblock %}
 {% block content %}
+    <div class="other-content">
+    <div class="list text-left">
     <h3 class="text-info">奖项审核管理</h3>
     <a class="text-info" style="text-decoration: none;" href="/admin_center/">
         <button class="btn btn-mini" type="button">
@@ -17,7 +19,6 @@
         </button>
     </a>
     <hr/>
-    <div style="width:900px">
     <table class="table">
         <thead>
             <tr>
@@ -46,5 +47,6 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
     </div>
 {% endblock %}

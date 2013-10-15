@@ -1,4 +1,4 @@
-{% extends 'base3-other.html'%}
+{% extends 'base5.html'%}
 {% block title %}
     奖项审核列表
 {% endblock %}
@@ -10,48 +10,49 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ price.title }}审核结果</h3>
-    <div style="width:900px">
-        <h4 class="text-info"></h4>
-        <a class="text-info" style="text-decoration: none;" href="/examine_price_list/">
-            <button class="btn btn-mini" type="button">
-                <i class="icon-arrow-left"></i>奖项审核管理
-            </button>
-        </a>
-        <a class="text-info" style="text-decoration: none;" href="/examine_price/{{ price.id }}">
-            <button class="btn btn-mini" type="button">
-                <i class="icon-edit"></i>修改审核结果
-            </button>
-        </a>
-        <hr/>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                    <td><h5>申请情况</h5></td>
-                    <td><h5>报名表下载</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for studentPrice,student in student_dic.items %}
+    <div class="other-content">
+        <div class="list text-left">
+            <h3 class="text-info">{{ price.title }}审核结果</h3>
+            <h4 class="text-info"></h4>
+            <a class="text-info" style="text-decoration: none;" href="/examine_price_list/">
+                <button class="btn btn-mini" type="button">
+                    <i class="icon-arrow-left"></i>奖项审核管理
+                </button>
+            </a>
+            <a class="text-info" style="text-decoration: none;" href="/examine_price/{{ price.id }}">
+                <button class="btn btn-mini" type="button">
+                    <i class="icon-edit"></i>修改审核结果
+                </button>
+            </a>
+            <hr/>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ student.student_id }}</td>
-                        <td>{{ student.name }}</td>
-                        <td>
-                            {{ studentPrice.get_status_display }}
-                        </td>
-                        <td>
-                            {% if studentPrice.file %}
-                                <a href="/download_price_form/{{ studentPrice.id }}">下载</a>
-                            {% else %}
-                                该学生未提交报名表
-                            {% endif %}
-                        </td>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                        <td><h5>申请情况</h5></td>
+                        <td><h5>报名表下载</h5></td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
+                </thead>
+                <tbody>
+                    {% for studentPrice,student in student_dic.items %}
+                        <tr>
+                            <td>{{ student.student_id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>
+                                {{ studentPrice.get_status_display }}
+                            </td>
+                            <td>
+                                {% if studentPrice.file %}
+                                    <a href="/download_price_form/{{ studentPrice.id }}">下载</a>
+                                {% else %}
+                                    该学生未提交报名表
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

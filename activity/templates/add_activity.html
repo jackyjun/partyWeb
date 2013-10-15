@@ -1,4 +1,4 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}
    发布活动
 {% endblock %}
@@ -27,32 +27,34 @@
    </script>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">发布活动</h3>
-    <a class="text-info" style="text-decoration: none;" href="/search_activity/">
-        <button class="btn btn-mini" type="button">
-            <i class="icon-arrow-left"></i>活动管理
-        </button>
-    </a>
-    <a class="text-info" style="text-decoration: none;" href="/admin_center/">
-        <button class="btn btn-mini" type="button">
-            <i class="icon-home"></i>管理中心
-        </button>
-    </a>
-    <div style="width:900px">
-    <hr/>
-        <form action="/add_activity/" method="post">{% csrf_token %}
-            {% for field in form %}
-                <div class="text-error"> {{ field.errors }} </div>
-                <div style="margin-bottom: 10px;">
-                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>
-                    {% if field.label == "内容" %}
-                        <div style="margin-left: 110px;">{{ field }}</div>
-                    {% else %}
-                        {{ field }}
-                    {% endif %}
-                 </div>
-            {% endfor %}
-            <p><input type="submit" class="btn" value="发布" /></p>
-        </form>
+    <div class="other-content">
+        <div class="list text-left">
+            <h3 class="text-info">发布活动</h3>
+            <a class="text-info" style="text-decoration: none;" href="/search_activity/">
+                <button class="btn btn-mini" type="button">
+                    <i class="icon-arrow-left"></i>活动管理
+                </button>
+            </a>
+            <a class="text-info" style="text-decoration: none;" href="/admin_center/">
+                <button class="btn btn-mini" type="button">
+                    <i class="icon-home"></i>管理中心
+                </button>
+            </a>
+            <hr/>
+                <form action="/add_activity/" method="post">{% csrf_token %}
+                    {% for field in form %}
+                        <div class="text-error"> {{ field.errors }} </div>
+                        <div style="margin-bottom: 10px;">
+                            <div style="width:110px;float: left;"> {{ field.label_tag }}</div>
+                            {% if field.label == "内容" %}
+                                <div style="margin-left: 110px;">{{ field }}</div>
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+                         </div>
+                    {% endfor %}
+                    <p><input type="submit" class="btn" value="发布" /></p>
+                </form>
+        </div>
     </div>
 {% endblock %}

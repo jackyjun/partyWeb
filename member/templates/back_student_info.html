@@ -1,25 +1,28 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}
     用户信息
 {% endblock %}
 {% block content %}
-    <h3 class="text-info" style="margin-bottom: 20px;">个人信息</h3>
-    <hr/>
-    <div style="width:900px;padding-bottom: 20px;">
-    {% for student_dic in student_list %}
-        <div style="margin-bottom: 10px;">
-        {% for k,v in student_dic.items %}
-                <div style="width:150px;font-weight:bold;float: left;">
-                    {{ k }}
+    <div class="other-content">
+        <div class="list text-left">
+            <h3 class="text-info" style="margin-bottom: 20px;">个人信息</h3>
+            <hr/>
+            <div style="width:900px;padding-bottom: 20px;">
+            {% for student_dic in student_list %}
+                <div style="margin-bottom: 10px;">
+                {% for k,v in student_dic.items %}
+                        <div style="width:150px;font-weight:bold;float: left;">
+                            {{ k }}
+                        </div>
+                            {% if v %}
+                                {{ v }}
+                            {% else %}
+                                暂无信息
+                            {% endif %}
+                            <br/>
+                {% endfor %}
                 </div>
-                    {% if v %}
-                        {{ v }}
-                    {% else %}
-                        暂无信息
-                    {% endif %}
-                    <br/>
-        {% endfor %}
+            {% endfor %}
         </div>
-    {% endfor %}
     </div>
 {% endblock %}

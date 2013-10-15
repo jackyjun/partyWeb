@@ -1,4 +1,4 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}
     活动信息管理
 {% endblock %}
@@ -25,7 +25,8 @@
     </script>
 {% endblock %}
 {% block content %}
-    <div style="width:900px" >
+    <div class="other-content" >
+        <div class="list text-left">
         <h3 class="text-info">活动信息管理</h3>
         <a style="text-decoration: none;" href="/admin_center/">
             <button class="btn btn-mini" type="button">
@@ -163,7 +164,6 @@
             <div class="text-info">未搜索到结果。</div>
         {% else %}
         {% endif %}
-
-
+    </div>
     </div>
 {% endblock %}

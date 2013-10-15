@@ -1,4 +1,4 @@
-{% extends 'base3-other.html' %}
+{% extends 'base5.html' %}
 {% block title %}
     个人信息
 {% endblock %}
@@ -14,39 +14,41 @@
     </script>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ student.student_id }}{{ student.name }}</h3>
-    <a class="text-info" href="/student_center/"><<用户中心</a>
-    <div style="width:900px">
-    <hr/>
-    <h4 class="text-info" style="margin-bottom: 20px;">个人相关信息</h4>
-    {% for student_dic in student_list %}
-        <div style="margin-bottom: 10px;">
-        {% for k,v in student_dic.items %}
-                <div style="width:150px;font-weight:bold;float: left;">
-                    {{ k }}</div>
-                    {% if v %}
-                        {{ v }}
-                    {% else %}
-                        暂无信息
-                    {% endif %}
-                    <br/>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    <hr/>
-        <h4 class="text-info" style="margin-bottom: 20px;">可修改信息</h4>
-        <form action="/student_info/" method="post">{% csrf_token %}
-            {% for field in form %}
-                <div class="text-error"> {{ field.errors }} </div>
+    <div class="other-content">
+        <div class="text-left" style="margin-left: 40px;">
+            <h3 class="text-info">{{ student.student_id }}{{ student.name }}</h3>
+            <a class="text-info" href="/student_center/"><<用户中心</a>
+            <hr/>
+            <h4 class="text-info" style="margin-bottom: 20px;">个人相关信息</h4>
+            {% for student_dic in student_list %}
                 <div style="margin-bottom: 10px;">
-                    <div style="width:110px;font-weight:bold;float: left;">
-                    {{ field.label_tag }}</div>{{ field }}
-                    {% if field.label == "出生年月" %}
-                        日期格式：YYYY-MM-DD
-                    {% endif %}
-                 </div>
+                {% for k,v in student_dic.items %}
+                        <div style="width:150px;font-weight:bold;float: left;">
+                            {{ k }}</div>
+                            {% if v %}
+                                {{ v }}
+                            {% else %}
+                                暂无信息
+                            {% endif %}
+                            <br/>
+                    </div>
+                {% endfor %}
             {% endfor %}
-            <p><input type="submit" class="btn" value="修改" /></p>
-        </form>
+            <hr/>
+            <h4 class="text-info" style="margin-bottom: 20px;">可修改信息</h4>
+            <form action="/student_info/" method="post">{% csrf_token %}
+                {% for field in form %}
+                    <div class="text-error"> {{ field.errors }} </div>
+                    <div style="margin-bottom: 10px;">
+                        <div style="width:110px;font-weight:bold;float: left;">
+                        {{ field.label_tag }}</div>{{ field }}
+                        {% if field.label == "出生年月" %}
+                            日期格式：YYYY-MM-DD
+                        {% endif %}
+                     </div>
+                {% endfor %}
+                <p><input type="submit" class="btn" value="修改" /></p>
+            </form>
+        </div>
     </div>
 {% endblock %}

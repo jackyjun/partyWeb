@@ -1,4 +1,4 @@
-{% extends 'base3-other.html'%}
+{% extends 'base5.html'%}
 {% block title %}
     活动审核
 {% endblock %}
@@ -10,61 +10,63 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ activity.title }}活动审核</h3>
-    <a class="text-info" style="text-decoration: none;" href="/search_activity/">
-        <button class="btn btn-mini" type="button">
-            <i class="icon-arrow-left"></i>活动管理
-        </button>
-    </a>
-    <a class="text-info" style="text-decoration: none;" href="/admin_center/">
-        <button class="btn btn-mini" type="button">
-            <i class="icon-home"></i>管理中心
-        </button>
-    </a>
-    <hr/>
-    <div style="width:900px">
-        <!--<h4 class="text-info">活动报名列表</h4>-->
+    <div class="other-content">
+        <div class="list text-left">
+            <h3 class="text-info">{{ activity.title }}活动审核</h3>
+            <a class="text-info" style="text-decoration: none;" href="/search_activity/">
+                <button class="btn btn-mini" type="button">
+                    <i class="icon-arrow-left"></i>活动管理
+                </button>
+            </a>
+            <a class="text-info" style="text-decoration: none;" href="/admin_center/">
+                <button class="btn btn-mini" type="button">
+                    <i class="icon-home"></i>管理中心
+                </button>
+            </a>
+            <hr/>
+                <!--<h4 class="text-info">活动报名列表</h4>-->
 
-        <form action="/examine_activity/{{ activity.id }}" method="post">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td><h5>学号</h5></td>
-                        <td><h5>姓名</h5></td>
-                        <td><h5>参与状况</h5></td>
-                        <td><h5>获奖情况</h5></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for studentActivity,student in student_dic.items %}
+            <form action="/examine_activity/{{ activity.id }}" method="post">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ student.student_id }}</td>
-                            <td>{{ student.name }}</td>
-                            <td>
-                                <select name="status_{{ studentActivity.id }}">
-                                    {% if studentActivity.status == 0 %}
-                                        <option value="0" selected="selected">未参与</option>
-                                        <option value="1">参与者</option>
-                                        <option value="2">组织者</option>
-                                    {% elif studentActivity.status == 1 %}
-                                        <option value="0">未参与</option>
-                                        <option value="1"  selected="selected">参与者</option>
-                                        <option value="2">组织者</option>
-                                    {% else %}
-                                        <option value="0">未参与</option>
-                                        <option value="1">参与者</option>
-                                        <option value="2" selected="selected">组织者</option>
-                                    {% endif %}
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" name="award_{{ studentActivity.id }}" value="{{ studentActivity.award }}">
-                            </td>
+                            <td><h5>学号</h5></td>
+                            <td><h5>姓名</h5></td>
+                            <td><h5>参与状况</h5></td>
+                            <td><h5>获奖情况</h5></td>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <input type="submit" class="btn" value="完成审核">
-        </form>
+                    </thead>
+                    <tbody>
+                        {% for studentActivity,student in student_dic.items %}
+                            <tr>
+                                <td>{{ student.student_id }}</td>
+                                <td>{{ student.name }}</td>
+                                <td>
+                                    <select name="status_{{ studentActivity.id }}">
+                                        {% if studentActivity.status == 0 %}
+                                            <option value="0" selected="selected">未参与</option>
+                                            <option value="1">参与者</option>
+                                            <option value="2">组织者</option>
+                                        {% elif studentActivity.status == 1 %}
+                                            <option value="0">未参与</option>
+                                            <option value="1"  selected="selected">参与者</option>
+                                            <option value="2">组织者</option>
+                                        {% else %}
+                                            <option value="0">未参与</option>
+                                            <option value="1">参与者</option>
+                                            <option value="2" selected="selected">组织者</option>
+                                        {% endif %}
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="award_{{ studentActivity.id }}" value="{{ studentActivity.award }}">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <input type="submit" class="btn" value="完成审核">
+            </form>
+        </div>
     </div>
 {% endblock %}

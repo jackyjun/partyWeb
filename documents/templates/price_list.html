@@ -1,4 +1,4 @@
-{% extends 'base3-other.html'%}
+{% extends 'base5.html'%}
 {% block title %}
     可申请奖项列表
 {% endblock %}
@@ -21,48 +21,50 @@
     </script>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">可申请奖项信息</h3>
-    <a class="text-info" href="/student_center/"> <<用户中心</a>
-    <div style="width:900px">
-    <table class="table">
-        <thead>
-            <tr>
-                <td><h5>奖项名称</h5></td>
-                <td><h5>申请截止日期</h5></td>
-                <td><h5>申请状态</h5></td>
-                <td><h5>报名表上传状态</h5></td>
-                <td><h5>奖项要求</h5></td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in price_list %}
-                {% for price,flag in item.items %}
-                <tr>
-                    <td>{{ price.title }}</td>
-                    <td>{{ price.deadline }}</td>
-                    <td>
-                        {% if flag == 0 %}
-                            <a class="text-info" href="/apply_price/{{ price.id }}">立即申请</a>
-                        {% elif flag == -1 %}
-                            已结束申请
-                        {% else %}
-                             已申请<a class="text-info" style="cursor:pointer;" id="{{ price.id }}" name="cancel">[取消申请]</a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if flag == 1 %}
-                            未上传 <a href="/upload_price_form/{{ price.id }}">[立即上传]</a>
-                        {% elif flag == 2 %}
-                            已上传
-                        {% else %}
-                            未报名
-                        {% endif %}
-                    </td>
-                    <td><a class="text-info" href="/price_detail/{{ price.id }}" target="_blank">详情</a> </td>
-                </tr>
-                {% endfor %}
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="other-content">
+        <div class="list text-left">
+            <h3 class="text-info">可申请奖项信息</h3>
+            <a class="text-info" href="/student_center/"> <<用户中心</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>奖项名称</h5></td>
+                        <td><h5>申请截止日期</h5></td>
+                        <td><h5>申请状态</h5></td>
+                        <td><h5>报名表上传状态</h5></td>
+                        <td><h5>奖项要求</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in price_list %}
+                        {% for price,flag in item.items %}
+                        <tr>
+                            <td>{{ price.title }}</td>
+                            <td>{{ price.deadline }}</td>
+                            <td>
+                                {% if flag == 0 %}
+                                    <a class="text-info" href="/apply_price/{{ price.id }}">立即申请</a>
+                                {% elif flag == -1 %}
+                                    已结束申请
+                                {% else %}
+                                     已申请<a class="text-info" style="cursor:pointer;" id="{{ price.id }}" name="cancel">[取消申请]</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if flag == 1 %}
+                                    未上传 <a href="/upload_price_form/{{ price.id }}">[立即上传]</a>
+                                {% elif flag == 2 %}
+                                    已上传
+                                {% else %}
+                                    未报名
+                                {% endif %}
+                            </td>
+                            <td><a class="text-info" href="/price_detail/{{ price.id }}" target="_blank">详情</a> </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

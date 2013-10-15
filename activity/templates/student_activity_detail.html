@@ -1,4 +1,4 @@
-{% extends 'base3-other.html'%}
+{% extends 'base5.html'%}
 {% block title %}
     活动情况
 {% endblock %}
@@ -10,9 +10,10 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h3 class="text-info">{{ student.student_id }}{{ student.name }}的活动情况</h3>
-    <div style="width:900px">
-        <table class="table">
+    <div class="other-content">
+        <div class="list">
+        <h3 class="text-info">{{ student.student_id }}{{ student.name }}的活动情况</h3>
+         <table class="table">
             <thead>
                 <tr>
                     <td><h5>活动名称</h5></td>
@@ -46,5 +47,6 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
 {% endblock %}
