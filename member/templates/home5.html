@@ -49,27 +49,12 @@
     <div class="activity">
             <div class="item-title">研究生活动</div>
             <div class="tab">
-                <div class="tab-item tab-item-hover" id="tab_activity_party">党组织生活</div>
-                <div class="tab-item" id="tab_activity_youth">团组织活动</div>
+                <div class="tab-item tab-item-hover" id="tab_activity_youth">团组织活动</div>
                 <div class="tab-item" id="tab_activity_student">研究生会活动</div>
                 <div class="tab-item" id="tab_activity_other">其他活动</div>
             </div>
             <div class="tab-content">
-                <div class="tab-pane active" id="party">
-                    {% for item in party_activity %}
-                        <div class="item-link">
-                            <div class="item-link-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
-                            <div class="item-link-date">{{ item.start_time }}</div>
-                            <br/>
-                        </div>
-                    {% endfor %}
-                    <div class="item-link">
-                        <div class="item-link-more">
-                            <a href="/list_activity/2">更多</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="youth">
+                <div class="tab-pane active" id="youth">
                     {% for item in youth_activity %}
                         <div class="item-link">
                             <div class="item-link-title"><a href="/activity_detail/{{ item.id }}">{{ item.title }}</a></div>
