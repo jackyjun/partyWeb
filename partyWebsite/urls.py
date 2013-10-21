@@ -28,6 +28,15 @@ urlpatterns = patterns('',
     url(r'get_attachment/(?P<id>\d+)','documents.views.get_attachment'),
     url(r'upload_attachment/','documents.views.upload_attachment'),
     url(r'delete_attachment/(?P<id>\d+)','documents.views.delete_attachment'),
+
+    #suggestion
+    url(r'^add_suggestion/','documents.views.add_suggestion'),
+    url(r'^list_suggestion/','documents.views.list_suggestion'),
+    url(r'^add_reply/(?P<id>\d+)','documents.views.add_reply'),
+    url(r'^get_reply/(?P<id>\d+)','documents.views.get_reply'),
+    url(r'^change_reply/(?P<id>\d+)','documents.views.change_reply'),
+    url(r'^list_reply/','documents.views.list_reply'),
+
     url(r'user_login/', 'member.views.login_view'),
     url(r'login/', 'member.views.user_login'),
     url(r'change_password/', 'member.views.change_password'),
@@ -51,6 +60,7 @@ urlpatterns = patterns('',
     url(r'^activity_detail/(?P<id>\d+)','activity.views.get_activity'),
     url(r'list_activity/(?P<type>\d+)','activity.views.list_activity'),
     url(r'user_activity_detail/','activity.views.user_activity_detail'),
+
     #back
     url(r'add_activity/','activity.views.add_activity'),
     url(r'modify_activity/(?P<id>\d+)','activity.views.modify_activity'),
@@ -62,6 +72,7 @@ urlpatterns = patterns('',
     url(r'search_single_student_activity/','activity.views.search_single_student_activity'),
     url(r'^student_activity_detail/(?P<id>\d+)','activity.views.student_activity_detail'),
     url(r'^back_student_info/(?P<id>\d+)','member.views.back_student_info'),
+
     # Examples:
     # url(r'^$', 'partyWebsite.views.home', name='home'),
     # url(r'^partyWebsite/', include('partyWebsite.foo.urls')),

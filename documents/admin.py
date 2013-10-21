@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from documents.models import News,Notice,Regulation,Attachment,Price,NivoSlider,StudentPrice
+from documents.models import News,Notice,Regulation,Attachment,Price,NivoSlider,StudentPrice,Suggestion,Reply
 class NewsAdmin(ModelAdmin):
     search_fields = ['title']
 class PriceAdmin(ModelAdmin):
@@ -12,3 +12,5 @@ admin.site.register(Attachment)
 admin.site.register(StudentPrice)
 admin.site.register(Price,PriceAdmin)
 admin.site.register(NivoSlider)
+admin.site.register(Suggestion)
+admin.site.register(Reply)

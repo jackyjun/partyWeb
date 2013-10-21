@@ -129,7 +129,6 @@ def add_activity(request):
             form = ActivityForm()
         return render(request, 'add_activity.html', {
             'form': form,
-            'user':request.user,
         })
     else:
         return render(request,'permission_error.html')

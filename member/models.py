@@ -88,3 +88,4 @@ from django import forms
 #import xls
 class ImportXlsForm(forms.Form):
     file  = forms.FileField()
+

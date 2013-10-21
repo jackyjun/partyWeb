@@ -99,3 +99,28 @@ class NivoSlider(models.Model):
     image = models.ImageField(upload_to='nivoslider',verbose_name=u'图片')
     def __unicode__(self):
         return '%s' %self.title
+
+class Suggestion(models.Model):
+    class Meta:
+        verbose_name = u'留言建议'
+        verbose_name_plural = u'留言建议'
+    title = models.CharField(verbose_name=u'留言标题',max_length=100)
+    date = models.DateTimeField(auto_now=True,verbose_name=u'留言日期')
+    content = models.TextField(verbose_name=u'留言内容')
+    status = models.BooleanField(verbose_name=u'是否已回复',default=False)
+    def __unicode__(self):
+        return '%s %s' % (self.date, self.title)
+
+class SuggestionForm(ModelForm):
+     class Meta:
+        model = Suggestion
+        exclude = ['status']
+
+class Reply(models.Model):
+    class Meta:
+        verbose_name = u'留言回复'
+        verbose_name_plural = u'留言回复'
+    user = models.ForeignKey(User,verbose_name=u'回复者')
+    suggestion = models.ForeignKey(Suggestion,verbose_name=u'留言')
+    content = models.TextField(verbose_name=u'回复内容')
+    date = models.DateTimeField(auto_now=True,verbose_name=u'回复日期')

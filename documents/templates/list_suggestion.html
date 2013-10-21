@@ -1,0 +1,53 @@
+{% extends 'base5.html'%}
+{% block title %}
+   留言管理
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+        a:hover{
+         text-decoration: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="other-content">
+        <div class="list text-left">
+           <h3 class="text-info">留言管理</h3>
+           <hr/>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>留言标题</h5></td>
+                        <td><h5>留言时间</h5></td>
+                        <td><h5>留言回复状态</h5></td>
+                        <td><h5>操作状态</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for suggestion in suggestion_list %}
+                       <tr>
+                            <td>{{ suggestion.title }}</td>
+                            <td>{{ suggestion.date }}</td>
+                            <td>
+                                {% if suggestion.status %}
+                                    已回复
+                                {% else %}
+                                    <a href="/add_reply/{{ suggestion.id }}">未回复</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if suggestion.status %}
+                                   <a href="/get_reply/{{ suggestion.id }}" target="_blank">【查看】</a>
+                                   <a href="/change_reply/{{ suggestion.id }}">【修改】</a>
+                                {% endif %}
+                            </td>
+                       </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

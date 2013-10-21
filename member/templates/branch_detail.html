@@ -15,107 +15,106 @@
 {% endblock %}
 {% block content %}
     <div class="other-content">
-        <div class="list-text-left">
+        <div class="list-text-left" style="height: auto;">
             <div class="list">
                 <h3 class="list-title">{{ branch.name }}信息</h3>
                 <div class="text-link-inverse">
                     <a href="/branch_summary/" class="text-link-inverse" ><<党支部结构</a>
                 </div>
+            <hr>
+            <h4 class="text-info" style="margin-left:30px;float:left;">正式党员信息</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                        <td><h5>入党时间</h5></td>
+                        <td><h5>转正时间</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for official in official_list %}
+                        <tr>
+                            <td>{{ official.student_id }}</td>
+                            <td>{{ official.name }}</td>
+                            <td>
+                                {% if official.apply_party_time %}
+                                    {{ official.apply_party_time }}
+                                {% else %}
+                                    无
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if official.join_party_time %}
+                                    {{ official.join_party_time }}
+                                {% else %}
+                                    无
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
+            <h4 class="text-info" style="margin-left:30px;float:left;">预备党员信息</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                        <td><h5>入党时间</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for probationary in probationary_list %}
+                        <tr>
+                            <td>{{ probationary.student_id }}</td>
+                            <td>{{ probationary.name }}</td>
+                            <td>
+                                {% if probationary.join_party_time %}
+                                    {{ probationary.join_party_time }}
+                                {% else %}
+                                    无
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
+            <h4 class="text-info" style="margin-left:30px;float:left;">共青团员信息</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activist in activist_list %}
+                        <tr>
+                            <td>{{ activist.student_id }}</td>
+                            <td>{{ activist.name }}</td>
+                        </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
+            <h4 class="text-info" style="margin-left:30px;float:left;">群众信息</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>学号</h5></td>
+                        <td><h5>姓名</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for masses in masses_list %}
+                        <tr>
+                            <td>{{ masses.student_id }}</td>
+                            <td>{{ masses.name }}</td>
+                        </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
             </div>
-        </div>
-        <div>
-        <h4 class="text-info" style="margin-left:30px;float:left;">正式党员信息</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                    <td><h5>入党时间</h5></td>
-                    <td><h5>转正时间</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for official in official_list %}
-                    <tr>
-                        <td>{{ official.student_id }}</td>
-                        <td>{{ official.name }}</td>
-                        <td>
-                            {% if official.apply_party_time %}
-                                {{ official.apply_party_time }}
-                            {% else %}
-                                无
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if official.join_party_time %}
-                                {{ official.join_party_time }}
-                            {% else %}
-                                无
-                            {% endif %}
-                        </td>
-                    </tr>
-                {%  endfor %}
-            </tbody>
-        </table>
-        <h4 class="text-info" style="margin-left:30px;float:left;">预备党员信息</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                    <td><h5>入党时间</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for probationary in probationary_list %}
-                    <tr>
-                        <td>{{ probationary.student_id }}</td>
-                        <td>{{ probationary.name }}</td>
-                        <td>
-                            {% if probationary.join_party_time %}
-                                {{ probationary.join_party_time }}
-                            {% else %}
-                                无
-                            {% endif %}
-                        </td>
-                    </tr>
-                {%  endfor %}
-            </tbody>
-        </table>
-        <h4 class="text-info" style="margin-left:30px;float:left;">共青团员信息</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for activist in activist_list %}
-                    <tr>
-                        <td>{{ activist.student_id }}</td>
-                        <td>{{ activist.name }}</td>
-                    </tr>
-                {%  endfor %}
-            </tbody>
-        </table>
-        <h4 class="text-info" style="margin-left:30px;float:left;">群众信息</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for masses in masses_list %}
-                    <tr>
-                        <td>{{ masses.student_id }}</td>
-                        <td>{{ masses.name }}</td>
-                    </tr>
-                {%  endfor %}
-            </tbody>
-        </table>
         </div>
     </div>
 {% endblock %}

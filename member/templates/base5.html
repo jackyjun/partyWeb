@@ -12,6 +12,16 @@
 </head>
 <body>
     <div class="container">
+        {% if error %}
+        <div class="error container">
+            {{ error }}
+        </div>
+        {% endif %}
+        {% if prompt %}
+            <script type="text/javascript">
+                alert("{{ prompt_msg }}");
+            </script>
+        {% endif %}
         {% include 'top5.html' %}
         {% block content %}
         {% endblock %}

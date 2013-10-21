@@ -30,59 +30,59 @@
                     <input style="margin-bottom: 12px;" type="submit" class="btn " value="检索">
                 </form>
             </div>
+            {% if type == "3" %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td><h5>学号</h5></td>
+                                <td><h5>姓名</h5></td>
+                                <td><h5>入党时间</h5></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in student_list %}
+                                <tr>
+                                    <td>{{ student.student_id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>
+                                        {% if student.join_party_time %}
+                                            {{ student.join_party_time }}
+                                        {% else %}
+                                            无
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {%  endfor %}
+                        </tbody>
+                    </table>
+                {% elif type == "1" or type == "2" %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td><h5>学号</h5></td>
+                                <td><h5>姓名</h5></td>
+                                <td><h5>申请入党时间</h5></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in student_list %}
+                                <tr>
+                                    <td>{{ student.student_id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>
+                                        {% if student.apply_party_time %}
+                                            {{ student.apply_party_time }}
+                                        {% else %}
+                                            无
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {%  endfor %}
+                        </tbody>
+                    </table>
+               {% elif type == "0" %}
+                    <div class="text-info">未搜索到结果</div>
+                {% endif %}
         </div>
-       {% if type == "3" %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                    <td><h5>入党时间</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in student_list %}
-                    <tr>
-                        <td>{{ student.student_id }}</td>
-                        <td>{{ student.name }}</td>
-                        <td>
-                            {% if student.join_party_time %}
-                                {{ student.join_party_time }}
-                            {% else %}
-                                无
-                            {% endif %}
-                        </td>
-                    </tr>
-                {%  endfor %}
-            </tbody>
-        </table>
-    {% elif type == "1" or type == "2" %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <td><h5>学号</h5></td>
-                    <td><h5>姓名</h5></td>
-                    <td><h5>申请入党时间</h5></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in student_list %}
-                    <tr>
-                        <td>{{ student.student_id }}</td>
-                        <td>{{ student.name }}</td>
-                        <td>
-                            {% if student.apply_party_time %}
-                                {{ student.apply_party_time }}
-                            {% else %}
-                                无
-                            {% endif %}
-                        </td>
-                    </tr>
-                {%  endfor %}
-            </tbody>
-        </table>
-   {% elif type == "0" %}
-        <div class="text-info">未搜索到结果</div>
-    {% endif %}
     </div>
 {% endblock %}

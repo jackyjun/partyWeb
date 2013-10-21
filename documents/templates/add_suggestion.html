@@ -1,0 +1,38 @@
+{% extends 'base5.html'%}
+{% block title %}
+   留言建议
+{% endblock %}
+{% block head_part %}
+    <style>
+        textarea{
+            width: 600px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#form").submit(function(){
+                if($("#id_title").val()==""){
+                    alert('请输入留言标题');
+                    return false;
+                }
+                else if($("#id_content").val()==""){
+                    alert('请输入留言内容');
+                    return false;
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="other-content">
+        <div class="list text-left">
+           <h3 class="text-color">留言建议</h3>
+           <hr/>
+           <form action="add_suggestion/" method="post" name="form" id="form">
+                {{ form }}
+               <br/>
+               <input type="submit" class="btn" value="留言">
+           </form>
+        </div>
+    </div>
+{% endblock %}

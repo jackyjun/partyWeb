@@ -1,0 +1,45 @@
+{% extends 'base5.html'%}
+{% block title %}
+   留言建议
+{% endblock %}
+{% block head_part %}
+    <style>
+        .table td{
+            text-align: center;
+        }
+        a:hover{
+         text-decoration: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="other-content">
+        <div class="list text-left">
+           <h3 class="text-color">留言建议</h3>
+           <a href="/add_suggestion">[我想要提些建议]</a>
+           <hr/>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><h5>留言标题</h5></td>
+                        <td><h5>留言时间</h5></td>
+                        <td><h5>详情</h5></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for suggestion in suggestion_list %}
+                       <tr>
+                            <td>{{ suggestion.title }}</td>
+                            <td>{{ suggestion.date }}</td>
+                            <td>
+                               <div class="text-link-inverse">
+                                <a href="/get_reply/{{ suggestion.id }}" target="_blank">【查看】</a>
+                               </div>
+                            </td>
+                       </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

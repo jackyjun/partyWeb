@@ -7,3 +7,4 @@ class StudentAdmin(ModelAdmin):
 admin.site.register(Student,StudentAdmin)
 admin.site.register(StudentAssessment)
 admin.site.register(UserStudent)
+

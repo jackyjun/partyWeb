@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from member.models import UserStudent,Student
-from models import News,Regulation,Notice,Price,StudentPrice,Attachment,AttachmentForm,StudentPriceForm
+from models import *
 from django.contrib.auth.decorators import login_required
 from datetime import *
 from django.http import HttpResponse
@@ -385,5 +385,107 @@ def delete_attachment(request,id):
             return redirect(attachment_list)
         except Attachment.DoesNotExist:
             print('attachment does not exist')
+    else:
+        return render_to_response('permission_error.html')
+
+@csrf_exempt
+def add_suggestion(request):
+    if request.method == 'POST':
+        form = SuggestionForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            form.save()
+            return redirect('/add_suggestion?prompt=True')
+    else:
+        form = SuggestionForm()
+        if 'prompt' in request.GET:
+            return render(request, 'add_suggestion.html', {
+                'form': form,
+                'prompt':True,
+                'prompt_msg':'留言成功',
+            })
+    return render(request, 'add_suggestion.html', {
+        'form': form,
+    })
+
+@login_required(login_url='/user_login/')
+def list_suggestion(request):
+    #back
+    if request.user.is_superuser:
+        suggestion_list = Suggestion.objects.all().order_by('-id').order_by('status')
+        for suggestion in suggestion_list:
+            suggestion.date = suggestion.date.strftime('%Y-%m-%d %H:%M:%S')
+        if 'prompt' in request.GET:
+            return render(request, 'list_suggestion.html', {
+                'prompt':True,
+                'prompt_msg':'回复成功',
+                'suggestion_list':suggestion_list,
+            })
+        else:
+            return render(request,'list_suggestion.html',{'suggestion_list':suggestion_list})
+    else:
+        render_to_response('permission_error.html')
+
+def list_reply(request):
+    #user
+    suggestion_list = Suggestion.objects.filter(status=True)
+    for suggestion in suggestion_list:
+        suggestion.date = suggestion.date.strftime('%Y-%m-%d %H:%M:%S')
+    return render(request,'list_reply.html',{'suggestion_list':suggestion_list})
+
+@csrf_exempt
+@login_required(login_url='/user_login/')
+def add_reply(request,id):
+    if request.user.is_superuser:
+        try:
+            if request.method == 'POST':
+                content = request.POST['content']
+                suggestion = Suggestion.objects.get(id=id)
+                if suggestion.status:
+                    pass
+                else:
+                    Reply.objects.get_or_create(user=request.user,content=content,suggestion_id=id)
+                    suggestion.status = True
+                    suggestion.save()
+                return redirect('/list_suggestion?prompt=True')
+            else:
+                suggestion  = Suggestion.objects.get(id=id)
+                return render(request, 'add_reply.html',{'suggestion':suggestion})
+        except:
+            pass
+    else:
+        return render_to_response('permission_error.html')
+
+def get_reply(request,id):
+    if request.user.is_superuser:
+        try:
+            suggestion =Suggestion.objects.get(id=id)
+            reply = Reply.objects.get(suggestion=suggestion)
+            suggestion.date = suggestion.date.strftime('%Y-%m-%d %H:%M:%S')
+            reply.date = reply.date.strftime('%Y-%m-%d %H:%M:%S')
+            return render(request,'get_reply.html',{'reply':reply,'suggestion':suggestion})
+        except:
+            pass
+    else:
+        return render_to_response('permission_error.html')
+
+@csrf_exempt
+@login_required(login_url='/user_login/')
+def change_reply(request,id):
+    if request.user.is_superuser:
+        try:
+            if request.method == 'POST':
+                content = request.POST['content']
+                suggestion = Suggestion.objects.get(id=id)
+                reply = Reply.objects.get(suggestion=suggestion)
+                reply.user = request.user
+                reply.content = content
+                reply.save()
+                return redirect('/list_suggestion?prompt=True')
+            else:
+                suggestion = Suggestion.objects.get(id=id)
+                reply = Reply.objects.get(suggestion=suggestion)
+                return render(request, 'change_reply.html',{'suggestion':suggestion,'reply':reply})
+        except:
+            pass
     else:
         return render_to_response('permission_error.html')

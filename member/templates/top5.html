@@ -20,7 +20,13 @@
         </ul>
     </li>
     <li><a href="/branch_structure/">组织架构</a></li>
-    <li><a href="/contact/">关于我们</a></li>
+    <li><a href="#">关于我们</a>
+        <ul>
+          <li><a href="/list_reply/">留言建议</a>
+          <li><a href="/contact/">关于我们</a></li>
+        </ul>
+
+    </li>
     {% if user.is_active %}
         {% if user.is_staff %}
             {% if user.is_superuser %}

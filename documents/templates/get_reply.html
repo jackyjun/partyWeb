@@ -1,0 +1,25 @@
+{% extends 'base5.html'%}
+{% block title %}
+   留言回复
+{% endblock %}
+{% block head_part %}
+    <style>
+        label{
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="other-content">
+        <div class="list text-left">
+           <h3 class="text-color">留言回复</h3>
+           <hr/>
+           <label>留言标题：</label>{{ suggestion.title }}<br/>
+           <label>留言时间：</label>{{ suggestion.date }}<br/>
+           <label>留言内容：</label>{{ suggestion.content }}
+           <hr/>
+           <label>回复时间：</label>{{ reply.date }}
+           <label>回复内容：</label>{{ reply.content }}
+        </div>
+    </div>
+{% endblock %}

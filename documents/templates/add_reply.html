@@ -1,0 +1,42 @@
+{% extends 'base5.html'%}
+{% block title %}
+   留言回复
+{% endblock %}
+{% block head_part %}
+    <style>
+        textarea{
+            height: 100px;
+            width: 600px;
+        }
+        label{
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#form").submit(function(){
+                if($("#content").val()==""){
+                    alert('请输入回复内容');
+                    return false;
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="other-content">
+        <div class="list text-left">
+           <h3 class="text-color">留言回复</h3>
+           <hr/>
+           <label>留言标题：</label>{{ suggestion.title }}<br/>
+           <label>留言内容：</label>{{ suggestion.content }}
+           <hr/>
+           <form action="/add_reply/{{ suggestion.id }}" method="post" name="form" id="form">
+               <label for="id_title">回复内容:</label>
+               <textarea name="content" id="content"></textarea>
+               <br/>
+               <input type="submit" class="btn" value="回复">
+           </form>
+        </div>
+    </div>
+{% endblock %}
