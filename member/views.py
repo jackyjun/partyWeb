@@ -468,7 +468,7 @@ def home(request):
     ACTIVITY_NUMBER = 7
     NIVOSLIDER_NUMBER = 4
     news = News.objects.all().order_by('-date')[:NEWS_NUMBER]
-    notices = Notice.objects.all().order_by('-date')[:Notice_NUMBER]
+    notices = Notice.objects.filter(type=1).order_by('-date')[:Notice_NUMBER]
     develop_notices = Notice.objects.all().order_by('-date').filter(type=2)[:Notice_NUMBER]
     nivosliders = NivoSlider.objects.all()
     graduates_activity = Activity.objects.filter(type=0).order_by('-start_time')[:ACTIVITY_NUMBER]

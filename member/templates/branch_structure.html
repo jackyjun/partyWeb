@@ -1,6 +1,21 @@
-{% extends 'base5.html' %}
+{% extends 'base5.html'%}
+{% block title %}
+   留言建议
+{% endblock %}
+{% block head_part %}
+    <style>
+        img{
+           margin-left: 100px;
+           margin-bottom: 50px;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <div class="other-content">
-        <img src="/static/images/branch_structure.bmp"/>
+        <div class="list text-left">
+           <h3 class="text-color">组织架构</h3>
+           <hr/>
+           <img src="/static/images/branch_structure.bmp"/>
+        </div>
     </div>
 {% endblock %}

@@ -5,20 +5,23 @@
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
-<script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
-<script type="text/javascript">
-    tinymce.init({
-        selector: "textarea",
-        language : 'zh_CN',
-        plugins: [
-        "advlist autolink lists charmap print preview anchor",
-        "searchreplace visualblocks  fullscreen",
-        "insertdatetime table contextmenu paste preview textcolor"
-        ],
-        toolbar: "insertfile undo redo preview | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-        width:"900px",
-        height:"200px"
-     });
+<script charset="utf-8" src="/static/js/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="/static/js/kindeditor/lang/zh_CN.js"></script>
+<script>
+        var editor;
+        KindEditor.ready(function(K) {
+            editor = K.create('textarea', {
+                resizeType : 1,
+                width:800,
+                height:400,
+                allowPreviewEmoticons : false,
+                allowImageUpload : false,
+                items : [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|','preview' ]
+            });
+        });
 </script>
 {{ media }}
 {% endblock %}

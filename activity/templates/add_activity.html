@@ -5,19 +5,12 @@
 {% block head_part %}
     <style>
         form textarea{
-            width: 500px;
+            width: 700px;
+            height: 300px;
         }
     </style>
-    <script type="text/javascript" src="/static/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
-        $(window).load(function() {
-            /*$('#id_start_time,#id_end_time,#id_deadline').datepicker({
-                format: 'yyyy-mm-dd'
-            });*/
-            tinymce.init({
-                selector: "textarea",
-                language : 'zh_CN'
-            });
+        $(document).ready(function() {
             $( "#id_start_time,#id_end_time,#id_deadline" ).datepicker({
                 dateFormat:"yy-mm-dd",
                 changeMonth:true,
@@ -25,6 +18,24 @@
             });
         });
    </script>
+    <script charset="utf-8" src="/static/js/kindeditor/kindeditor-min.js"></script>
+    <script charset="utf-8" src="/static/js/kindeditor/lang/zh_CN.js"></script>
+    <script>
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea', {
+					resizeType : 1,
+					allowPreviewEmoticons : false,
+					allowImageUpload : false,
+					items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|','preview' ]
+				});
+			});
+    </script>
+
+
 {% endblock %}
 {% block content %}
     <div class="other-content">

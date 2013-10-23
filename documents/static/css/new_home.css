@@ -63,9 +63,7 @@
     margin-right: 15px;
     border-bottom: 1px solid #efeeee;
     line-height:30px;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 item-link-normal{
     color:#555;
@@ -83,12 +81,15 @@ item-link-normal{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
     float:left;
-    text-decoration: none;
 }
 .item-link a{
-    float:left;
     color:#555;
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: none;
 }
 
@@ -100,6 +101,9 @@ item-link-normal{
     float:right;
 }
 .item-link-more{
+    color:#555;
+    border-bottom: 1px solid #efeeee;
+    line-height:30px;
     float:right;
 }
 .table{
