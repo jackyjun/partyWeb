@@ -9,7 +9,7 @@ class News(models.Model):
         verbose_name = u'新闻'
         verbose_name_plural = u'新闻'
     title = models.CharField(max_length=200,verbose_name=u'新闻标题')
-    date = models.DateField(auto_now=True,verbose_name=u'发布日期')
+    date = models.DateField(auto_now_add=True,verbose_name=u'发布日期')
     publisher = models.CharField(max_length=45,verbose_name=u'发布者')
     image = models.ImageField(upload_to='news',verbose_name=u'新闻图片',blank=True)
     content = models.TextField(verbose_name=u'新闻内容')
@@ -26,7 +26,7 @@ class Notice(models.Model):
         verbose_name_plural = u'通知公示'
     title = models.CharField(max_length=200,verbose_name=u'通知标题')
     type = models.IntegerField(max_length=1,verbose_name=u'通知类型',choices=TYPE_CHOICE)
-    date = models.DateField(auto_now=True,verbose_name=u'通知日期')
+    date = models.DateField(auto_now_add=True,verbose_name=u'通知日期')
     publisher = models.CharField(max_length=45,verbose_name=u'发布者')
     content = models.TextField(verbose_name=u'通知内容')
     file = models.FileField(verbose_name=u'附件',upload_to='notice',blank=True)
@@ -38,7 +38,7 @@ class Regulation(models.Model):
         verbose_name = u'制度条例'
         verbose_name_plural = u'制度条例'
     title = models.CharField(max_length=200,verbose_name=u'标题')
-    date = models.DateField(auto_now=True,verbose_name=u'日期')
+    date = models.DateField(auto_now_add=True,verbose_name=u'日期')
     publisher = models.CharField(max_length=45,verbose_name=u'发布者')
     content = models.TextField(verbose_name=u'内容')
     def __unicode__(self):

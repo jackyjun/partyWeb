@@ -527,8 +527,9 @@ def branch_search(request):
             student_list = Student.objects.filter(political_status = status)
         for student in student_list:
             if student.apply_party_time or student.join_party_time:
-                student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
-                student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
+                    student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
+                    if status==3:
+                        student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
         if len(student_list)==0:
             status = u'0'
         context = {

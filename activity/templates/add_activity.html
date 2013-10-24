@@ -4,10 +4,27 @@
 {% endblock %}
 {% block head_part %}
     <style>
-        form textarea{
-            width: 700px;
-            height: 300px;
-        }
+    form textarea{
+        width: 700px;
+        height: 300px;
+    }
+    .item{
+        margin-bottom: 10px;
+        height: 40px;
+    }
+    .item-large{
+        height: 300px;
+    }
+    .item-label{
+        width:110px;
+        float: left;
+    }
+    .error{
+        margin-top: 2px;
+        margin-left: 20px;
+        float:left;
+        color: red;
+    }
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -15,6 +32,116 @@
                 dateFormat:"yy-mm-dd",
                 changeMonth:true,
                 changeYear:true
+            });
+            reg = '';
+            var empty_error_dic = {
+                'id_title':'标题不能为空',
+                'id_type':'活动类型不能为空',
+                'id_start_time':'活动开始日期不能为空',
+                'id_end_time':'活动结束日期不能为空',
+                'id_deadline':'报名截止日期不能为空'
+            };
+            $("#id_title").blur(function(){
+              if($("#id_title").val()==''){
+                $("#error_id_title").text(empty_error_dic["id_title"]);
+              }
+              else{
+                $("#error_id_title").text("");
+              }
+            });
+            $("#id_type").blur(function(){
+              if($("#id_type").val()==''){
+                $("#error_id_type").text(empty_error_dic["id_type"]);
+              }
+              else{
+                $("#error_id_type").text("");
+              }
+            });
+            $("#id_start_time").blur(function(){
+              if($("#id_start_time").val()==''){
+                $("#error_id_start_time").text(empty_error_dic["id_start_time"]);
+              }
+              else{
+                if(/^2[0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test($("#id_start_time").val())){
+                    $("#error_id_start_time").text("");
+                }
+                else{
+                    $("#error_id_start_time").text("日期格式错误，应为YYYY-MM-DD");
+                }
+              }
+            });
+            $("#id_end_time").blur(function(){
+              if($("#id_end_time").val()==''){
+                $("#error_id_end_time").text(empty_error_dic["id_end_time"]);
+              }
+              else{
+                if(/^2[0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test($("#id_end_time").val())){
+                    $("#error_id_end_time").text("");
+                }
+                else{
+                    $("#error_id_end_time").text("日期格式错误，应为YYYY-MM-DD");
+                }
+              }
+            });
+            $("#id_deadline").blur(function(){
+              if($("#id_deadline").val()==''){
+                $("#error_id_deadline").text(empty_error_dic["id_deadline"]);
+              }
+              else{
+                if(/^2[0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test($("#id_deadline").val())){
+                    $("#error_id_deadline").text("");
+                }
+                else{
+                    $("#error_id_deadline").text("日期格式错误，应为YYYY-MM-DD");
+                }
+              }
+            });
+            $("#form").submit(function(){
+                var errorFlag=true;
+                for(var id in empty_error_dic){
+                    if($("#"+id).val()==''){
+                        $("#error_"+id).text(empty_error_dic[id]);
+                        errorFlag=false;
+                       }
+                    else{
+                        $("#error_"+id).text("");
+                    }
+                }
+                var id_array = ["id_start_time","id_end_time","id_deadline"];
+                for(var i=0;i<id_array.length;i++){
+                    if(/^2[0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test($("#"+id_array[i]).val())){
+                    }
+                    else{
+                        $("#error_"+id_array[i]).text("日期格式错误，应为YYYY-MM-DD");
+                        errorFlag = false;
+                    }
+                }
+                if(!errorFlag){
+                    return false;
+                }
+                else{
+                    var startTime = $("#id_start_time").val();
+                    var endTime = $("#id_end_time").val();
+                    var deadline = $("#id_deadline").val();
+                    var startArray = startTime.split('-');
+                    var endArray = endTime.split('-');
+                    var deadlineArray = deadline.split('-');
+                    var start = new Date();
+                    var end = new Date();
+                    var dead = new Date();
+                    start.setFullYear(startArray[0],startArray[1],startArray[2]);
+                    end.setFullYear(endArray[0],endArray[1],endArray[2]);
+                    dead.setFullYear(deadlineArray[0],deadlineArray[1],deadlineArray[2]);
+                    if(start>end){
+                         alert("输入的活动开始时间大于活动结束时间，请重新输入");
+                        return false;
+                    }
+                    if(start<dead){
+                         alert("输入的活动报名截止时间大于活动开始时间，请重新输入");
+                        return false;
+                    }
+                    return true;
+                }
             });
         });
    </script>
@@ -52,19 +179,26 @@
                 </button>
             </a>
             <hr/>
-                <form action="/add_activity/" method="post">{% csrf_token %}
+                <form action="/add_activity/" id="form" method="post">{% csrf_token %}
                     {% for field in form %}
                         <div class="text-error"> {{ field.errors }} </div>
-                        <div style="margin-bottom: 10px;">
-                            <div style="width:110px;float: left;"> {{ field.label_tag }}</div>
-                            {% if field.label == "内容" %}
-                                <div style="margin-left: 110px;">{{ field }}</div>
-                            {% else %}
-                                {{ field }}
-                            {% endif %}
-                         </div>
+                        {% if field.label != "内容" %}
+                            <div class="item">
+                                <div class="item-label">{{ field.label_tag }}</div>
+                                <div style="float:left;">{{ field }}</div>
+                                <div id="error_{{ field.id_for_label }}" class="error"></div>
+                             </div>
+                        {% else %}
+                            <div class="item-large">
+                                <div class="item-label">{{ field.label_tag }}</div>
+                                <div style="float:left;">{{ field }}</div>
+                            </div>
+                        {% endif %}
                     {% endfor %}
-                    <p><input type="submit" class="btn" value="发布" /></p>
+                    <div class="item">
+                        <div class="item-label"></div>
+                        <div style="float:left;"><input type="submit" class="btn"  value="发布" /></div>
+                     </div>
                 </form>
         </div>
     </div>

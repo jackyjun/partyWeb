@@ -394,15 +394,9 @@ def add_suggestion(request):
         form = SuggestionForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             form.save()
-            return redirect('/add_suggestion?prompt=True')
+            return redirect('/list_reply?prompt=True')
     else:
         form = SuggestionForm()
-        if 'prompt' in request.GET:
-            return render(request, 'add_suggestion.html', {
-                'form': form,
-                'prompt':True,
-                'prompt_msg':'留言成功',
-            })
     return render(request, 'add_suggestion.html', {
         'form': form,
     })
@@ -430,6 +424,12 @@ def list_reply(request):
     suggestion_list = Suggestion.objects.filter(status=True)
     for suggestion in suggestion_list:
         suggestion.date = suggestion.date.strftime('%Y-%m-%d %H:%M:%S')
+    if 'prompt' in request.GET:
+        return render(request, 'list_reply.html', {
+            'suggestion_list':suggestion_list,
+            'prompt':True,
+            'prompt_msg':'感谢您的建议,请等待管理员回复。',
+        })
     return render(request,'list_reply.html',{'suggestion_list':suggestion_list})
 
 @csrf_exempt
