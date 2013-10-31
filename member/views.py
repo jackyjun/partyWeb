@@ -121,9 +121,13 @@ def student_info(request):
             student_dic[u'政治面貌'] = student.get_political_status_display
             student_list.append(student_dic)
             student_dic = {}
+            if student.apply_party_time:
+                student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
             student_dic[u'入党时间'] = student.apply_party_time
             student_list.append(student_dic)
             student_dic = {}
+            if student.join_party_time:
+                student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
             student_dic[u'转正时间'] =   student.join_party_time
             student_list.append(student_dic)
             student_dic = {}
@@ -163,9 +167,13 @@ def student_info(request):
         student_dic[u'政治面貌'] = student.get_political_status_display
         student_list.append(student_dic)
         student_dic = {}
+        if student.apply_party_time:
+            student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
         student_dic[u'入党时间'] = student.apply_party_time
         student_list.append(student_dic)
         student_dic = {}
+        if student.join_party_time:
+            student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
         student_dic[u'转正时间'] =   student.join_party_time
         student_list.append(student_dic)
         student_dic = {}
@@ -396,9 +404,12 @@ def branch_detail(request,id):
         'activist_list':activist_list,
         'probationary_list':probationary_list,
         'official_list':official_list,
-        'user':request.user,
+        'masses_count':len(masses_list),
+        'activist_count':len(activist_list),
+        'probationary_count':len(probationary_list),
+        'official_count':len(official_list),
     }
-    return render_to_response('branch_detail.html',context)
+    return render(request,'branch_detail.html',context)
 
 @login_required(login_url='/user_login/')
 def branch_assessment(request):
@@ -526,10 +537,10 @@ def branch_search(request):
         else:
             student_list = Student.objects.filter(political_status = status)
         for student in student_list:
-            if student.apply_party_time or student.join_party_time:
-                    student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
-                    if status==3:
-                        student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
+            if student.apply_party_time:
+                student.apply_party_time = student.apply_party_time.strftime('%Y-%m-%d')
+            if student.join_party_time:
+                student.join_party_time = student.join_party_time.strftime('%Y-%m-%d')
         if len(student_list)==0:
             status = u'0'
         context = {
@@ -538,7 +549,6 @@ def branch_search(request):
             'type': status,
             'user':request.user,
         }
-        print student_list
         return render_to_response('branch_search.html',context)
     else:
         return render_to_response('branch_search.html',{'branch_list':branch_list,'user':request.user})
@@ -673,3 +683,6 @@ def import_xls(request):
             return render(request,'import_xls.html', {'form': form})
     else:
         return render(request,'permission_error.html')
+
+def version(request):
+    return render(request,'version.html')

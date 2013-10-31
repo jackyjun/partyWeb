@@ -72,6 +72,7 @@ urlpatterns = patterns('',
     url(r'search_single_student_activity/','activity.views.search_single_student_activity'),
     url(r'^student_activity_detail/(?P<id>\d+)','activity.views.student_activity_detail'),
     url(r'^back_student_info/(?P<id>\d+)','member.views.back_student_info'),
+    url(r'^version/','member.views.version'),
 
     # Examples:
     # url(r'^$', 'partyWebsite.views.home', name='home'),

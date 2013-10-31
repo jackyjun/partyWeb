@@ -22,65 +22,76 @@
                     <a href="/branch_summary/" class="text-link-inverse" ><<党支部结构</a>
                 </div>
             <hr>
-            <h4 class="text-info" style="margin-left:30px;float:left;">正式党员信息</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td><h5>学号</h5></td>
-                        <td><h5>姓名</h5></td>
-                        <td><h5>入党时间</h5></td>
-                        <td><h5>转正时间</h5></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for official in official_list %}
+            <h4 class="text-info">正式党员信息</h4>
+            {% if official_count == 0  %}
+                <div style="width:200px;">无该项信息</div>
+            {% else %}
+                 <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ official.student_id }}</td>
-                            <td>{{ official.name }}</td>
-                            <td>
-                                {% if official.apply_party_time %}
-                                    {{ official.apply_party_time }}
-                                {% else %}
-                                    无
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if official.join_party_time %}
-                                    {{ official.join_party_time }}
-                                {% else %}
-                                    无
-                                {% endif %}
-                            </td>
+                            <td><h5>学号</h5></td>
+                            <td><h5>姓名</h5></td>
+                            <td><h5>入党时间</h5></td>
+                            <td><h5>转正时间</h5></td>
                         </tr>
-                    {%  endfor %}
-                </tbody>
-            </table>
-            <h4 class="text-info" style="margin-left:30px;float:left;">预备党员信息</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td><h5>学号</h5></td>
-                        <td><h5>姓名</h5></td>
-                        <td><h5>入党时间</h5></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for probationary in probationary_list %}
+                    </thead>
+                    <tbody>
+                        {% for official in official_list %}
+                            <tr>
+                                <td>{{ official.student_id }}</td>
+                                <td>{{ official.name }}</td>
+                                <td>
+                                    {% if official.apply_party_time %}
+                                        {{ official.apply_party_time }}
+                                    {% else %}
+                                        无
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if official.join_party_time %}
+                                        {{ official.join_party_time }}
+                                    {% else %}
+                                        无
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {%  endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            <h4 class="text-info">预备党员信息</h4>
+            {% if probationary_count == 0  %}
+                <div style="width:200px;">无该项信息</div>
+            {% else %}
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ probationary.student_id }}</td>
-                            <td>{{ probationary.name }}</td>
-                            <td>
-                                {% if probationary.join_party_time %}
-                                    {{ probationary.join_party_time }}
-                                {% else %}
-                                    无
-                                {% endif %}
-                            </td>
+                            <td><h5>学号</h5></td>
+                            <td><h5>姓名</h5></td>
+                            <td><h5>入党时间</h5></td>
                         </tr>
-                    {%  endfor %}
-                </tbody>
-            </table>
-            <h4 class="text-info" style="margin-left:30px;float:left;">共青团员信息</h4>
+                    </thead>
+                    <tbody>
+                        {% for probationary in probationary_list %}
+                            <tr>
+                                <td>{{ probationary.student_id }}</td>
+                                <td>{{ probationary.name }}</td>
+                                <td>
+                                    {% if probationary.join_party_time %}
+                                        {{ probationary.join_party_time }}
+                                    {% else %}
+                                        无
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {%  endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            <h4 class="text-info">共青团员信息</h4>
+            {% if activist_count == 0  %}
+                <div style="width:200px;">无该项信息</div>
+            {% else %}
             <table class="table">
                 <thead>
                     <tr>
@@ -97,7 +108,11 @@
                     {%  endfor %}
                 </tbody>
             </table>
-            <h4 class="text-info" style="margin-left:30px;float:left;">群众信息</h4>
+            {% endif %}
+            <h4 class="text-info">群众信息</h4>
+            {% if masses_count == 0  %}
+                <div style="width:200px;">无该项信息</div>
+            {% else %}
             <table class="table">
                 <thead>
                     <tr>
@@ -114,6 +129,7 @@
                     {%  endfor %}
                 </tbody>
             </table>
+            {% endif %}
             </div>
         </div>
     </div>

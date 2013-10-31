@@ -133,11 +133,11 @@
                     end.setFullYear(endArray[0],endArray[1],endArray[2]);
                     dead.setFullYear(deadlineArray[0],deadlineArray[1],deadlineArray[2]);
                     if(start>end){
-                         alert("输入的活动开始时间大于活动结束时间，请重新输入");
+                         alert("活动开始时间大于活动结束时间，请重新输入");
                         return false;
                     }
                     if(start<dead){
-                         alert("输入的活动报名截止时间大于活动开始时间，请重新输入");
+                         alert("活动报名截止时间大于活动开始时间，请重新输入");
                         return false;
                     }
                     return true;

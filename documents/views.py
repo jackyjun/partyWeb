@@ -36,7 +36,7 @@ def get_regulation(request,id):
 
 def list_news(request,page):
     NEWS_COUNT = 10
-    item_list = News.objects.all().order_by('-date').order_by('-id')
+    item_list = News.objects.all().order_by('-id')
     paginator = Paginator(item_list,NEWS_COUNT)
     try:
         news_list = paginator.page(page)
