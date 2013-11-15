@@ -7,6 +7,84 @@
         .table td{
             text-align: center;
         }
+        .activity-page{
+            margin-top: 165px;
+        }
+        .activity-box{
+            float:left;
+            margin-right: 8px;
+            margin-bottom:8px;
+            width:320px;
+            border: solid 1px #D7E4DF;
+            height:200px;
+            background-color: white;
+        }
+        .choice{
+            /*border: solid 1px #ff6f3d;*/
+            background-color: #f7f7f7;
+        }
+        .activity-box .type{
+            color:#fff;
+            padding-top: 20px;
+            padding-bottom:20px;
+            font-size: 16px;
+            float:left;
+            width:20%;
+            height:15px;
+        }
+        .activity-box .graduates{
+            background-color: #0099CC;
+        }
+        .activity-box .youth{
+            background-color: #cb2027;
+
+        }
+        .activity-box .party{
+            background-color: #990000;
+
+        }
+        .activity-box .other{
+            background-color: #6666CC;
+        }
+        .activity-box .title{
+            padding-top: 20px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+            font-size:16px;
+            text-align: center;
+            float: left;
+            color:#666;
+            width:70%;
+            height: 50px;
+        }
+        .activity-box .summary{
+            float:left;
+            text-align: left;
+            margin-left: 10px;
+            height: 100px;
+            color:#999;
+            width:92%;
+        }
+        .activity-box .time{
+            padding-left: 10px;
+            text-align: left;
+            color:#666;
+            font-size: 18px;
+            float:left;
+            width: 40%;
+            height:30px;
+        }
+        .activity-box .join{
+            font-size: 16px;
+            width:40%;
+            color:#ff6f3d;
+            text-align: right;
+            margin-right: 10%;
+            margin-bottom:10px;
+            float:right;
+            height: 20px;
+        }
     </style>
     <script>
     $(document).ready(function(){
@@ -18,11 +96,27 @@
                 location.href="/cancel_activity/"+type+"/"+id;
             }
         });
+        $(".summary").each(function(){
+            var summary = $(this).text();
+            summary = summary.replace(/<[^>].*?>/g,"");
+            summary = summary.replace(/&nbsp;|&amp;|&ldquo;/g,"");
+            if(summary.length>85){
+                summary_sub = summary.substr(0,85);
+                summary = summary_sub +"...";
+            }
+            $(this).text(summary);
+        });
+        $(".activity-box").hover(function(){
+            $(".activity-box").each(function(){
+                $(this).removeClass("choice");
+            });
+            $(this).addClass("choice");
+        });
     });
     </script>
 {% endblock %}
 {% block content %}
-    <div class="other-content">
+    <!--<div class="other-content">
         <div class="list">
             <h3 class="list-title">{{ title }}</h3>
             <table class="table">
@@ -72,5 +166,105 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div>-->
+
+    <div class="activity-page">
+          {% for item in activity_list %}
+              {% for activity,flag in item.items %}
+                    <a href="/activity_detail/{{ activity.id }}" target="_blank">
+                        <div class="activity-box">
+                            {% if activity.type == 0 %}
+                                 <div class="type graduates">
+                                    研究生
+                            {% elif activity.type == 1 %}
+                                 <div class="type youth">
+                                    团组织
+                            {% elif activity.type == 2 %}
+                                 <div class="type party">
+                                    党组织
+                            {% else %}
+                                 <div class="type other">
+                                    其他
+                            {% endif %}
+                                 </div>
+                            <div class="title">{{ activity.title }}</div>
+                            <div class="summary">{{ activity.content }}</div>
+                            <div class="time">{{ activity.start_time }}</div>
+                            <div class="join text-link-inverse"><a href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a></div>
+                        </div>
+                    </a>
+              {% endfor %}
+          {% endfor %}
+    <!--
+          <div class="activity-box">
+              <div class="type graduates">研究生</div>
+              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
+              <div class="summary">第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+
+欢迎各位同学积极参加。届研究生学术节开幕式于11月ddddddddddddddddddddddddddddddd</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>
+          <div class="activity-box">
+              <div class="type youth">团组织</div>
+              <div class="title">“新航星杯”中文演讲比赛</div>
+                            <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+
+欢迎各位同学积极参加。temp.substring(0,5temp.substring(0,temp.length-5</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>
+          <div class="activity-box">
+              <div class="type party">党组织</div>
+              <div class="title">2013-2014学年冬季学期研究生首日教育的通知</div>
+              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+
+欢迎各位同学积极参加。</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>
+          <div class="activity-box">
+              <div class="type other">其他</div>
+              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
+              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+欢迎各位同学积极参加。</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>
+          <div class="activity-box">
+              <div class="type graduates">研究生</div>
+              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
+              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+
+欢迎各位同学积极参加。</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>
+          <div class="activity-box">
+              <div class="type youth">团组织</div>
+              <div class="title">“新航星杯”中文演讲比赛</div>
+          </div>
+          <div class="activity-box">
+              <div class="type party">党组织</div>
+              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
+              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+
+欢迎各位同学积极参加。</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>
+              <div class="activity-box">
+              <div class="type youth">团组织</div>
+              <div class="title">“新航星杯”中文演讲比赛</div>
+          </div>
+          <div class="activity-box">
+              <div class="type party">党组织</div>
+              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
+              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
+
+欢迎各位同学积极参加。</div>
+              <div class="time">2013-9-7</div>
+              <div class="join">取消报名</div>
+          </div>-->
+          </div>
 {% endblock %}

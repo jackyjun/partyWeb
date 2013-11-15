@@ -31,7 +31,7 @@
     <file path="/branch_assessment.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381540506819" ignored="false" />
     <file path="/search_list.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373707392011" ignored="false" />
     <file path="/activity.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373709824998" ignored="false" />
-    <file path="/activity_list.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382598054668" ignored="false" />
+    <file path="/activity_list.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384511579300" ignored="false" />
     <file path="/style.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1375068707591" ignored="false" />
     <file path="/default.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373812056020" ignored="false" />
     <file path="/nivo-slider.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1375068803815" ignored="false" />
@@ -129,14 +129,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="activity_detail.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/activity/templates/activity_detail.html">
+      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/activity/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="71" selection-start="544" selection-end="544" vertical-scroll-proportion="0.28285715">
-              <folding>
-                <element signature="e#265#306#0" expanded="true" />
-                <element signature="e#593#634#0" expanded="true" />
-              </folding>
+            <state line="12" column="5" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_list.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/activity/templates/activity_list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="192" column="116" selection-start="6851" selection-end="6851" vertical-scroll-proportion="1.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new_home.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/documents/static/css/new_home.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="135" column="11" selection-start="2012" selection-end="2016" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,7 +159,7 @@
       <file leaf-file-name="new_base.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/documents/static/css/new_base.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="202" column="20" selection-start="3003" selection-end="3022" vertical-scroll-proportion="0.0">
+            <state line="202" column="18" selection-start="3020" selection-end="3020" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -160,7 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/member/templates/new_student_center.html" />
         <option value="$PROJECT_DIR$/member/templates/student_center1.html" />
         <option value="$PROJECT_DIR$/member/templates/student_center.html" />
         <option value="$PROJECT_DIR$/activity/templates/student_activity_detail.html" />
@@ -172,10 +186,11 @@
         <option value="$PROJECT_DIR$/activity/views.py" />
         <option value="$PROJECT_DIR$/activity/templates/user_activity_detail.html" />
         <option value="$PROJECT_DIR$/documents/static/css/new_home.css" />
-        <option value="$PROJECT_DIR$/documents/static/css/new_base.css" />
         <option value="$PROJECT_DIR$/member/templates/branch_detail.html" />
         <option value="$PROJECT_DIR$/documents/templates/list_reply.html" />
         <option value="$PROJECT_DIR$/activity/templates/activity_detail.html" />
+        <option value="$PROJECT_DIR$/documents/static/css/new_base.css" />
+        <option value="$PROJECT_DIR$/activity/templates/activity_list.html" />
       </list>
     </option>
   </component>
@@ -697,13 +712,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-5" width="1377" height="906" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32830188" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24867725" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28301886" sideWeight="0.96164024" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28301886" sideWeight="0.96164024" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39908257" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32804233" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -781,13 +796,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/activity/templates/student_activity_search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="17" selection-start="259" selection-end="259" vertical-scroll-proportion="-0.3930131">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/documents/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="28" selection-start="2630" selection-end="2630" vertical-scroll-proportion="0.0">
@@ -844,26 +852,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documents/static/css/new_home.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="18" selection-start="2067" selection-end="2067" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/member/templates/change_password.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="56" column="17" selection-start="2000" selection-end="2000" vertical-scroll-proportion="0.7375566">
           <folding>
             <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="5" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -888,13 +882,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documents/static/css/new_base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="202" column="20" selection-start="3003" selection-end="3022" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/activity/templates/activity_detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="71" selection-start="544" selection-end="544" vertical-scroll-proportion="0.28285715">
@@ -902,6 +889,34 @@
             <element signature="e#265#306#0" expanded="true" />
             <element signature="e#593#634#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="5" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/static/css/new_home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="11" selection-start="2012" selection-end="2016" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/static/css/new_base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="202" column="18" selection-start="3020" selection-end="3020" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/activity_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="192" column="116" selection-start="6851" selection-end="6851" vertical-scroll-proportion="1.0">
+          <folding />
         </state>
       </provider>
     </entry>
