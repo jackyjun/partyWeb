@@ -27,6 +27,14 @@
                     {{ detail.content }}
                 </div>
             {% endautoescape %}
+            {% if type == 'notice' %}
+                <div class="list-text-left">
+                    {% if detail.file %}
+                        <b>通知附件：</b>
+                        <a href="/download_notice_attachment/{{detail.id}}">请点击下载</a>
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {%  endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base5.html'%}
+{% block title %}
+    个人中心
+{% endblock %}
+{% block head_part %}
+    <style>
+        .left-siderbar{
+            float:left;
+            height:600px;
+            width:150px;
+            list-style: none;
+        }
+        .left-siderbar li{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 15px;
+            height: 20px;
+        }
+
+        .left-siderbar .active{
+            background-color: #ff6f3d;
+            color:#fff;
+        }
+        .left-siderbar a{
+            color: #000;
+            text-decoration: none;
+        }
+        .right-content{
+            margin-left: 50px;
+            float: left;
+        }
+        .text-color{
+            color:#ff6f3d;
+        }
+    </style>
+    <script type="text/javascript">
+        //siderbar
+        /*$(document).ready(function(){
+            $(".left-siderbar li").hover(function(){
+                $(".left-siderbar li").each(function(){
+                    $(this).removeClass('active');
+                });
+                $(this).addClass('active');
+            });
+        });*/
+    </script>
+    {% block head_main_part %}
+    {% endblock %}
+{% endblock %}
+{% block content %}
+    <div class="other-content">
+        <div class="list text-left">
+            <h3 class="text-color">欢迎，{{ user.first_name }}</h3>
+            <hr/>
+            {% block main_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

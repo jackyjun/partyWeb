@@ -198,8 +198,9 @@ def student_info(request):
 
 @login_required(login_url='/user_login/')
 def student_center(request):
-    student = UserStudent.objects.get(user = request.user).student
-    return render(request,'student_center.html',{'student':student})
+    #student = UserStudent.objects.get(user = request.user).student
+    #return render(request,'student_center.html',{'student':student})
+    return redirect("/student_info/")
 
 @login_required(login_url='/user_login/')
 def admin_center(request):

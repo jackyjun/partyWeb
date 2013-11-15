@@ -31,10 +31,15 @@ class StudentActivity(models.Model):
         (1,u'参与者'),
         (2,u'组织者'),
     )
-    student = models.ForeignKey(Student)
-    activity = models.ForeignKey(Activity)
-    status = models.IntegerField(max_length=1,choices=STATUS_CHOICE,default=0)
-    award = models.CharField(max_length=200,null=True,default='')
+    class Meta:
+        verbose_name = u'学生活动情况'
+        verbose_name_plural = u'学生活动情况'
+    student = models.ForeignKey(Student,verbose_name=u'学生')
+    activity = models.ForeignKey(Activity,verbose_name=u'活动名')
+    status = models.IntegerField(max_length=1,choices=STATUS_CHOICE,default=0,verbose_name=u'参与情况')
+    award = models.CharField(max_length=200,null=True,default='',blank=True,verbose_name=u'获奖情况')
+    def __unicode__(self):
+        return '%s %s: %s %s' % (self.student.student_id,self.student.name, self.activity.title,self.get_status_display())
 
 class ActivityForm(ModelForm):
     class Meta:

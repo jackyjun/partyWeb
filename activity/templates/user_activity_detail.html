@@ -1,53 +1,71 @@
-{% extends 'base5.html'%}
+{% extends 'student_center_base.html'%}
 {% block title %}
     活动情况
 {% endblock %}
-{% block head_part %}
+{% block head_main_part %}
     <style>
         .table td{
             text-align: center;
         }
     </style>
 {% endblock %}
-{% block content %}
-    <div class="other-content">
-        <div class="list text-left">
-        <h3 class="text-info">{{ student.student_id }}{{ student.name }}的活动情况</h3>
-        <a class="text-info" href="/student_center/"> <<用户中心</a>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td><h5>活动名称</h5></td>
-                        <td><h5>活动时间</h5></td>
-                        <td><h5>活动类型</h5></td>
-                        <td><h5>参与情况</h5></td>
-                        <td><h5>获奖情况</h5></td>
-                        <td><h5>审核情况</h5></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for activity,studentActivity in activity_dic.items %}
+{% block main_content %}
+    <ul class="left-siderbar">
+        <li><a href="/student_info/">个人信息</a></li>
+        <li><a href="/change_password/">密码修改</a></li>
+        <li  class="active"><a style="color: white;" href="/user_activity_detail/">活动情况</a></li>
+    </ul>
+    <div class="right-content">
+        <h4 class="text-color">参与活动统计</h4>
+        所有活动:共{{ activity_num }}次
+        党支部活动:共{{party_activity_num}}次
+        团支部活动:共{{youth_activity_num}}次
+        研究生会活动:共{{graduates_activity_num}}次
+        其他活动:共{{other_activity_num}}次
+        <hr/>
+        <h4 class="text-color">参与活动详情</h4>
+        <table class="table" style="width:700px;">
+            <thead>
+                <tr>
+                    <td><h5>活动名称</h5></td>
+                    <td><h5>活动时间</h5></td>
+                    <td><h5>活动类型</h5></td>
+                    <td><h5>参与情况</h5></td>
+                    <td><h5>获奖情况</h5></td>
+                    <td><h5>审核情况</h5></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity,studentActivity in activity_dic.items %}
+                    {% if studentActivity.status == 0 %}
+                        <tr style="color:#999999;">
+                    {% else %}
                         <tr>
-                            <td>{{ activity.title }}</td>
+                    {% endif %}
+                        <div>
+                            <td style="width: 200px;">{{ activity.title }}</td>
                             <td>{{ activity.start_time }}</td>
-                            <td>{{ activity.get_type_display }}</td>
+                            <td>
+                                {{ activity.get_type_display }}
+                            </td>
                             <td>
                                 {{ studentActivity.get_status_display }}
                             </td>
-                            <td>
+                            <td style="width: 80px;">
                                 {{ studentActivity.award }}
                             </td>
                             <td>
                                 {% if activity.status %}
                                     已审核
                                 {% else %}
-                                    未审核
+                                     未审核
                                 {% endif %}
                             </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                        </div>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

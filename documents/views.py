@@ -22,7 +22,7 @@ def get_notice(request,id):
     try:
         notice = Notice.objects.get(id=id)
         notice.date = notice.date.strftime('%Y-%m-%d')
-        return render_to_response('detail.html',{'detail':notice,'user':request.user})
+        return render(request,'detail.html',{'detail':notice,'type':'notice'})
     except Notice.DoesNotExist:
         return render_to_response('error.html',{'msg':'notice does not exist.'})
 
@@ -30,7 +30,7 @@ def get_regulation(request,id):
     try:
         regulation = Regulation.objects.get(id=id)
         regulation.date = regulation.date.strftime('%Y-%m-%d')
-        return render_to_response('detail.html',{'detail':regulation,'user':request.user})
+        return render(request,'detail.html',{'detail':regulation,'type':'regulation'})
     except Regulation.DoesNotExist:
         return render_to_response('error.html',{'msg':'regulation does not exist.'})
 
@@ -70,6 +70,16 @@ def list_notice(request,type,page):
     for notice in notice_list:
         notice.date = notice.date.strftime('%Y-%m-%d')
     return render_to_response('list.html',{'item_list':notice_list,'title':title,'type':'notice','user':request.user})
+
+@login_required(login_url='/user_login/')
+def download_notice_attachment(request,id):
+    notice = Notice.objects.get(id=id)
+    file = notice.file
+    list = file.name.split('.')
+    file_name = date.today().strftime('%Y%m%d')+'.'+list[1]
+    response = HttpResponse(file)
+    response['Content-Disposition'] = 'attachment; filename="%s"'%file_name
+    return response
 
 def list_regulation(request,page):
     REGULATION_COUNT = 10

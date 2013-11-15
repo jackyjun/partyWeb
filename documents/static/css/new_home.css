@@ -54,7 +54,7 @@
     margin:10px 15px 0px 15px;
     text-align: left;
     font-size:19px;
-    border-bottom: 5px solid #f27515;
+    border-bottom: 5px solid #ff6f3d;
     min-height: 25px;
 }
 
@@ -74,7 +74,7 @@ item-link-normal{
 }
 
 .item-link-normal a:hover{
-    color: #f27515;
+    color: #ff6f3d;
 }
 .item-link-title{
     width:300px;
@@ -94,7 +94,7 @@ item-link-normal{
 }
 
 .item-link a:hover{
-    color: #f27515;
+    color: #ff6f3d;
 }
 
 .item-link-date {
@@ -117,7 +117,7 @@ item-link-normal{
     margin-top: 10px;
     color:#fff;
     text-align:left;
-    background-color: #f27515;
+    background-color: #ff6f3d;
     height:35px;
     float:left;
     width:990px;
@@ -135,5 +135,5 @@ item-link-normal{
 
 .links-item a:hover{
     /*color:#767e89;*/
-    color: #f23c00;
+    color: #ff6f3d;
 }

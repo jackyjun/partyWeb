@@ -422,12 +422,35 @@ def user_activity_detail(request):
     student = userStudent.student
     studentActivity_list = StudentActivity.objects.filter(student = student)
     activity_dic = {}
+    activity_summary_dic = {}
+    activity_num = 0
+    graduates_activity_num = 0
+    youth_activity_num = 0
+    other_activity_num = 0
+    party_activity_num = 0
     for studentActivity in studentActivity_list:
         activity = studentActivity.activity
         activity.start_time = activity.start_time.strftime('%Y-%m-%d')
         activity_dic[activity] = studentActivity
+        if studentActivity.status !=0:
+            type = activity.type
+            if type == 0:
+                graduates_activity_num += 1
+            elif type == 1:
+                youth_activity_num += 1
+            elif type == 2:
+                other_activity_num += 1
+            elif type == 3:
+                party_activity_num += 1
+            activity_num += 1
     context = {
+        'activity_num' : activity_num,
+        'graduates_activity_num' : graduates_activity_num,
+        'youth_activity_num': youth_activity_num,
+        'other_activity_num': other_activity_num,
+        'party_activity_num': party_activity_num,
         'activity_dic':activity_dic,
+        'activity_summary_dic':activity_summary_dic,
         'student':student,
         'user':request.user,
     }
