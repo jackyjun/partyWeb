@@ -1,8 +1,8 @@
-{% extends 'base5.html'%}
+{% extends 'base_admin_center.html'%}
 {% block title %}
    文件共享
 {% endblock %}
-{% block head_part %}
+{% block head_main_part %}
     <style>
         .table td{
             text-align: center;
@@ -20,62 +20,61 @@
         });
     </script>
 {% endblock %}
-{% block content %}
-    <div class="other-content">
-    <div class="list text-left">
-    <h3 class="text-info">文件共享中心</h3>
-    <a class="text-info" style="text-decoration: none;" href="/admin_center/">
-        <button class="btn btn-mini" type="button">
-            <i class="icon-home icon-black"></i>管理中心
-        </button>
-    </a>
-    <a class="text-info" style="text-decoration: none;" href="/upload_attachment/">
-        <button class="btn btn-mini" type="button">
-            <i class=" icon-upload icon-black"></i>上传文件
-        </button>
-    </a>
-    <hr/>
-    <table class="table">
-        <thead>
-            <tr>
-                <td><h5>文件名</h5></td>
-                <td><h5>上传日期</h5></td>
-                <td><h5>上传者</h5></td>
-                <td><h5>操作</h5></td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for attachment in attachment_list %}
+{% block main_content %}
+    <div class="admin-left-siderbar">
+        <div class="item-nav">活动管理</div>
+        <div class="item"><a  href="/search_activity/">活动列表</a></div>
+        <div class="item"><a href="/add_activity/">活动发布</a></div>
+        <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
+        <div class="item-nav">文件管理</div>
+        <div class="item  active"><a style="color:white;" href="/attachment_list/">文件列表</a></div>
+        <div class="item"><a href="/upload_attachment/">文件上传</a></div>
+        <div class="item-nav">留言管理</div>
+        <div class="item"><a href="/list_suggestion/">留言列表</a></div>
+        <div class="item-nav">其他管理</div>
+        <div class="item"><a href="/admin/">新闻、通知等</a></div>
+    </div>
+    <div class="right-content">
+        <table class="table" style="width: 600px;">
+            <thead>
                 <tr>
-                    <td>{{ attachment.title }}</td>
-                    <td>{{ attachment.date }}</td>
-                    <td>{{ attachment.publisher }}</td>
-                    <td>
-                        <a class="text-info" style="text-decoration: none;" href="/get_attachment/{{ attachment.id }}">
-                            <button class="btn btn-mini" type="button">
-                                <i class="icon-download"></i>下载
-                            </button>
-                        </a>
-                        {% if user.is_superuser %}
-                            <a class="text-info" style="text-decoration: none;" name="cancel" id="{{ attachment.id }}" href="#">
+                    <td><h5>文件名</h5></td>
+                    <td><h5>上传日期</h5></td>
+                    <td><h5>上传者</h5></td>
+                    <td><h5>操作</h5></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attachment in attachment_list %}
+                    <tr>
+                        <td>{{ attachment.title }}</td>
+                        <td>{{ attachment.date }}</td>
+                        <td>{{ attachment.publisher }}</td>
+                        <td>
+                            <a class="text-info" style="text-decoration: none;" href="/get_attachment/{{ attachment.id }}">
                                 <button class="btn btn-mini" type="button">
-                                    <i class="icon-remove"></i>删除
+                                    <i class="icon-download"></i>下载
                                 </button>
                             </a>
-                        {% else %}
-                            {% if attachment.publisher == user %}
-                                <a class="text-info"  style="text-decoration: none;" name="cancel" id="{{ attachment.id }}" href="#">
-                                    <button class="btn btn-mini btn-danger" type="button">
-                                        <i class="icon-remove icon-white"></i>删除
+                            {% if user.is_superuser %}
+                                <a class="text-info" style="text-decoration: none;" name="cancel" id="{{ attachment.id }}" href="#">
+                                    <button class="btn btn-mini" type="button">
+                                        <i class="icon-remove"></i>删除
                                     </button>
                                 </a>
+                            {% else %}
+                                {% if attachment.publisher == user %}
+                                    <a class="text-info"  style="text-decoration: none;" name="cancel" id="{{ attachment.id }}" href="#">
+                                        <button class="btn btn-mini btn-danger" type="button">
+                                            <i class="icon-remove icon-white"></i>删除
+                                        </button>
+                                    </a>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

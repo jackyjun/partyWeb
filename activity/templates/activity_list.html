@@ -8,20 +8,20 @@
             text-align: center;
         }
         .activity-page{
-            margin-top: 165px;
+            margin-top: 50px;
         }
         .activity-box{
             float:left;
-            margin-right: 8px;
+            margin-right: 5px;
             margin-bottom:8px;
-            width:320px;
+            width:323px;
             border: solid 1px #D7E4DF;
             height:200px;
             background-color: white;
         }
         .choice{
-            /*border: solid 1px #ff6f3d;*/
-            background-color: #f7f7f7;
+            border: solid 1px #ff6f3d;
+            /*background-color: #f7f7f7;*/
         }
         .activity-box .type{
             color:#fff;
@@ -76,9 +76,10 @@
             height:30px;
         }
         .activity-box .join{
+            text-decoration: none;
+            color:#666;
             font-size: 16px;
             width:40%;
-            color:#ff6f3d;
             text-align: right;
             margin-right: 10%;
             margin-bottom:10px;
@@ -106,12 +107,14 @@
             }
             $(this).text(summary);
         });
-        $(".activity-box").hover(function(){
-            $(".activity-box").each(function(){
-                $(this).removeClass("choice");
-            });
+        $(".activity-box").hover(
+          function(){
             $(this).addClass("choice");
-        });
+          },
+          function(){
+            $(this).removeClass("choice");
+          }
+        );
     });
     </script>
 {% endblock %}
@@ -167,12 +170,14 @@
             </table>
         </div>
     </div>-->
+    <div class="activity-search">
 
+    </div>
     <div class="activity-page">
           {% for item in activity_list %}
               {% for activity,flag in item.items %}
-                    <a href="/activity_detail/{{ activity.id }}" target="_blank">
-                        <div class="activity-box">
+                    <a href="/activity_detail/{{ activity.id }}" class="box-a-hover" target="_blank">
+                        <div class="activity-box" >
                             {% if activity.type == 0 %}
                                  <div class="type graduates">
                                     研究生
@@ -190,81 +195,25 @@
                             <div class="title">{{ activity.title }}</div>
                             <div class="summary">{{ activity.content }}</div>
                             <div class="time">{{ activity.start_time }}</div>
-                            <div class="join text-link-inverse"><a href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a></div>
+                            <div class="join">
+                                {% if user.is_superuser %}
+                                {% else %}
+                                    {% if flag == 0 %}
+                                        <div class="text-link-inverse">
+                                            <a href="/join_activity/{{ type }}/{{ activity.id }}">立即报名</a>
+                                        </div>
+                                    {% elif flag == -1 %}
+                                        已结束
+                                    {% else %}
+                                        <div class="text-info">
+                                        <a rel="{{ type }}"style="cursor:pointer;"  name="cancel" id="{{ activity.id }}" >已报名</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
                     </a>
               {% endfor %}
           {% endfor %}
-    <!--
-          <div class="activity-box">
-              <div class="type graduates">研究生</div>
-              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
-              <div class="summary">第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-
-欢迎各位同学积极参加。届研究生学术节开幕式于11月ddddddddddddddddddddddddddddddd</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>
-          <div class="activity-box">
-              <div class="type youth">团组织</div>
-              <div class="title">“新航星杯”中文演讲比赛</div>
-                            <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-
-欢迎各位同学积极参加。temp.substring(0,5temp.substring(0,temp.length-5</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>
-          <div class="activity-box">
-              <div class="type party">党组织</div>
-              <div class="title">2013-2014学年冬季学期研究生首日教育的通知</div>
-              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-
-欢迎各位同学积极参加。</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>
-          <div class="activity-box">
-              <div class="type other">其他</div>
-              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
-              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-欢迎各位同学积极参加。</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>
-          <div class="activity-box">
-              <div class="type graduates">研究生</div>
-              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
-              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-
-欢迎各位同学积极参加。</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>
-          <div class="activity-box">
-              <div class="type youth">团组织</div>
-              <div class="title">“新航星杯”中文演讲比赛</div>
-          </div>
-          <div class="activity-box">
-              <div class="type party">党组织</div>
-              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
-              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-
-欢迎各位同学积极参加。</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>
-              <div class="activity-box">
-              <div class="type youth">团组织</div>
-              <div class="title">“新航星杯”中文演讲比赛</div>
-          </div>
-          <div class="activity-box">
-              <div class="type party">党组织</div>
-              <div class="title">计算机学院"运筹帷幄，棋盘之上争天下"中国象棋师生</div>
-              <div class="summary">    第十二届研究生学术节开幕式于11月6日（周三）晚上18:00，在宝山校区图书馆报告厅举行。
-
-欢迎各位同学积极参加。</div>
-              <div class="time">2013-9-7</div>
-              <div class="join">取消报名</div>
-          </div>-->
           </div>
 {% endblock %}

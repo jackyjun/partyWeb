@@ -47,12 +47,14 @@ ul{
 }
 #nav li {
     float:left;
-    margin:10px 0 0 15px;
-    width:85px;
+    height:30px;
+    padding:10px 0 0 0;
+    margin-right: 10px;
+    width:90px;
 	color: #fff;
 }
 #nav li a:hover{
-    color: #f23c00;
+    color: #fff;
 }
 #nav a:link, #nav a:visited {
 	display: block;
@@ -60,8 +62,9 @@ ul{
 	color: #fff;
 }
 #nav ul {
-    width:130px;
+    width: 185px;
     float:left;
+    margin-top: 10px;
     filter:alpha(opacity=90);
     -moz-opacity:0.9;
     opacity:0.9;
@@ -71,16 +74,19 @@ ul{
 }
 #nav ul li {
 	float: left;
-    width:170px;
+    width:185px;
     font-size:16px;
     /*border-bottom: 1px solid #efeeee;*/
 	background-color: #ff6f3d;
 	margin:0;
     text-align: left;
-	padding: 5px 0 5px 10px ;
+	padding: 10px 0 5px 5px ;
 }
 #nav li:hover ul {
 	display: block;
+}
+#nav .li-hover{
+    background-color: #e86938;
 }
 
 /*.navbar{
@@ -238,5 +244,84 @@ ul{
     margin-top: 10px;
     padding-bottom: 20px;
     text-align:left;
+}
+.activity-page{
+    margin-top: 50px;
+}
+.activity-box{
+    float:left;
+    margin-right: 5px;
+    margin-bottom:8px;
+    width:323px;
+    border: solid 1px #D7E4DF;
+    height:200px;
+    background-color: white;
+}
+.choice{
+    border: solid 1px #ff6f3d;
+    /*background-color: #f7f7f7;*/
+}
+.activity-box .type{
+    color:#fff;
+    padding-top: 20px;
+    padding-bottom:20px;
+    font-size: 16px;
+    float:left;
+    width:20%;
+    height:15px;
+}
+.activity-box .graduates{
+    background-color: #0099CC;
+}
+.activity-box .youth{
+    background-color: #cb2027;
+
+}
+.activity-box .party{
+    background-color: #990000;
+
+}
+.activity-box .other{
+    background-color: #6666CC;
+}
+.activity-box .title{
+    padding-top: 20px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size:16px;
+    text-align: center;
+    float: left;
+    color:#666;
+    width:70%;
+    height: 50px;
+}
+.activity-box .summary{
+    float:left;
+    text-align: left;
+    margin-left: 10px;
+    height: 100px;
+    color:#999;
+    width:92%;
+}
+.activity-box .time{
+    padding-left: 10px;
+    text-align: left;
+    color:#666;
+    font-size: 18px;
+    float:left;
+    width: 40%;
+    height:30px;
+}
+.activity-box .join{
+    text-decoration: none;
+    color:#666;
+    font-size: 16px;
+    width:40%;
+    text-align: right;
+    margin-right: 10%;
+    margin-bottom:10px;
+    float:right;
+    height: 20px;
 }
 

@@ -1,8 +1,8 @@
-{% extends 'base5.html'%}
+{% extends 'base_admin_center.html'%}
 {% block title %}
-    申请奖项列表
+    文件上传
 {% endblock %}
-{% block head_part %}
+{% block head_main_part %}
     <script type="text/javascript">
         $(window).load(function(){
             $('#id_date').datepicker({
@@ -13,21 +13,21 @@
         });
     </script>
 {% endblock %}
-{% block content %}
-    <div class="other-content">
-    <div class="list text-left">
-    <h3 class="text-info">文件上传</h3>
-    <a class="text-info" style="text-decoration: none;" href="/attachment_list/">
-        <button class="btn btn-mini" type="button">
-            <i class=" icon-arrow-left"></i>文件共享中心
-        </button>
-    </a>
-    <a class="text-info" style="text-decoration: none;" href="/admin_center/">
-        <button class="btn btn-mini" type="button">
-            <i class="icon-home icon-black"></i>管理中心
-        </button>
-    </a>
-    <hr/>
+{% block main_content %}
+    <div class="admin-left-siderbar">
+        <div class="item-nav">活动管理</div>
+        <div class="item"><a  href="/search_activity/">活动列表</a></div>
+        <div class="item"><a href="/add_activity/">活动发布</a></div>
+        <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
+        <div class="item-nav">文件管理</div>
+        <div class="item"><a href="/attachment_list/">文件列表</a></div>
+        <div class="item active"><a style="color:white;" href="/upload_attachment/">文件上传</a></div>
+        <div class="item-nav">留言管理</div>
+        <div class="item"><a href="/list_suggestion/">留言列表</a></div>
+        <div class="item-nav">其他管理</div>
+        <div class="item"><a href="/admin/">新闻、通知等</a></div>
+    </div>
+    <div class="right-content">
     <form action="/upload_attachment/" method="post" enctype="multipart/form-data">{% csrf_token %}
         {% for field in form %}
             <div class="text-error"> {{ field.errors }} </div>
@@ -41,6 +41,5 @@
          <div class="text-error">*文件上传大小最大限制为3.5MB</div>
         <p><input type="submit" class="btn" value="上传" /></p>
     </form>
-    </div>
     </div>
 {% endblock %}

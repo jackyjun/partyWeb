@@ -1,28 +1,33 @@
-{% extends 'base5.html'%}
+{% extends 'base_admin_center.html'%}
 {% block title %}
     活动审核
 {% endblock %}
-{% block head_part %}
+{% block head_main_part %}
     <style>
+        .table{
+            width: 700px;
+        }
         .table td{
             text-align: center;
         }
     </style>
 {% endblock %}
-{% block content %}
-    <div class="other-content">
-        <div class="list text-left">
-            <h3 class="text-info">{{ activity.title }}活动审核</h3>
-            <a class="text-info" style="text-decoration: none;" href="/search_activity/">
-                <button class="btn btn-mini" type="button">
-                    <i class="icon-arrow-left"></i>活动管理
-                </button>
-            </a>
-            <a class="text-info" style="text-decoration: none;" href="/admin_center/">
-                <button class="btn btn-mini" type="button">
-                    <i class="icon-home"></i>管理中心
-                </button>
-            </a>
+{% block main_content %}
+    <div class="admin-left-siderbar">
+        <div class="item-nav">活动管理</div>
+        <div class="item active"><a style="color:white;" href="/search_activity/">活动列表</a></div>
+        <div class="item"><a href="/add_activity/">活动发布</a></div>
+        <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
+        <div class="item-nav">文件管理</div>
+        <div class="item"><a href="/attachment_list/">文件列表</a></div>
+        <div class="item"><a href="/upload_attachment/">文件上传</a></div>
+        <div class="item-nav">留言管理</div>
+        <div class="item active"><a  href="/list_suggestion/">留言列表</a></div>
+        <div class="item-nav">其他管理</div>
+        <div class="item"><a href="/admin/">新闻、通知等</a></div>
+    </div>
+    <div class="right-content">
+            <h4 class="text-color">{{ activity.title }}活动审核</h4>
             <hr/>
                 <!--<h4 class="text-info">活动报名列表</h4>-->
 

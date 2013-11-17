@@ -1,12 +1,17 @@
-{% extends 'base5.html' %}
+{% extends 'base_admin_center.html' %}
 {% block title %}
     修改活动
 {% endblock %}
-{% block head_part %}
+{% block head_main_part %}
     <style>
-        form textarea{
-            width: 500px;
+        form{
+            width: 400px;
+            margin-top: 20px;
         }
+    form textarea{
+        width: 200px;
+        height: 250px;
+    }
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -23,7 +28,6 @@
 			var editor;
 			KindEditor.ready(function(K) {
 				editor = K.create('textarea', {
-					resizeType : 1,
 					allowPreviewEmoticons : false,
 					allowImageUpload : false,
 					items : [
@@ -34,37 +38,34 @@
 			});
     </script>
 {% endblock %}
-{% block content %}
-    <div class="other-content">
-        <div class="list text-left">
-            <h3 class="text-info">修改活动</h3>
-            <a class="text-info" style="text-decoration: none;" href="/search_activity/">
-                <button class="btn btn-mini" type="button">
-                    <i class="icon-arrow-left"></i>活动管理
-                </button>
-            </a>
-            <a class="text-info" style="text-decoration: none;" href="/admin_center/">
-                <button class="btn btn-mini" type="button">
-                    <i class="icon-home"></i>管理中心
-                </button>
-            </a>
-            <div style="width:900px">
-            <hr/>
-                <form action="/modify_activity/{{ id }}" method="post">{% csrf_token %}
-                    {% for field in form %}
-                        <div class="text-error"> {{ field.errors }} </div>
-                        <div style="margin-bottom: 10px;">
-                            <div style="width:110px;float: left;"> {{ field.label_tag }}</div>
-                            {% if field.label == "内容" %}
-                                <div style="margin-left: 110px;">{{ field }}</div>
-                            {% else %}
-                                {{ field }}
-                            {% endif %}
-                         </div>
-                    {% endfor %}
-                    <p><input type="submit" class="btn" value="修改" /></p>
-                </form>
-            </div>
-        </div>
+{% block main_content %}
+    <div class="admin-left-siderbar">
+        <div class="item-nav">活动管理</div>
+        <div class="item active"><a style="color:white;" href="/search_activity/">活动列表</a></div>
+        <div class="item"><a href="/add_activity/">活动发布</a></div>
+        <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
+        <div class="item-nav">文件管理</div>
+        <div class="item"><a href="/attachment_list/">文件列表</a></div>
+        <div class="item"><a href="/upload_attachment/">文件上传</a></div>
+        <div class="item-nav">留言管理</div>
+        <div class="item"><a href="/list_suggestion/">留言列表</a></div>
+        <div class="item-nav">其他管理</div>
+        <div class="item"><a href="/admin/">新闻、通知等</a></div>
+    </div>
+    <div class="right-content">
+        <form action="/modify_activity/{{ id }}" method="post">{% csrf_token %}
+            {% for field in form %}
+                <div class="text-error"> {{ field.errors }} </div>
+                <div style="margin-bottom: 10px;">
+                    <div style="width:110px;float: left;"> {{ field.label_tag }}</div>
+                    {% if field.label == "内容" %}
+                        <div style="margin-left: 0px;">{{ field }}</div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                 </div>
+            {% endfor %}
+            <p><input type="submit" class="btn" value="修改" /></p>
+        </form>
     </div>
 {% endblock %}

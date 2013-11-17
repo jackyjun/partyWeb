@@ -205,11 +205,11 @@ def student_center(request):
 @login_required(login_url='/user_login/')
 def admin_center(request):
     if request.user.is_superuser:
-         return render(request,'admin_center.html')
+         return redirect("/search_activity/")
     else:
         student = UserStudent.objects.get(user = request.user).student
         if request.user.is_staff:
-            return render(request,'admin_center.html',{'student':student})
+             return redirect("/search_activity/")
         else:
             return render(request,'permission_error.html')
 

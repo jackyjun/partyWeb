@@ -22,6 +22,10 @@
             background-color: #ff6f3d;
             color:#fff;
         }
+        .left-siderbar .choice-active{
+            background-color: #ff6f3d;
+            color:#fff;
+        }
         .left-siderbar a{
             color: #000;
             text-decoration: none;
@@ -37,12 +41,13 @@
     <script type="text/javascript">
         //siderbar
         /*$(document).ready(function(){
-            $(".left-siderbar li").hover(function(){
-                $(".left-siderbar li").each(function(){
+            $(".left-siderbar li").hover(
+                function(){
+                    $(this).addClass('active');
+                },
+                function(){
                     $(this).removeClass('active');
                 });
-                $(this).addClass('active');
-            });
         });*/
     </script>
     {% block head_main_part %}

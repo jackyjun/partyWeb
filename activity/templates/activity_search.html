@@ -1,8 +1,8 @@
-{% extends 'base5.html' %}
+{% extends 'base_admin_center.html' %}
 {% block title %}
     活动信息管理
 {% endblock %}
-{% block head_part %}
+{% block head_main_part %}
     <style>
         .table td{
             text-align: center;
@@ -10,6 +10,12 @@
         }
         a{
            text-decoration: none;
+        }
+        .search-box{
+            margin-left: 5px;
+            padding: 10px 15px 10px 15px;
+            margin-top: 10px;
+            border: 1px solid #dbdbdb;
         }
     </style>
     <script>
@@ -24,28 +30,24 @@
         });
     </script>
 {% endblock %}
-{% block content %}
-    <div class="other-content" >
-        <div class="list text-left">
-        <h3 class="text-info">活动信息管理</h3>
-        <a style="text-decoration: none;" href="/admin_center/">
-            <button class="btn btn-mini" type="button">
-                <i class=" icon-home icon-black"></i>管理中心
-            </button>
-        </a>
-        <a style="text-decoration: none;"  href="/add_activity/">
-            <button class="btn btn-mini" type="button">
-                <i class=" icon-plus icon-black"></i>发布活动
-            </button>
-        </a>
-        <a href="/search_student_activity/">
-            <button class="btn btn-mini" type="button">
-                <i class=" icon-search icon-black"></i>活动信息查询
-            </button>
-        </a>
-        <hr/>
+{% block main_content %}
+    <div class="admin-left-siderbar">
+        <div class="item-nav">活动管理</div>
+        <div class="item  active"><a  style="color:white;" href="/search_activity/">活动列表</a></div>
+        <div class="item"><a href="/add_activity/">活动发布</a></div>
+        <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
+        <div class="item-nav">文件管理</div>
+        <div class="item"><a href="/attachment_list/">文件列表</a></div>
+        <div class="item"><a href="/upload_attachment/">文件上传</a></div>
+        <div class="item-nav">留言管理</div>
+        <div class="item"><a href="/list_suggestion/">留言列表</a></div>
+        <div class="item-nav">其他管理</div>
+        <div class="item"><a href="/admin/">新闻、通知等</a></div>
+    </div>
+    <div class="right-content">
+     <div class="search-box">
         <form action="/search_activity/" method="post">
-            活动名称：<input type="text" name="title">
+            活动名称<input type="text" name="title">
             <select name="type">
                 <option value="-1">所有活动</option>
                 <option value="0">研究生活动</option>
@@ -55,8 +57,9 @@
             </select>
             <input style="margin-bottom: 12px;" type="submit" class="btn" value="查询">
         </form>
+     </div>
         {% if flag == True%}
-            <table class="table">
+            <table class="table" style="width: 700px;">
                 <thead>
                     <tr>
                         <td><h5>活动名称</h5></td>
@@ -164,6 +167,5 @@
             <div class="text-info">未搜索到结果。</div>
         {% else %}
         {% endif %}
-    </div>
     </div>
 {% endblock %}

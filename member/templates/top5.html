@@ -57,3 +57,14 @@
         <li><a href="/user_login/">我要登录</a></li>
     {% endif %}
 </ul>
+<script>
+    $("document").ready(function(){
+        $("li").hover(
+            function(){
+                $(this).addClass("li-hover");
+            },
+            function(){
+                $(this).removeClass("li-hover");
+            });
+    });
+</script>
