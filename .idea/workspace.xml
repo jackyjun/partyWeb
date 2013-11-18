@@ -44,12 +44,12 @@
     <file path="/branch_summary.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381539404622" ignored="false" />
     <file path="/branch_search.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382409148572" ignored="false" />
     <file path="/activity_detail.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384500406086" ignored="false" />
-    <file path="/add_activity.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384697636155" ignored="false" />
+    <file path="/add_activity.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384740839202" ignored="false" />
     <file path="/modify_activity.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384701648605" ignored="false" />
     <file path="/activity_search.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384696932608" ignored="false" />
     <file path="/examine_activity.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384702023335" ignored="false" />
     <file path="/examine_result.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384702230811" ignored="false" />
-    <file path="/student_activity_search.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384695897810" ignored="false" />
+    <file path="/student_activity_search.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384741125110" ignored="false" />
     <file path="/student_activity_detail.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384435501998" ignored="false" />
     <file path="/back_student_info.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381824221298" ignored="false" />
     <file path="/student_center.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384434807464" ignored="false" />
@@ -96,12 +96,12 @@
     <file path="$USER_HOME$/website/mysite/templates/photogallery/index.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381910351748" ignored="false" />
     <file path="/add_suggestion.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382341525293" ignored="false" />
     <file path="/add_reply.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382345985670" ignored="false" />
-    <file path="/list_suggestion.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384698289637" ignored="false" />
+    <file path="/list_suggestion.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384741434899" ignored="false" />
     <file path="/get_reply.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382359267569" ignored="false" />
     <file path="/change_reply.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382358589823" ignored="false" />
     <file path="/list_reply.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384500017367" ignored="false" />
-    <file path="/top5.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384671967299" ignored="false" />
-    <file path="/version.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1383225078053" ignored="false" />
+    <file path="/top5.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384742353272" ignored="false" />
+    <file path="/version.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384742221510" ignored="false" />
     <file path="/new_student_center.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384422156222" ignored="false" />
     <file path="/student_center1.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384429301812" ignored="false" />
     <file path="/student_center_base.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384673285525" ignored="false" />
@@ -133,40 +133,19 @@
       <file leaf-file-name="list_suggestion.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/documents/templates/list_suggestion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="291" selection-end="1015" vertical-scroll-proportion="-3.2692308">
+            <state line="26" column="41" selection-start="948" selection-end="948" vertical-scroll-proportion="-8.0">
               <folding>
-                <element signature="e#842#862#0" expanded="true" />
-                <element signature="e#1081#1102#0" expanded="true" />
+                <element signature="e#948#968#0" expanded="true" />
+                <element signature="e#1235#1256#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/documents/views.py">
+      <file leaf-file-name="top5.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/member/templates/top5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="examine_result.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/activity/templates/examine_result.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="59" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.3957529">
-              <folding>
-                <element signature="e#471#491#0" expanded="true" />
-                <element signature="e#1134#1164#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add_activity.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/activity/templates/add_activity.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="171" column="0" selection-start="6030" selection-end="6755" vertical-scroll-proportion="-10.192307">
+            <state line="39" column="40" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.38285714">
               <folding />
             </state>
           </provider>
@@ -182,30 +161,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/member/templates/change_password.html" />
-        <option value="$PROJECT_DIR$/member/templates/student_center_base.html" />
         <option value="$PROJECT_DIR$/documents/static/css/new_base.css" />
         <option value="$PROJECT_DIR$/member/templates/admin_center.html" />
-        <option value="$PROJECT_DIR$/activity/templates/student_activity_search.html" />
         <option value="$PROJECT_DIR$/activity/templates/activity_list.html" />
         <option value="$PROJECT_DIR$/member/templates/base_admin_center.html" />
-        <option value="$PROJECT_DIR$/activity/templates/activity_search.html" />
+        <option value="$PROJECT_DIR$/member/views.py" />
         <option value="$PROJECT_DIR$/activity/templates/add_activity.html" />
+        <option value="$PROJECT_DIR$/activity/templates/activity_search.html" />
+        <option value="$PROJECT_DIR$/activity/templates/examine_activity.html" />
+        <option value="$PROJECT_DIR$/activity/templates/examine_result.html" />
+        <option value="$PROJECT_DIR$/activity/templates/modify_activity.html" />
+        <option value="$PROJECT_DIR$/activity/templates/student_activity_search.html" />
         <option value="$PROJECT_DIR$/documents/templates/attachment_list.html" />
         <option value="$PROJECT_DIR$/documents/templates/upload_attachment.html" />
         <option value="$PROJECT_DIR$/documents/templates/list_suggestion.html" />
-        <option value="$PROJECT_DIR$/member/views.py" />
-        <option value="$PROJECT_DIR$/activity/templates/modify_activity.html" />
-        <option value="$PROJECT_DIR$/activity/templates/examine_activity.html" />
-        <option value="$PROJECT_DIR$/activity/templates/examine_result.html" />
+        <option value="$PROJECT_DIR$/member/templates/version.html" />
+        <option value="$PROJECT_DIR$/member/templates/top5.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="67" />
-    <option name="y" value="24" />
-    <option name="width" value="1301" />
-    <option name="height" value="744" />
+    <option name="x" value="64" />
+    <option name="y" value="-5" />
+    <option name="width" value="1377" />
+    <option name="height" value="906" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -532,12 +511,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="preferences.keymap" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -563,7 +542,7 @@
       <recent name="$PROJECT_DIR$/documents/static" />
     </key>
   </component>
-  <component name="RunManager" selected="Django server.partyWebsite">
+  <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -579,29 +558,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="partyWebsite" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -625,6 +581,29 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="partyWebsite" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -661,35 +640,7 @@
       </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
-    <configuration default="false" name="partyWebsite" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="partyWebsite.settings" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="partyWebsite" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Django server.partyWebsite" />
-    </list>
+    <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
@@ -718,14 +669,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="24" width="1301" height="744" extended-state="0" />
+    <frame x="64" y="-5" width="1377" height="906" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282626" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24819855" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3098479" sideWeight="0.96164024" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3154717" sideWeight="0.96164024" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39908257" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32804233" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -803,69 +754,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/member/templates/student_center_base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="14" selection-start="0" selection-end="1605" vertical-scroll-proportion="2.0489643">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/user_activity_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="33" selection-start="404" selection-end="404" vertical-scroll-proportion="-9.807693">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/student_activity_search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="210" selection-end="381" vertical-scroll-proportion="0.32818532">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/member/templates/base_admin_center.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="0" selection-start="1387" selection-end="1387" vertical-scroll-proportion="0.7928437">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/documents/templates/attachment_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="575" selection-end="1333" vertical-scroll-proportion="0.22200772">
-          <folding>
-            <element signature="e#947#967#0" expanded="true" />
-            <element signature="e#1363#1384#0" expanded="true" />
-            <element signature="e#1988#2018#0" expanded="true" />
-            <element signature="e#2390#2420#0" expanded="true" />
-            <element signature="e#2870#2900#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/documents/templates/upload_attachment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="24" selection-start="763" selection-end="763" vertical-scroll-proportion="0.15637065">
-          <folding>
-            <element signature="e#844#864#0" expanded="true" />
-            <element signature="e#1374#1402#0" expanded="true" />
-            <element signature="e#1425#1468#0" expanded="true" />
-            <element signature="e#1495#1526#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/activity_search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="832" selection-end="1558" vertical-scroll-proportion="-0.65384614">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/activity_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="12" selection-start="12" selection-end="17" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -877,18 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/modify_activity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="24" selection-start="1793" selection-end="1793" vertical-scroll-proportion="-13.423077">
-          <folding>
-            <element signature="e#1341#1361#0" expanded="true" />
-            <element signature="e#2187#2215#0" expanded="true" />
-            <element signature="e#2242#2274#0" expanded="true" />
-            <element signature="e#2382#2407#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/member/templates/admin_center.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="5" selection-start="218" selection-end="218" vertical-scroll-proportion="-0.8656126">
@@ -896,46 +775,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documents/templates/list_suggestion.html">
+    <entry file="file://$PROJECT_DIR$/activity/templates/activity_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="291" selection-end="1015" vertical-scroll-proportion="-3.2692308">
-          <folding>
-            <element signature="e#842#862#0" expanded="true" />
-            <element signature="e#1081#1102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/examine_activity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="20" selection-start="155" selection-end="155" vertical-scroll-proportion="0.22972973">
-          <folding>
-            <element signature="e#400#420#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/documents/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="0" column="12" selection-start="12" selection-end="17" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/activity/templates/add_activity.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="0" selection-start="6030" selection-end="6755" vertical-scroll-proportion="-10.192307">
+        <state line="171" column="0" selection-start="6030" selection-end="6905" vertical-scroll-proportion="-4.6666665">
+          <folding>
+            <element signature="e#6258#6278#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/examine_activity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="285" selection-end="1162" vertical-scroll-proportion="0.24434389">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/activity/templates/examine_result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="59" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.3957529">
+        <state line="31" column="10" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.81447965">
           <folding>
-            <element signature="e#471#491#0" expanded="true" />
-            <element signature="e#1134#1164#0" expanded="true" />
+            <element signature="e#443#463#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/activity_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="832" selection-end="1709" vertical-scroll-proportion="0.26928675">
+          <folding>
+            <element signature="e#988#1008#0" expanded="true" />
+            <element signature="e#2195#2223#0" expanded="true" />
+            <element signature="e#2352#2373#0" expanded="true" />
+            <element signature="e#3162#3182#0" expanded="true" />
+            <element signature="e#3581#3611#0" expanded="true" />
+            <element signature="e#4014#4044#0" expanded="true" />
+            <element signature="e#4847#4877#0" expanded="true" />
+            <element signature="e#5248#5278#0" expanded="true" />
+            <element signature="e#6234#6264#0" expanded="true" />
+            <element signature="e#6451#6481#0" expanded="true" />
+            <element signature="e#6883#6913#0" expanded="true" />
+            <element signature="e#7715#7745#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/modify_activity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="10" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.77729255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/templates/upload_attachment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="19" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.49490538">
+          <folding>
+            <element signature="e#905#925#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/templates/attachment_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="575" selection-end="1453" vertical-scroll-proportion="0.18340611">
+          <folding>
+            <element signature="e#1004#1024#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="429" column="44" selection-start="16450" selection-end="16466" vertical-scroll-proportion="-9.645162">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/student_activity_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="940" selection-end="1819" vertical-scroll-proportion="-4.185185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member/templates/version.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="13" selection-start="823" selection-end="823" vertical-scroll-proportion="0.5914286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/templates/list_suggestion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="41" selection-start="948" selection-end="948" vertical-scroll-proportion="-8.0">
+          <folding>
+            <element signature="e#948#968#0" expanded="true" />
+            <element signature="e#1235#1256#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member/templates/top5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="40" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.38285714">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -39,18 +39,22 @@
     </script>
 {% endblock %}
 {% block main_content %}
-    <div class="admin-left-siderbar">
-        <div class="item-nav">活动管理</div>
-        <div class="item active"><a style="color:white;" href="/search_activity/">活动列表</a></div>
-        <div class="item"><a href="/add_activity/">活动发布</a></div>
-        <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
-        <div class="item-nav">文件管理</div>
-        <div class="item"><a href="/attachment_list/">文件列表</a></div>
-        <div class="item"><a href="/upload_attachment/">文件上传</a></div>
-        <div class="item-nav">留言管理</div>
-        <div class="item"><a href="/list_suggestion/">留言列表</a></div>
-        <div class="item-nav">其他管理</div>
-        <div class="item"><a href="/admin/">新闻、通知等</a></div>
+     <div class="admin-left-siderbar">
+        {% if user.is_staff %}
+            <div class="item-nav">活动管理</div>
+            <div class="item active"><a  style="color:white;" href="/search_activity/">活动列表</a></div>
+            <div class="item"><a  href="/add_activity/">活动发布</a></div>
+            <div class="item"><a href="/search_student_activity/">学生活动查询</a></div>
+            <div class="item-nav">文件管理</div>
+            <div class="item"><a href="/attachment_list/">文件列表</a></div>
+            <div class="item"><a href="/upload_attachment/">文件上传</a></div>
+        {% if user.is_superuser %}
+            <div class="item-nav">留言管理</div>
+            <div class="item"><a href="/list_suggestion/">留言列表</a></div>
+            <div class="item-nav">其他管理</div>
+            <div class="item"><a href="/admin/">新闻、通知等</a></div>
+        {% endif %}
+        {% endif %}
     </div>
     <div class="right-content">
         <form action="/modify_activity/{{ id }}" method="post">{% csrf_token %}
