@@ -17,7 +17,7 @@
     <file path="/models.py" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1383531425159" ignored="false" />
     <file path="/admin.py" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1383532178275" ignored="false" />
     <file path="/urls.py" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384419491289" ignored="false" />
-    <file path="/views.py" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384700756538" ignored="false" />
+    <file path="/views.py" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384755350326" ignored="false" />
     <file path="/test.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1375067527218" ignored="false" />
     <file path="/news.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381494593368" ignored="false" />
     <file path="/error.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373963205906" ignored="false" />
@@ -31,7 +31,7 @@
     <file path="/branch_assessment.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381540506819" ignored="false" />
     <file path="/search_list.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373707392011" ignored="false" />
     <file path="/activity.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373709824998" ignored="false" />
-    <file path="/activity_list.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384696253265" ignored="false" />
+    <file path="/activity_list.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384755205237" ignored="false" />
     <file path="/style.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1375068707591" ignored="false" />
     <file path="/default.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1373812056020" ignored="false" />
     <file path="/nivo-slider.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1375068803815" ignored="false" />
@@ -86,7 +86,7 @@
     <file path="/base2.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1380239303966" ignored="false" />
     <file path="/new_home.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382407421762" ignored="false" />
     <file path="/new_home.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1382406862363" ignored="false" />
-    <file path="/new_base.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384674743982" ignored="false" />
+    <file path="/new_base.css" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1384755009304" ignored="false" />
     <file path="/base5.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381491873493" ignored="false" />
     <file path="/home5.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1383219584357" ignored="false" />
     <file path="/foot5.html" changelist="ab20616a-03ed-4630-a80e-b6c374beafc9" time="1381492246465" ignored="false" />
@@ -130,22 +130,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="list_suggestion.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/documents/templates/list_suggestion.html">
+      <file leaf-file-name="top5.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/member/templates/top5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="41" selection-start="948" selection-end="948" vertical-scroll-proportion="-8.0">
-              <folding>
-                <element signature="e#948#968#0" expanded="true" />
-                <element signature="e#1235#1256#0" expanded="true" />
-              </folding>
+            <state line="45" column="21" selection-start="1641" selection-end="1641" vertical-scroll-proportion="-30.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="top5.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/member/templates/top5.html">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/activity/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="40" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.38285714">
+            <state line="443" column="39" selection-start="18278" selection-end="18278" vertical-scroll-proportion="0.49579832">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/activity/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -161,10 +167,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/documents/static/css/new_base.css" />
-        <option value="$PROJECT_DIR$/member/templates/admin_center.html" />
-        <option value="$PROJECT_DIR$/activity/templates/activity_list.html" />
-        <option value="$PROJECT_DIR$/member/templates/base_admin_center.html" />
         <option value="$PROJECT_DIR$/member/views.py" />
         <option value="$PROJECT_DIR$/activity/templates/add_activity.html" />
         <option value="$PROJECT_DIR$/activity/templates/activity_search.html" />
@@ -172,19 +174,23 @@
         <option value="$PROJECT_DIR$/activity/templates/examine_result.html" />
         <option value="$PROJECT_DIR$/activity/templates/modify_activity.html" />
         <option value="$PROJECT_DIR$/activity/templates/student_activity_search.html" />
-        <option value="$PROJECT_DIR$/documents/templates/attachment_list.html" />
         <option value="$PROJECT_DIR$/documents/templates/upload_attachment.html" />
         <option value="$PROJECT_DIR$/documents/templates/list_suggestion.html" />
         <option value="$PROJECT_DIR$/member/templates/version.html" />
         <option value="$PROJECT_DIR$/member/templates/top5.html" />
+        <option value="$PROJECT_DIR$/documents/static/css/new_home.css" />
+        <option value="$PROJECT_DIR$/documents/static/css/new_base.css" />
+        <option value="$PROJECT_DIR$/activity/templates/activity_list.html" />
+        <option value="$PROJECT_DIR$/documents/templates/attachment_list.html" />
+        <option value="$PROJECT_DIR$/activity/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="-5" />
-    <option name="width" value="1377" />
-    <option name="height" value="906" />
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1375" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -511,12 +517,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="preferences.keymap" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="preferences.keymap" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -560,29 +566,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="partyWebsite" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -604,6 +587,29 @@
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="partyWebsite" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -669,14 +675,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-5" width="1377" height="906" extended-state="6" />
+    <frame x="65" y="24" width="1375" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282626" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24819855" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3154717" sideWeight="0.96164024" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24754716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32981133" sideWeight="0.96164024" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39908257" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32804233" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -754,50 +760,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/member/templates/base_admin_center.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="0" selection-start="1387" selection-end="1387" vertical-scroll-proportion="0.7928437">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/member/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="49" selection-start="8433" selection-end="8433" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/member/templates/admin_center.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="5" selection-start="218" selection-end="218" vertical-scroll-proportion="-0.8656126">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/activity_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="12" selection-start="12" selection-end="17" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/add_activity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="0" selection-start="6030" selection-end="6905" vertical-scroll-proportion="-4.6666665">
-          <folding>
-            <element signature="e#6258#6278#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/activity/templates/examine_activity.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="285" selection-end="1162" vertical-scroll-proportion="0.24434389">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/activity/templates/examine_result.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="10" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.81447965">
@@ -843,15 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documents/templates/attachment_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="575" selection-end="1453" vertical-scroll-proportion="0.18340611">
-          <folding>
-            <element signature="e#1004#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/documents/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="429" column="44" selection-start="16450" selection-end="16466" vertical-scroll-proportion="-9.645162">
@@ -873,19 +826,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/documents/static/css/new_home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="24" selection-start="174" selection-end="174" vertical-scroll-proportion="-0.37138927">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/static/css/new_base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="23" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.74277854">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/activity_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="56" selection-start="6689" selection-end="6689" vertical-scroll-proportion="0.26142856">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/documents/templates/list_suggestion.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="41" selection-start="948" selection-end="948" vertical-scroll-proportion="-8.0">
-          <folding>
-            <element signature="e#948#968#0" expanded="true" />
-            <element signature="e#1235#1256#0" expanded="true" />
-          </folding>
+        <state line="26" column="41" selection-start="948" selection-end="948" vertical-scroll-proportion="-17.333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/templates/attachment_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="44" selection-start="1530" selection-end="1530" vertical-scroll-proportion="-5.4444447">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/templates/student_activity_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/member/templates/top5.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="40" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.38285714">
+        <state line="45" column="21" selection-start="1641" selection-end="1641" vertical-scroll-proportion="-30.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/activity/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="443" column="39" selection-start="18278" selection-end="18278" vertical-scroll-proportion="0.49579832">
           <folding />
         </state>
       </provider>

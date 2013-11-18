@@ -439,9 +439,9 @@ def user_activity_detail(request):
             elif type == 1:
                 youth_activity_num += 1
             elif type == 2:
-                other_activity_num += 1
-            elif type == 3:
                 party_activity_num += 1
+            elif type == 3:
+                other_activity_num += 1
             activity_num += 1
     context = {
         'activity_num' : activity_num,

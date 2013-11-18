@@ -176,7 +176,6 @@
     <div class="activity-page">
           {% for item in activity_list %}
               {% for activity,flag in item.items %}
-                    <a href="/activity_detail/{{ activity.id }}" class="box-a-hover" target="_blank">
                         <div class="activity-box" >
                             {% if activity.type == 0 %}
                                  <div class="type graduates">
@@ -192,7 +191,13 @@
                                     其他
                             {% endif %}
                                  </div>
-                            <div class="title">{{ activity.title }}</div>
+                            <div class="title">
+								<div class="text-link">
+									<a href="/activity_detail/{{ activity.id }}" class="box-a-hover" target="_blank">
+									{{ activity.title }}
+									</a>
+								</div>
+							</div>
                             <div class="summary">{{ activity.content }}</div>
                             <div class="time">{{ activity.start_time }}</div>
                             <div class="join">
@@ -212,7 +217,6 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </a>
               {% endfor %}
           {% endfor %}
           </div>
